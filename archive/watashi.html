@@ -33,8 +33,8 @@
     .lesson-lead { margin: 18px 0 0; color: var(--muted); font-size: 15px; line-height: 1.7; }
     .lesson-lead .kanji-line { font-family: "M PLUS 1p", sans-serif; font-weight: 800; font-size: 29px; color: var(--ink); }
     .lesson-lead .kanji-line .meaning { font-family: "LINE Seed JP", "Noto Sans JP", sans-serif; font-weight: 500; text-transform: uppercase; }
-    .lesson-lead .hiragana-char { font-family: "Noto Sans JP", sans-serif; font-weight: 500; font-size: 18px; color: var(--ink); }
-    .lesson-lead .romaji { color: var(--muted); font-size: 15px; font-weight: 400; }
+    .lesson-lead .hiragana-char { font-family: "Noto Sans JP", sans-serif; font-weight: 500; font-size: 29px; color: var(--ink); }
+    .lesson-lead .romaji { color: var(--muted); font-size: 29px; font-weight: 400; }
     .lesson-lead .lead-label { color: var(--muted); font-size: 15px; font-weight: 400; }
     .clickable { cursor: pointer; }
     .clickable:hover { opacity: 0.7; }
@@ -87,7 +87,7 @@
         <div class="lesson-heading">
           <h2><span class="clickable" onclick="playSound('私')">私</span> <span class="ja clickable" lang="ja" onclick="playSound('私')">私</span> <span class="meaning" style="font-size:18px;font-weight:500;">I / me</span></h2>
         </div>
-        <p class="lesson-lead"><span class="lead-label">Hiragana</span> <span class="hiragana-char">わ</span> <span class="romaji">wa</span> <span class="hiragana-char">た</span> <span class="romaji">ta</span> <span class="hiragana-char">し</span> <span class="romaji">shi</span></p>
+        <p class="lesson-lead"><span class="hiragana-char clickable" onclick="playSound('わ')">わ</span> <span class="romaji">wa</span> <span class="hiragana-char clickable" onclick="playSound('た')">た</span> <span class="romaji">ta</span> <span class="hiragana-char clickable" onclick="playSound('し')">し</span> <span class="romaji">shi</span></p>
 
         <p class="lesson-lead" style="margin-top:24px;"><strong>Usage:</strong> The kanji 私 represents “I” or “me”.</p>
         <p class="lesson-lead"><strong>Example:</strong> Used to refer to oneself, e.g. 私は旅行者です (watashi wa ryokousha desu, “I am a traveler.”).</p>

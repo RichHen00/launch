@@ -33,8 +33,8 @@
     .lesson-lead { margin: 18px 0 0; color: var(--muted); font-size: 15px; line-height: 1.7; }
     .lesson-lead .kanji-line { font-family: "M PLUS 1p", sans-serif; font-weight: 800; font-size: 29px; color: var(--ink); }
     .lesson-lead .kanji-line .meaning { font-family: "LINE Seed JP", "Noto Sans JP", sans-serif; font-weight: 500; text-transform: uppercase; }
-    .lesson-lead .hiragana-char { font-family: "Noto Sans JP", sans-serif; font-weight: 500; font-size: 18px; color: var(--ink); }
-    .lesson-lead .romaji { color: var(--muted); font-size: 15px; font-weight: 400; }
+    .lesson-lead .hiragana-char { font-family: "Noto Sans JP", sans-serif; font-weight: 500; font-size: 29px; color: var(--ink); }
+    .lesson-lead .romaji { color: var(--muted); font-size: 29px; font-weight: 400; }
     .lesson-lead .lead-label { color: var(--muted); font-size: 15px; font-weight: 400; }
     .clickable { cursor: pointer; }
     .clickable:hover { opacity: 0.7; }
@@ -87,7 +87,7 @@
         <div class="lesson-heading">
           <h2><span class="clickable" onclick="playSound('人')">人</span> <span class="ja clickable" lang="ja" onclick="playSound('人')">人</span> <span class="meaning" style="font-size:18px;font-weight:500;">Person / people</span></h2>
         </div>
-        <p class="lesson-lead"><span class="lead-label">Hiragana</span> <span class="hiragana-char">ひ</span> <span class="romaji">hi</span> <span class="hiragana-char">と</span> <span class="romaji">to</span></p>
+        <p class="lesson-lead"><span class="hiragana-char clickable" onclick="playSound('ひ')">ひ</span> <span class="romaji">hi</span> <span class="hiragana-char clickable" onclick="playSound('と')">と</span> <span class="romaji">to</span></p>
 
         <p class="lesson-lead" style="margin-top:24px;"><strong>Usage:</strong> The kanji 人 represents "person" or "people".</p>
         <p class="lesson-lead"><strong>Example:</strong> Used in words like 日本人 (nihonjin, "Japanese person").</p>
