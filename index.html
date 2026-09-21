@@ -99,8 +99,12 @@
           </div>
         </div>
       </section>
-      <p class="font-link"><img src="assets/stamp.jpeg" alt=""><span class="date-stamp" id="timestamp">21-09-2026</span><a href="https://googlefonts.github.io/japanese/#nicomoji" target="_blank" rel="noopener">G Fonts Japanese types</a></p>
+      <p class="font-link"><img src="assets/stamp.jpeg" alt=""><span class="date-stamp" id="timestamp">21-09-2026 10:26</span><a href="https://googlefonts.github.io/japanese/#nicomoji" target="_blank" rel="noopener">G Fonts Japanese types</a></p>
     </article>
+    <div class="characters" aria-label="Archive">
+      <div class="characters-heading"><h2>Archive</h2></div>
+      <p class="lesson-lead">2026-09-21 &middot; はい はい Yes &middot; <span class="hiragana-char">は</span> <span class="romaji">ha</span> <span class="hiragana-char">い</span> <span class="romaji">i</span></p>
+    </div>
   </main>
   <script>
     function playSound(word) {
@@ -132,13 +136,6 @@
         var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
         document.title = Number(match[3]) + ' ' + months[Number(match[2]) - 1] + ' ' + match[1].slice(2) + ' - ' + english.trim();
       }
-      var now = new Date();
-      var dd = String(now.getDate()).padStart(2, '0');
-      var mm = String(now.getMonth() + 1).padStart(2, '0');
-      var yyyy = now.getFullYear();
-      var hh = String(now.getHours()).padStart(2, '0');
-      var min = String(now.getMinutes()).padStart(2, '0');
-      document.getElementById('timestamp').textContent = dd + '-' + mm + '-' + yyyy + ' ' + hh + ':' + min;
     }());
     document.querySelectorAll('.kana-body').forEach(function (body) {
       body.addEventListener('click', function () {
