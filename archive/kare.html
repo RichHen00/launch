@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Japanese Lesson</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@800&family=Noto+Sans+JP:wght@500;600&family=LINE+Seed+JP:wght@400;700&family=Nicomoji&display=swap" rel="stylesheet">
+  <style>
+    :root { --ink: #171717; --muted: #666; --page: #fff; --line: #d7d7d7; }
+    body { background: #fff; font-family: "LINE Seed JP", "Noto Sans JP", sans-serif; margin: 0; }
+    main { width: min(920px, calc(100% - 40px)); margin: 34px auto 60px; }
+    .lesson { border: 0; background: #fff; }
+    header { padding: 0 0 34px; border: 0; }
+    .date { margin: 0; color: #d64747; font-size: 14px; letter-spacing: .08em; }
+    .characters { padding: 34px 0 0; }
+    .characters-heading { padding: 0 0 18px; border: 0; }
+    .characters-heading h2 { font-size: 22px; font-weight: 500; margin: 0; }
+    .kana-grid { display: flex; flex-wrap: wrap; gap: 0 16px; }
+    .kana { border: 0; border-top: 1px solid var(--line); border-radius: 0; width: 10%; box-sizing: border-box; }
+    .kana-top { padding: 12px 0 0; margin: 0; border: 0; color: var(--ink); text-align: center; font-size: 11.5px; line-height: 1; }
+    .kana-body { min-height: 170px; padding: 0; margin: 0; background: transparent; display: flex; align-items: flex-start; justify-content: center; cursor: pointer; }
+    .kana-body svg { width: 100%; height: auto; }
+    .font-link { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 38px 0 0; font-size: 12px; }
+    .font-link img { height: 20px; width: auto; }
+    .font-link .date-stamp { color: var(--muted); font-variant-numeric: tabular-nums; }
+    .font-link a { color: #d64747; }
+    .lesson-content { padding: 34px 0 0; }
+    .lesson-heading { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px 20px; padding: 0 0 14px; border-bottom: 1px solid var(--line); }
+    .lesson-heading h2 { margin: 0; font-size: 29px; font-weight: 800; letter-spacing: -.01em; font-family: "M PLUS 1p", sans-serif; }
+    .lesson-heading .ja { color: #d64747; font-size: 29px; font-weight: 600; font-family: "Noto Sans JP", sans-serif; }
+    .lesson-lead { margin: 18px 0 0; color: var(--muted); font-size: 15px; line-height: 1.7; }
+    .lesson-lead .kanji-line { font-family: "M PLUS 1p", sans-serif; font-weight: 800; font-size: 29px; color: var(--ink); }
+    .lesson-lead .kanji-line .meaning { font-family: "LINE Seed JP", "Noto Sans JP", sans-serif; font-weight: 500; text-transform: uppercase; }
+    .lesson-lead .hiragana-char { font-family: "Noto Sans JP", sans-serif; font-weight: 500; font-size: 18px; color: var(--ink); }
+    .lesson-lead .romaji { color: var(--muted); font-size: 15px; font-weight: 400; }
+    .lesson-lead .lead-label { color: var(--muted); font-size: 15px; font-weight: 400; }
+    .clickable { cursor: pointer; }
+    .clickable:hover { opacity: 0.7; }
+    .characters[aria-label="Archive"] .characters-heading h2 { color: var(--muted); font-size: 15px; font-weight: 400; letter-spacing: 0; }
+    .characters[aria-label="Archive"] .lesson-lead + .lesson-lead { border-top: 1px solid var(--line); padding-top: 12px; }
+    .characters[aria-label="Archive"] a.date { color: #d64747; text-decoration: none; }
+    /* AnimCJK stroke cards: gray silhouette guide + animated median stroke (LGPL v3) */
+    .stroke-svg.acjk path[id] {
+      fill: #e9e9e9;
+    }
+    .stroke-svg.acjk path[clip-path] {
+      stroke: var(--ink);
+      stroke-width: 128;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      stroke-dasharray: 3337;
+      stroke-dashoffset: 3339;
+    }
+    .stroke-svg.acjk.playing path[clip-path] {
+      animation: acjkDraw var(--t, .8s) linear forwards var(--d, 0s);
+    }
+    @keyframes acjkDraw {
+      to { stroke-dashoffset: 0; }
+    }
+    @media (max-width: 480px) {
+      main { width: 100%; margin: 20px auto 32px; padding: 0 16px; box-sizing: border-box; }
+      .date { font-size: 15px; }
+      .lesson-heading { flex-direction: column; gap: 4px; }
+      .lesson-heading h2 { font-size: 28px; text-align: center; width: 100%; }
+      .lesson-heading .ja { font-size: 18px; }
+      .lesson-lead { font-size: 16px; text-align: center; }
+      .characters-heading { text-align: center; }
+      .characters-heading h2 { font-size: 24px; }
+      .kana-grid { flex-direction: column; align-items: center; }
+      .kana { width: 70vw; border-top: none; }
+      .kana-top { font-size: 13px; padding: 16px 0 12px; }
+      .kana-body { min-height: 0; padding: 0; }
+      .kana-body svg { width: 70vw; height: auto; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <article class="lesson">
+      <header>
+        <p class="date">2026-09-21 · He / boyfriend</p>
+      </header>
+      <section class="lesson-content" aria-label="Lesson content">
+        <div class="lesson-heading">
+          <h2><span class="clickable" onclick="playSound('彼')">彼</span> <span class="ja clickable" lang="ja" onclick="playSound('彼')">彼</span> <span class="meaning" style="font-size:18px;font-weight:500;">He / boyfriend</span></h2>
+        </div>
+        <p class="lesson-lead"><span class="lead-label">Hiragana</span> <span class="hiragana-char">か</span> <span class="romaji">ka</span> <span class="hiragana-char">れ</span> <span class="romaji">re</span></p>
+
+        <p class="lesson-lead" style="margin-top:24px;"><strong>Usage:</strong> The kanji 彼 means “he” or “boyfriend”.</p>
+        <p class="lesson-lead"><strong>Example:</strong> Used to refer to a male, e.g. 彼は友達です (kare wa tomodachi desu, “He is a friend.”).</p>
+
+        <div class="characters">
+          <div class="characters-heading"><h2>Stroke order</h2></div>
+          <div class="kana-grid">
+            <!-- か: stroke order from AnimCJK, LGPL v3 - https://github.com/parsimonhi/animCJK -->
+<div class="kana"><div class="kana-top"><strong>ka</strong></div><div class="kana-body"><svg id="c1" class="acjk stroke-svg" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="か stroke order"> <path id="c1d1" d="M460 355C404 356 350 375 296 391C260 402 223 417 186 425C158 432 130 436 102 441C95 443 85 446 85 455C86 468 98 476 108 483C121 492 135 499 150 501C170 503 187 489 205 484C250 467 295 451 339 434C385 418 433 408 481 409C496 410 514 414 524 427C536 443 533 465 531 484C522 565 488 640 453 711C439 740 426 768 407 793C403 800 394 806 386 802C373 796 361 787 348 780C338 774 328 767 317 767C309 767 301 773 302 782C303 795 316 801 322 811C343 840 360 870 376 900C381 910 387 924 399 925C411 927 420 917 428 908C465 861 491 807 515 752C538 695 561 639 577 580C589 537 597 491 590 446C585 419 571 393 548 377C522 359 491 354 460 355Z"/> <path id="c1d2" d="M350 111C343 110 335 117 337 125C340 137 351 146 353 159C358 180 350 201 344 222C329 270 309 318 292 366C263 442 233 518 201 591C185 626 170 661 153 695C143 717 125 735 119 758C112 783 117 812 131 835C134 840 139 847 147 846C161 844 169 831 174 819C207 740 240 661 271 581C299 514 326 445 350 376C367 330 385 283 408 240C415 228 424 216 428 202C433 178 423 154 407 137C394 122 374 110 353 111C352 111 351 110 350 111Z"/> <path id="c1d3" d="M648 261C637 261 632 276 638 285C644 297 656 302 665 312C726 362 782 420 817 491C837 531 850 574 864 617C868 630 879 642 893 643C912 645 930 631 932 612C944 577 934 539 918 506C896 463 872 418 832 387C777 340 717 299 656 262C653 262 651 260 648 261Z"/> <defs> <clipPath id="c1c1"><use href="#c1d1"/></clipPath> <clipPath id="c1c2"><use href="#c1d2"/></clipPath> <clipPath id="c1c3"><use href="#c1d3"/></clipPath> </defs> <path style="--d:1s;" pathLength="3333" clip-path="url(#c1c1)" d="M 104,461 154,476 413,401 492,396 544,419 572,511 409,881 319,786"/> <path style="--d:2s;" pathLength="3333" clip-path="url(#c1c2)" d="M 354,131 392,199 143,835"/> <path style="--d:3s;" pathLength="3333" clip-path="url(#c1c3)" d="M 649,283 836,441 902,626"/> </svg></div></div>
+<div class="kana"><div class="kana-top"><strong>re</strong></div><div class="kana-body"><svg id="c2" class="acjk stroke-svg" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="れ stroke order"> <path id="c2d1" d="M288 105C276 105 270 122 279 130C295 150 298 177 297 201C297 292 292 359 289 450C285 551 282 642 276 743C274 768 270 793 265 817C261 843 268 869 280 892C286 904 295 916 308 921C318 925 330 921 334 911C341 896 339 878 340 863C341 734 340 616 342 488C346 390 351 316 360 218C362 201 366 184 369 167C370 152 361 139 350 131C333 116 311 106 288 105Z"/> <path id="c2d2" d="M677 267C662 267 647 273 634 281C552 330 480 395 409 459C328 535 254 618 177 699C172 705 166 712 160 718C205 647 251 577 298 508C330 462 361 416 395 372C400 365 408 359 413 351C418 344 416 333 408 328C394 315 377 306 360 297C353 294 346 295 341 299C308 316 278 339 245 357C209 379 174 402 134 414C117 419 94 419 87 435C73 462 128 475 151 475C181 474 193 452 217 437C254 413 292 390 330 367C277 441 229 519 182 597C153 646 122 695 95 745C89 755 85 766 87 777C90 796 102 812 114 826C122 834 135 833 142 825C209 750 274 673 343 601C404 537 469 479 535 421C570 392 605 362 643 338C649 335 655 330 662 331C670 335 671 346 672 353C678 391 674 429 673 467C671 535 668 603 664 671C661 707 658 743 662 778C666 804 681 829 705 838C734 849 766 845 794 834C821 823 847 809 869 790C900 766 928 739 949 706C954 698 958 688 956 679C952 673 943 674 938 678C918 690 902 708 883 722C849 747 812 771 770 781C758 784 742 785 733 774C724 762 727 745 727 730C729 654 738 578 739 502C741 448 743 393 742 338C741 317 735 292 716 279C705 271 691 267 677 267Z"/> <defs> <clipPath id="c2c1"><use href="#c2d1"/></clipPath> <clipPath id="c2c2"><use href="#c2d2"/></clipPath> </defs> <path style="--d:1s;" pathLength="3333" clip-path="url(#c2c1)" d="M 290,116 328,146 313,914"/> <path style="--d:2s;" pathLength="3333" clip-path="url(#c2c2)" d="M 97,440 155,436 352,320 388,344 114,767 132,792 416,488 652,295 703,316 700,797 783,818 946,687"/> </svg></div></div>
+          </div>
+        </div>
+      </section>
+      <p class="font-link"><img src="assets/stamp.jpeg" alt=""><a href="https://googlefonts.github.io/japanese/#nicomoji" target="_blank" rel="noopener">G Fonts Japanese types</a></p>
+    </article>
+  </main>
+  <script>
+    function playSound(word) {
+      if (!window.speechSynthesis) return;
+      speechSynthesis.cancel();
+      var u = new SpeechSynthesisUtterance(word);
+      u.lang = 'ja-JP';
+      var v = speechSynthesis.getVoices().filter(function (v) { return v.lang === 'ja-JP'; })[0];
+      if (v) u.voice = v;
+      speechSynthesis.speak(u);
+    }
+    function replayStroke(svg) {
+      svg.classList.remove('playing');
+      void svg.getBoundingClientRect();
+      svg.classList.add('playing');
+    }
+    (function () {
+      if (window.speechSynthesis) {
+        speechSynthesis.getVoices();
+        speechSynthesis.onvoiceschanged = function () {
+          speechSynthesis.getVoices();
+          speechSynthesis.onvoiceschanged = null;
+        };
+      }
+      var date = document.querySelector('.date');
+      var english = date && date.textContent.split(' \u00b7 ')[1];
+      var match = date && date.textContent.match(/^(\d{4})-(\d{2})-(\d{2})/);
+      if (match && english) {
+        var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        document.title = Number(match[3]) + ' ' + months[Number(match[2]) - 1] + ' ' + match[1].slice(2) + ' - ' + english.trim();
+      }
+    }());
+    document.querySelectorAll('.kana-body').forEach(function (body) {
+      body.addEventListener('click', function () {
+        var svg = body.querySelector('.stroke-svg');
+        if (svg) replayStroke(svg);
+      });
+    });
+  </script>
+</body>
+</html>
