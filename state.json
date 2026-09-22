@@ -1,0 +1,44 @@
+{
+  "current": {
+    "n": 2,
+    "id": "ue",
+    "kanji": "上",
+    "word": "上",
+    "english": "Up, Above",
+    "pairs": [
+      [
+        "う",
+        "u"
+      ],
+      [
+        "え",
+        "e"
+      ]
+    ],
+    "date": "2026-09-22",
+    "file": "index.html",
+    "built": "2026-09-22T21:03:33"
+  },
+  "published": [
+    {
+      "n": 1,
+      "id": "hito",
+      "kanji": "人",
+      "word": "人",
+      "english": "Person, People",
+      "pairs": [
+        [
+          "ひ",
+          "hi"
+        ],
+        [
+          "と",
+          "to"
+        ]
+      ],
+      "date": "2026-09-22",
+      "file": "archive/hito.html",
+      "built": "2026-09-22T19:13:57"
+    }
+  ]
+}
