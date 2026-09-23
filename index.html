@@ -23,13 +23,13 @@
     .tab-btn.open { color: var(--ink); }
     .api-panel { display: none; padding: 14px 0 18px; border-bottom: 1px solid var(--line); }
     .api-panel.open { display: block; }
-    .api-row { display: grid; grid-template-columns: 72px minmax(72px, auto) 1fr auto auto; align-items: center; gap: 8px; margin: 0 0 8px; }
+    .api-row { display: grid; grid-template-columns: 72px minmax(140px, 1fr) auto; align-items: center; gap: 8px; margin: 0 0 8px; }
     .api-row label { font-size: 13px; color: var(--muted); }
-    .api-row input { font-size: 13px; padding: 5px 9px; border: 1px solid var(--line); border-radius: 4px; font-family: monospace; min-width: 0; }
+    .api-row input { font-size: 13px; padding: 5px 9px; border: 1px solid var(--line); border-radius: 4px; font-family: ui-monospace, Menlo, monospace; min-width: 0; cursor: text; }
+    .api-row input.cred-idle { color: var(--muted); background: #fafafa; }
+    .api-row input.cred-empty { color: #aaa; font-style: italic; }
     .api-row button { font-size: 13px; padding: 5px 12px; border: 1px solid var(--line); border-radius: 4px; cursor: pointer; background: #fff; white-space: nowrap; }
     .api-row button:hover { background: #f5f5f5; }
-    .api-badge { font-family: ui-monospace, Menlo, monospace; font-size: 11px; color: var(--muted); background: #f3f3f3; border: 1px solid var(--line); border-radius: 3px; padding: 3px 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px; }
-    .api-badge.empty { color: #aaa; }
     .api-status { font-size: 12px; color: var(--muted); min-height: 14px; margin: 4px 0 0; }
     .api-status.ok { color: #1a7f37; }
     .api-status.err { color: #c62828; }
@@ -108,28 +108,24 @@
       </header>
       <section class="lesson-content" aria-label="Lesson content">
         <div class="tab-bar">
-          <h2><span class="clickable" onclick="playViaEL('なか')">中</span> <span class="ja clickable" lang="ja" onclick="playViaEL('なか')">なか</span> <span class="meaning">Inside</span></h2>
+          <h2><span class="clickable" onclick="playSound('なか')">中</span> <span class="ja clickable" lang="ja" onclick="playSound('なか')">なか</span> <span class="meaning">Inside</span></h2>
           <button class="tab-btn" id="tab-api" onclick="switchTab()">API</button>
         </div>
         <div class="api-panel" id="api-panel">
           <div class="api-row">
             <label for="el-key">API key</label>
-            <span class="api-badge empty" id="el-key-badge">not set</span>
-            <input id="el-key" type="password" placeholder="paste sk_… to replace" autocomplete="off">
-            <button type="button" onclick="saveApiKeys()">Save</button>
+            <input id="el-key" type="text" placeholder="paste sk_…" autocomplete="off" spellcheck="false">
             <button type="button" onclick="testApiKey()">Test</button>
           </div>
           <div class="api-row">
             <label for="el-voice">Voice ID</label>
-            <span class="api-badge empty" id="el-voice-badge">not set</span>
-            <input id="el-voice" type="text" placeholder="voice_id" autocomplete="off">
-            <button type="button" onclick="saveApiKeys()">Save</button>
+            <input id="el-voice" type="text" placeholder="voice_id" autocomplete="off" spellcheck="false">
             <button type="button" onclick="testVoice()">Test</button>
           </div>
           <p class="api-status" id="api-status"></p>
           <div class="api-log" id="api-log" aria-live="polite"></div>
         </div>
-        <p class="lesson-lead"><span class="hiragana-char clickable" onclick="speakChar('な')">な</span> <span class="romaji">na</span> <span class="hiragana-char clickable" onclick="speakChar('か')">か</span> <span class="romaji">ka</span></p>
+        <p class="lesson-lead"><span class="hiragana-char clickable" onclick="playSound('な')">な</span> <span class="romaji">na</span> <span class="hiragana-char clickable" onclick="playSound('か')">か</span> <span class="romaji">ka</span></p>
 
         <p class="lesson-lead ja-body" style="margin-top:24px;"><strong>Usage:</strong> The kanji 中 represents "inside".</p>
         <p class="lesson-lead ja-body"><strong>Example:</strong> Used in location, e.g. 中にあります (naka ni arimasu, "It is inside.").</p>
@@ -252,52 +248,77 @@
       if (isErr) console.warn('[EL]', msg); else console.log('[EL]', msg);
     }
 
-    function refreshCredBadges() {
-      var k = localStorage.getItem(EL_KEY_K) || '';
-      var v = localStorage.getItem(EL_VOICE_K) || '';
-      var kb = document.getElementById('el-key-badge');
-      var vb = document.getElementById('el-voice-badge');
-      if (kb) {
-        kb.textContent = k ? maskKey(k) : 'not set';
-        kb.classList.toggle('empty', !k);
-        kb.title = k ? maskKey(k) : '';
+    // One field per credential: shows mask/id when idle, full editable value on focus.
+    function setupCredField(id, storageKey, maskFn, emptyPh) {
+      var input = document.getElementById(id);
+      if (!input) return null;
+      var stored = localStorage.getItem(storageKey) || '';
+
+      function showIdle() {
+        input.readOnly = true;
+        input.classList.add('cred-idle');
+        if (stored) {
+          input.type = 'text';
+          input.value = maskFn(stored);
+          input.placeholder = '';
+          input.classList.remove('cred-empty');
+          input.title = 'Click to replace';
+        } else {
+          input.type = 'text';
+          input.value = '';
+          input.placeholder = emptyPh;
+          input.classList.add('cred-empty');
+          input.title = '';
+        }
       }
-      if (vb) {
-        vb.textContent = v ? maskVoice(v) : 'not set';
-        vb.classList.toggle('empty', !v);
-        vb.title = v || '';
+
+      function beginEdit() {
+        if (!input.readOnly) return;
+        input.readOnly = false;
+        input.classList.remove('cred-idle', 'cred-empty');
+        input.value = stored;
+        input.placeholder = stored ? maskFn(stored) + ' — paste to replace' : emptyPh;
+        input.type = (id === 'el-key') ? 'password' : 'text';
+        input.select();
       }
+
+      function commit() {
+        var v = input.value.trim();
+        if (v && v !== maskFn(stored) && v !== stored) {
+          localStorage.setItem(storageKey, v);
+          stored = v;
+          apiLog(id === 'el-key' ? 'saved key ' + maskKey(v) : 'saved voice ' + v);
+          setStatus('Saved.', 'ok');
+        }
+        showIdle();
+      }
+
+      input.addEventListener('focus', beginEdit);
+      input.addEventListener('click', beginEdit);
+      input.addEventListener('blur', commit);
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') { e.preventDefault(); input.blur(); }
+        if (e.key === 'Escape') { input.value = stored; input.blur(); }
+      });
+      showIdle();
+      return {
+        refresh: function () {
+          stored = localStorage.getItem(storageKey) || '';
+          if (input.readOnly) showIdle();
+        }
+      };
     }
 
-    function saveApiKeys() {
-      var k = document.getElementById('el-key').value.trim();
-      var v = document.getElementById('el-voice').value.trim();
-      if (k) {
-        localStorage.setItem(EL_KEY_K, k);
-        document.getElementById('el-key').value = '';
-        document.getElementById('el-key').placeholder = 'saved — paste to replace';
-        apiLog('saved api key ' + maskKey(k));
-      }
-      if (v) {
-        localStorage.setItem(EL_VOICE_K, v);
-        document.getElementById('el-voice').value = '';
-        document.getElementById('el-voice').placeholder = 'saved — paste to replace';
-        apiLog('saved voice ' + v);
-      }
-      refreshCredBadges();
-      setStatus(k || v ? 'Saved.' : 'Nothing to save.', k || v ? 'ok' : 'err');
-    }
+    var credKeyField = null;
+    var credVoiceField = null;
 
     function loadApiKeys() {
+      credKeyField = setupCredField('el-key', EL_KEY_K, maskKey, 'paste sk_…');
+      credVoiceField = setupCredField('el-voice', EL_VOICE_K, maskVoice, 'voice_id');
       var k = localStorage.getItem(EL_KEY_K);
       var v = localStorage.getItem(EL_VOICE_K);
-      var ki = document.getElementById('el-key');
-      var vi = document.getElementById('el-voice');
-      if (ki) ki.placeholder = k ? 'saved — paste to replace' : 'paste sk_… to replace';
-      if (vi) vi.placeholder = v ? 'saved — paste to replace' : 'voice_id';
-      refreshCredBadges();
-      if (k && v) apiLog('loaded key ' + maskKey(k) + ' voice ' + v);
-      else apiLog('missing credentials — enter API key and Voice ID', !k || !v);
+      if (k && v) setStatus('Credentials ready.', 'ok');
+      else setStatus('Click a field to set credentials.', '');
     }
 
     function switchTab() {
@@ -305,18 +326,32 @@
       var btn   = document.getElementById('tab-api');
       var open  = panel.classList.toggle('open');
       btn.classList.toggle('open', open);
-      if (open) refreshCredBadges();
+      if (open) {
+        if (credKeyField) credKeyField.refresh();
+        if (credVoiceField) credVoiceField.refresh();
+      }
+    }
+
+    function activeKey() {
+      var i = document.getElementById('el-key');
+      if (i && !i.readOnly && i.value.trim()) return i.value.trim();
+      return localStorage.getItem(EL_KEY_K) || '';
+    }
+
+    function activeVoice() {
+      var i = document.getElementById('el-voice');
+      if (i && !i.readOnly && i.value.trim()) return i.value.trim();
+      return localStorage.getItem(EL_VOICE_K) || '';
     }
 
     function testApiKey() {
-      var key = document.getElementById('el-key').value.trim() || localStorage.getItem(EL_KEY_K) || '';
+      var key = activeKey();
       if (!key) {
-        setStatus('No API key to test.', 'err');
-        apiLog('key test: no key', true);
+        setStatus('Enter an API key first.', 'err');
         return;
       }
       setStatus('Testing API key…');
-      apiLog('key test: GET /v1/user ' + maskKey(key));
+      apiLog('key test GET /v1/user ' + maskKey(key));
       fetch('https://api.elevenlabs.io/v1/user', {
         headers: { 'xi-api-key': key }
       })
@@ -327,114 +362,51 @@
       })
       .then(function(r) {
         if (!r.ok) {
-          setStatus('API key FAILED (HTTP ' + r.status + ')', 'err');
-          apiLog('key test HTTP ' + r.status + ' ' + r.body, true);
+          setStatus('Key failed (HTTP ' + r.status + ').', 'err');
+          apiLog('key HTTP ' + r.status + ' ' + r.body, true);
           return;
         }
         var sub = '';
         try {
           var j = JSON.parse(r.body);
           var s = j.subscription || {};
-          sub = ' (' + (s.tier || '?') + ', ' + (s.character_count != null ? s.character_count : '?') + ' used)';
+          sub = ' — ' + (s.tier || '?') + ', ' + (s.character_count != null ? s.character_count : '?') + ' chars used';
         } catch (e) {}
-        setStatus('API key OK' + sub, 'ok');
-        apiLog('key test OK HTTP 200' + sub);
+        setStatus('Key OK' + sub, 'ok');
+        apiLog('key OK' + sub);
       })
       .catch(function(err) {
-        setStatus('API key test error', 'err');
-        apiLog('key test network: ' + err.message, true);
+        setStatus('Key test error.', 'err');
+        apiLog('key network: ' + err.message, true);
       });
     }
 
     function testVoice() {
-      var key = localStorage.getItem(EL_KEY_K) || '';
-      var voice = document.getElementById('el-voice').value.trim() || localStorage.getItem(EL_VOICE_K) || '';
-      if (!key) {
-        setStatus('Save API key first.', 'err');
-        apiLog('voice test: no api key', true);
-        return;
-      }
-      if (!voice) {
-        setStatus('No Voice ID to test.', 'err');
-        apiLog('voice test: no voice id', true);
-        return;
-      }
+      var key = activeKey();
+      var voice = activeVoice();
+      if (!key) { setStatus('Set API key first.', 'err'); return; }
+      if (!voice) { setStatus('Enter a Voice ID first.', 'err'); return; }
       var sample = '多くの人々がいたが、';
       setStatus('Testing voice…');
-      apiLog('voice test: POST ' + voice + ' "' + sample + '"');
-      var ctx = getElCtx();
-      if (!ctx) {
-        setStatus('No AudioContext.', 'err');
-        apiLog('voice test: no AudioContext', true);
-        return;
-      }
-      if (ctx.state === 'suspended') ctx.resume();
-      var t0 = performance.now();
-      fetch('https://api.elevenlabs.io/v1/text-to-speech/' + voice, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'xi-api-key': key },
-        body: JSON.stringify({
-          text: sample,
-          model_id: EL_MODEL_JA,
-          language_code: 'ja',
-          apply_language_text_normalization: true,
-          voice_settings: { stability: 0.5, similarity_boost: 0.75 }
-        })
-      })
-      .then(function(res) {
-        var ms = Math.round(performance.now() - t0);
-        if (!res.ok) {
-          return res.text().then(function(t) {
-            setStatus('Voice test FAILED (HTTP ' + res.status + ')', 'err');
-            apiLog('voice test HTTP ' + res.status + ' (' + ms + 'ms) ' + t, true);
-          });
-        }
-        apiLog('voice test HTTP 200 (' + ms + 'ms), decoding…');
-        return res.arrayBuffer().then(function(buf) {
-          if (ctx.state === 'suspended') ctx.resume();
-          return ctx.decodeAudioData(buf).then(function(decoded) {
-            var src = ctx.createBufferSource();
-            src.buffer = decoded;
-            src.connect(ctx.destination);
-            src.onended = function() {
-              setStatus('Voice OK — played ' + decoded.duration.toFixed(2) + 's', 'ok');
-              apiLog('voice test playback ended (' + decoded.duration.toFixed(2) + 's)');
-            };
-            src.start(0);
-            apiLog('voice test src.start ctx=' + ctx.state + ' bytes=' + buf.byteLength);
-          }, function(e) {
-            setStatus('Voice decode failed', 'err');
-            apiLog('voice test decodeAudioData: ' + (e && e.message || e), true);
-          });
-        });
-      })
-      .catch(function(err) {
-        setStatus('Voice test error', 'err');
-        apiLog('voice test network: ' + err.message, true);
+      apiLog('voice test ' + voice + ' "' + sample + '"');
+      elTts(voice, sample, function (ok, detail) {
+        setStatus(ok ? 'Voice OK — ' + detail : detail, ok ? 'ok' : 'err');
       });
     }
 
-    function playViaEL(reading) {
-      var key   = localStorage.getItem(EL_KEY_K)   || '';
-      var voice = localStorage.getItem(EL_VOICE_K) || '';
-      if (!key || !voice) {
-        apiLog('playViaEL skipped — missing key/voice', true);
-        return;
-      }
-      // Create/resume inside the click gesture — iOS Safari leaves a context
-      // created after fetch suspended (silent playback).
+    function elTts(voice, text, cb) {
+      var key = activeKey();
+      if (!key) { apiLog('tts: no key', true); if (cb) cb(false, 'No API key.'); return; }
       var ctx = getElCtx();
-      if (!ctx) {
-        apiLog('playViaEL: no AudioContext', true);
-        return;
-      }
-      var body = { text: reading, model_id: EL_MODEL, voice_settings: { stability: 0.5, similarity_boost: 0.75 } };
-      if (isJaText(reading)) {
+      if (!ctx) { apiLog('tts: no AudioContext', true); if (cb) cb(false, 'No AudioContext.'); return; }
+      if (ctx.state === 'suspended') ctx.resume();
+      var t0 = performance.now();
+      var body = { text: text, model_id: EL_MODEL, voice_settings: { stability: 0.5, similarity_boost: 0.75 } };
+      if (isJaText(text)) {
         body.model_id = EL_MODEL_JA;
         body.language_code = 'ja';
         body.apply_language_text_normalization = true;
       }
-      var t0 = performance.now();
       fetch('https://api.elevenlabs.io/v1/text-to-speech/' + voice, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'xi-api-key': key },
@@ -444,25 +416,51 @@
         var ms = Math.round(performance.now() - t0);
         if (!res.ok) {
           return res.text().then(function(t) {
-            throw new Error('HTTP ' + res.status + ' ' + t);
+            var msg = 'HTTP ' + res.status + ' ' + t;
+            apiLog('tts "' + text + '" ' + msg, true);
+            if (cb) cb(false, msg);
           });
         }
-        apiLog('play "' + reading + '" HTTP 200 (' + ms + 'ms)');
-        return res.arrayBuffer();
-      })
-      .then(function(buf) {
-        if (ctx.state === 'suspended') ctx.resume();
-        return ctx.decodeAudioData(buf).then(function(decoded) {
-          var src = ctx.createBufferSource();
-          src.buffer = decoded;
-          src.connect(ctx.destination);
-          src.start(0);
-          apiLog('play decoded ' + decoded.duration.toFixed(2) + 's ctx=' + ctx.state);
+        return res.arrayBuffer().then(function(buf) {
+          if (ctx.state === 'suspended') ctx.resume();
+          return ctx.decodeAudioData(buf).then(function(decoded) {
+            var src = ctx.createBufferSource();
+            src.buffer = decoded;
+            src.connect(ctx.destination);
+            src.onended = function () {
+              var d = decoded.duration.toFixed(2) + 's';
+              apiLog('played "' + text + '" ' + d + ' (' + ms + 'ms)');
+              if (cb) cb(true, d);
+            };
+            src.start(0);
+            apiLog('tts HTTP 200 (' + ms + 'ms) ctx=' + ctx.state);
+          }, function (e) {
+            apiLog('decode: ' + (e && e.message || e), true);
+            if (cb) cb(false, 'Decode failed.');
+          });
         });
       })
-      .catch(function(err) {
-        apiLog('play "' + reading + '" FAIL: ' + err.message, true);
+      .catch(function (err) {
+        apiLog('tts network: ' + err.message, true);
+        if (cb) cb(false, 'Network error.');
       });
+    }
+
+    // Unified sound: ElevenLabs when credentials exist, system TTS otherwise.
+    // Heading / lead chars / [data-reading] all go through here so every click logs.
+    function playSound(text) {
+      var key = localStorage.getItem(EL_KEY_K) || '';
+      var voice = localStorage.getItem(EL_VOICE_K) || '';
+      if (key && voice) {
+        elTts(voice, text, null);
+      } else {
+        apiLog('no credentials — system TTS "' + text + '"');
+        speakChar(text);
+      }
+    }
+
+    function playViaEL(reading) {
+      playSound(reading);
     }
 
     // After playViaEL so the archive strip (saveApiKeys → playViaEL) keeps it.
