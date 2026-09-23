@@ -224,6 +224,19 @@
       .catch(function(err) { console.warn('ElevenLabs:', err.message); });
     }
 
+    // After playViaEL so the archive strip (saveApiKeys → playViaEL) keeps it.
+    // Function declaration is hoisted; playViaEL may call it before this line runs.
+    var elCtx = null;
+    function getElCtx() {
+      if (!elCtx) {
+        var AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return null;
+        elCtx = new AC();
+      }
+      if (elCtx.state === 'suspended') elCtx.resume();
+      return elCtx;
+    }
+
     function pickJaVoice() {
       var ja = ssVoices.filter(function (v) { return /^ja/i.test(v.lang); });
       var kyoko = ja.filter(function (v) { return /kyoko/i.test(v.name); });

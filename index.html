@@ -131,7 +131,7 @@
           </div>
         </div>
       </section>
-      <p class="font-link"><img src="assets/stamp.jpeg" alt=""><span class="date-stamp" id="timestamp">23-09-2026 10:53</span><a href="https://googlefonts.github.io/japanese/#nicomoji" target="_blank" rel="noopener">G Fonts Japanese types</a></p>
+      <p class="font-link"><img src="assets/stamp.jpeg" alt=""><span class="date-stamp" id="timestamp">23-09-2026 10:54</span><a href="https://googlefonts.github.io/japanese/#nicomoji" target="_blank" rel="noopener">G Fonts Japanese types</a></p>
     </article>
     <div class="characters" aria-label="Archive">
       <div class="characters-heading"><h2>Archive</h2></div>
@@ -234,17 +234,6 @@
       btn.classList.toggle('open', open);
     }
 
-    var elCtx = null;
-    function getElCtx() {
-      if (!elCtx) {
-        var AC = window.AudioContext || window.webkitAudioContext;
-        if (!AC) return null;
-        elCtx = new AC();
-      }
-      if (elCtx.state === 'suspended') elCtx.resume();
-      return elCtx;
-    }
-
     function playViaEL(reading) {
       var key   = localStorage.getItem(EL_KEY_K)   || '';
       var voice = localStorage.getItem(EL_VOICE_K) || '';
@@ -278,6 +267,19 @@
         });
       })
       .catch(function(err) { console.warn('ElevenLabs:', err.message); });
+    }
+
+    // After playViaEL so the archive strip (saveApiKeys → playViaEL) keeps it.
+    // Function declaration is hoisted; playViaEL may call it before this line runs.
+    var elCtx = null;
+    function getElCtx() {
+      if (!elCtx) {
+        var AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return null;
+        elCtx = new AC();
+      }
+      if (elCtx.state === 'suspended') elCtx.resume();
+      return elCtx;
     }
 
     function pickJaVoice() {
