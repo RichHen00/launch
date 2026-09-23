@@ -48,6 +48,7 @@
     <button onclick="playRaw()">5. Play raw mp3 (no decode)</button>
     <button onclick="playRaw('本当にすばらしい旅だった。')">5b. Raw 本当にすばらしい旅だった。</button>
     <button onclick="copyLog()">Copy log</button>
+    <button onclick="saveLog()">Save log</button>
     <button onclick="document.getElementById('log').textContent=''">Clear log</button>
   </div>
 
@@ -207,6 +208,29 @@
       } else {
         fallback();
       }
+    }
+
+    function logFileName(d) {
+      function p(n) { return String(n).padStart(2, '0'); }
+      // logDDMMYY-HHMM.txt — no colons (invalid on Windows/some iOS save paths)
+      return 'log' +
+        p(d.getDate()) + p(d.getMonth() + 1) + p(d.getFullYear() % 100) + '-' +
+        p(d.getHours()) + p(d.getMinutes()) + '.txt';
+    }
+
+    function saveLog() {
+      var text = document.getElementById('log').innerText;
+      var name = logFileName(new Date());
+      log('saving ' + name + ' (' + text.length + ' chars) — move it into msg/ in the repo', 'info');
+      var blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = name;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(function() { URL.revokeObjectURL(url); }, 10000);
     }
 
     function playViaEL(reading) {
