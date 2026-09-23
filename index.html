@@ -140,13 +140,13 @@
           </div>
         </div>
       </section>
-      <p class="font-link"><img src="assets/stamp.jpeg" alt=""><span class="date-stamp" id="timestamp">23-09-2026 10:54</span><a href="https://googlefonts.github.io/japanese/#nicomoji" target="_blank" rel="noopener">G Fonts Japanese types</a></p>
+      <p class="font-link"><img src="assets/stamp.jpeg" alt=""><span class="date-stamp" id="timestamp">23-09-2026 11:53</span><a href="https://googlefonts.github.io/japanese/#nicomoji" target="_blank" rel="noopener">G Fonts Japanese types</a></p>
     </article>
     <div class="characters" aria-label="Archive">
       <div class="characters-heading"><h2>Archive</h2></div>
       <p class="lesson-lead"><a class="date" href="archive/shita.html">2026-09-23</a> &middot; 下 下 <span class="meaning" style="color:#d64747;">Down, Below</span> &middot; <span class="hiragana-char">し</span> <span class="romaji">shi</span> <span class="hiragana-char">た</span> <span class="romaji">ta</span></p>
-      <p class="lesson-lead"><a class="date" href="archive/ue.html">2026-09-22</a> &middot; 上 上 <span class="meaning" style="color:#d64747;">Up, Above</span> &middot; <span class="hiragana-char">う</span> <span class="romaji">u</span> <span class="hiragana-char">え</span> <span class="romaji">e</span></p>
-      <p class="lesson-lead"><a class="date" href="archive/hito.html">2026-09-22</a> &middot; 人 人 <span class="meaning" style="color:#d64747;">Person, People</span> &middot; <span class="hiragana-char">ひ</span> <span class="romaji">hi</span> <span class="hiragana-char">と</span> <span class="romaji">to</span></p>
+      <p class="lesson-lead"><a class="date" href="archive/ue.html">2026-09-23</a> &middot; 上 上 <span class="meaning" style="color:#d64747;">Up, Above</span> &middot; <span class="hiragana-char">う</span> <span class="romaji">u</span> <span class="hiragana-char">え</span> <span class="romaji">e</span></p>
+      <p class="lesson-lead"><a class="date" href="archive/hito.html">2026-09-23</a> &middot; 人 人 <span class="meaning" style="color:#d64747;">Person, People</span> &middot; <span class="hiragana-char">ひ</span> <span class="romaji">hi</span> <span class="hiragana-char">と</span> <span class="romaji">to</span></p>
     </div>
   </main>
   <script>
@@ -163,15 +163,11 @@
     };
 
     function isJaText(s) {
-      return /[\u3040-\u30FF\u4E00-\u9FFF]/.test(s);
-    }
-
-    function escapeRe(s) {
-      return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      return /[぀-ヿ㐀-鿿＀-￯]/.test(s);
     }
 
     function harvestJaReadings(root) {
-      var re = /([\u4e00-\u9fff]+)["']?\s*\(([\u3040-\u309f]+)/g;
+      var re = /([㐀-鿿]+)["']?\s*\(([぀-ゟ]+)/g;
       root.querySelectorAll('p').forEach(function (p) {
         var t = p.textContent;
         var m;
@@ -181,13 +177,22 @@
       });
     }
 
+    // Pure-kanji token with a known reading → use that (中 → なか).
+    // Anything with kana (中にあります, すこしでも…です。) → speak the surface
+    // text as one unit so the ja model gets full context for pronunciation.
+    function resolveJaReading(token) {
+      if (KANJI_READING[token] && /^[㐀-鿿]+$/.test(token)) {
+        return KANJI_READING[token];
+      }
+      return token;
+    }
+
+    // Wrap every contiguous Japanese run as one clickable unit. Runs break only
+    // on non-JA (spaces, Latin, ASCII quotes) — never between kanji and kana.
     function linkJaBody(root) {
       if (!root) return;
       harvestJaReadings(root);
-      var keys = Object.keys(KANJI_READING).filter(function (k) { return KANJI_READING[k]; })
-        .sort(function (a, b) { return b.length - a.length; });
-      if (!keys.length) return;
-      var re = new RegExp('(' + keys.map(escapeRe).join('|') + ')|([\\u3040-\\u309F]+)', 'g');
+      var re = /[　-ヿ㐀-鿿＀-￯]+/g;
       var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
       var nodes = [];
       while (walker.nextNode()) nodes.push(walker.currentNode);
@@ -195,20 +200,18 @@
         var parent = node.parentElement;
         if (!parent || parent.closest('.hiragana-char, .clickable, .ja-link, .tab-bar, .api-panel, script, style')) return;
         var text = node.textContent;
-        re.lastIndex = 0;
-        if (!re.test(text)) return;
+        if (!isJaText(text)) return;
         re.lastIndex = 0;
         var frag = document.createDocumentFragment();
         var last = 0;
         var m;
         while ((m = re.exec(text)) !== null) {
           if (m.index > last) frag.appendChild(document.createTextNode(text.slice(last, m.index)));
-          var token = m[1] || m[2];
-          var reading = m[1] ? KANJI_READING[m[1]] : token;
+          var token = m[0];
           var span = document.createElement('span');
           span.className = 'clickable ja-link';
           span.setAttribute('lang', 'ja');
-          span.setAttribute('data-reading', reading);
+          span.setAttribute('data-reading', resolveJaReading(token));
           span.textContent = token;
           frag.appendChild(span);
           last = m.index + token.length;
@@ -216,6 +219,142 @@
         if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
         if (last > 0) node.parentNode.replaceChild(frag, node);
       });
+    }
+
+    function apiLog(msg, isErr) {
+      var el = document.getElementById('api-log');
+      if (!el) return;
+      var t = new Date().toTimeString().slice(0, 8);
+      el.classList.add('open');
+      el.classList.toggle('err', !!isErr);
+      el.textContent += '[' + t + '] ' + msg + '\n';
+      el.scrollTop = el.scrollHeight;
+      if (isErr) console.warn('[EL]', msg); else console.log('[EL]', msg);
+    }
+
+    function activeKey() {
+      var i = document.getElementById('el-key');
+      if (i && !i.readOnly && i.value.trim()) return i.value.trim();
+      return localStorage.getItem(EL_KEY_K) || '';
+    }
+
+    function activeVoice() {
+      var i = document.getElementById('el-voice');
+      if (i && !i.readOnly && i.value.trim()) return i.value.trim();
+      return localStorage.getItem(EL_VOICE_K) || '';
+    }
+
+    function elTts(voice, text, cb) {
+      var key = activeKey();
+      if (!key) { apiLog('tts: no key', true); if (cb) cb(false, 'No API key.'); return; }
+      var ctx = getElCtx();
+      if (!ctx) { apiLog('tts: no AudioContext', true); if (cb) cb(false, 'No AudioContext.'); return; }
+      if (ctx.state === 'suspended') ctx.resume();
+      var t0 = performance.now();
+      var body = { text: text, model_id: EL_MODEL, voice_settings: { stability: 0.5, similarity_boost: 0.75 } };
+      if (isJaText(text)) {
+        body.model_id = EL_MODEL_JA;
+        body.language_code = 'ja';
+        body.apply_language_text_normalization = true;
+      }
+      fetch('https://api.elevenlabs.io/v1/text-to-speech/' + voice, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'xi-api-key': key },
+        body: JSON.stringify(body)
+      })
+      .then(function(res) {
+        var ms = Math.round(performance.now() - t0);
+        if (!res.ok) {
+          return res.text().then(function(t) {
+            var msg = 'HTTP ' + res.status + ' ' + t;
+            apiLog('tts "' + text + '" ' + msg, true);
+            if (cb) cb(false, msg);
+          });
+        }
+        return res.arrayBuffer().then(function(buf) {
+          // Prefer <audio> blob — Web Audio can report onended while silent (Safari).
+          var blob = new Blob([buf], { type: 'audio/mpeg' });
+          var url = URL.createObjectURL(blob);
+          var el = new Audio(url);
+          el.volume = 1;
+          var finished = false;
+          function done(ok, detail) {
+            if (finished) return;
+            finished = true;
+            URL.revokeObjectURL(url);
+            if (cb) cb(ok, detail);
+          }
+          el.onended = function () {
+            var d = (el.duration && isFinite(el.duration)) ? el.duration.toFixed(2) + 's' : '?s';
+            apiLog('played "' + text + '" <audio> ' + d + ' (' + ms + 'ms)');
+            done(true, d);
+          };
+          el.onerror = function () {
+            var err = (el.error && el.error.message) || 'unknown';
+            apiLog('<audio> error: ' + err + ' — AudioContext fallback', true);
+            playViaWebAudio(ctx, buf, text, ms, cb, done);
+          };
+          apiLog('tts HTTP 200 (' + ms + 'ms) bytes=' + buf.byteLength + ' ctx=' + ctx.state);
+          var p = el.play();
+          if (p && p.then) {
+            p.then(function () {
+              apiLog('<audio>.play() ok');
+            }, function (e) {
+              apiLog('<audio>.play() REJECTED: ' + (e && e.message) + ' — AudioContext fallback', true);
+              playViaWebAudio(ctx, buf, text, ms, cb, done);
+            });
+          }
+        });
+      })
+      .catch(function (err) {
+        apiLog('tts network: ' + err.message, true);
+        if (cb) cb(false, 'Network error.');
+      });
+    }
+
+    function playViaWebAudio(ctx, buf, text, ms, cb, done) {
+      if (!ctx) {
+        apiLog('no AudioContext for fallback', true);
+        if (done) done(false, 'No audio output.');
+        return;
+      }
+      var p = (ctx.state === 'suspended') ? ctx.resume() : Promise.resolve();
+      Promise.resolve(p).then(function () {
+        return ctx.decodeAudioData(buf.slice(0));
+      }).then(function (decoded) {
+        var src = ctx.createBufferSource();
+        src.buffer = decoded;
+        src.connect(ctx.destination);
+        src.onended = function () {
+          var d = decoded.duration.toFixed(2) + 's';
+          apiLog('played "' + text + '" WebAudio ' + d + ' (' + ms + 'ms)');
+          if (done) done(true, d);
+        };
+        src.start(0);
+        apiLog('WebAudio src.start ctx=' + ctx.state);
+      }, function (e) {
+        apiLog('WebAudio decode fail: ' + (e && e.message || e), true);
+        if (done) done(false, 'Decode failed.');
+      }).catch(function (e) {
+        apiLog('WebAudio fail: ' + (e && e.message || e), true);
+        if (done) done(false, 'Audio failed.');
+      });
+    }
+
+    // Unified sound: ElevenLabs when credentials exist, system TTS otherwise.
+    function playSound(text) {
+      var key = localStorage.getItem(EL_KEY_K) || '';
+      var voice = localStorage.getItem(EL_VOICE_K) || '';
+      if (key && voice) {
+        elTts(voice, text, null);
+      } else {
+        apiLog('no credentials — system TTS "' + text + '"');
+        speakChar(text);
+      }
+    }
+
+    function playViaEL(reading) {
+      playSound(reading);
     }
 
     function maskKey(k) {
@@ -238,18 +377,7 @@
       s.className = 'api-status' + (cls ? ' ' + cls : '');
     }
 
-    function apiLog(msg, isErr) {
-      var el = document.getElementById('api-log');
-      if (!el) return;
-      var t = new Date().toTimeString().slice(0, 8);
-      el.classList.add('open');
-      el.classList.toggle('err', !!isErr);
-      el.textContent += '[' + t + '] ' + msg + '\n';
-      el.scrollTop = el.scrollHeight;
-      if (isErr) console.warn('[EL]', msg); else console.log('[EL]', msg);
-    }
-
-    // One field per credential: shows mask/id when idle, full editable value on focus.
+    // One field per credential: idle mask/id; click to edit; blur/Enter saves.
     function setupCredField(id, storageKey, maskFn, emptyPh) {
       var input = document.getElementById(id);
       if (!input) return null;
@@ -333,18 +461,6 @@
       }
     }
 
-    function activeKey() {
-      var i = document.getElementById('el-key');
-      if (i && !i.readOnly && i.value.trim()) return i.value.trim();
-      return localStorage.getItem(EL_KEY_K) || '';
-    }
-
-    function activeVoice() {
-      var i = document.getElementById('el-voice');
-      if (i && !i.readOnly && i.value.trim()) return i.value.trim();
-      return localStorage.getItem(EL_VOICE_K) || '';
-    }
-
     function testApiKey() {
       var key = activeKey();
       if (!key) {
@@ -395,129 +511,8 @@
       });
     }
 
-    function elTts(voice, text, cb) {
-      var key = activeKey();
-      if (!key) { apiLog('tts: no key', true); if (cb) cb(false, 'No API key.'); return; }
-      var ctx = getElCtx();
-      if (!ctx) { apiLog('tts: no AudioContext', true); if (cb) cb(false, 'No AudioContext.'); return; }
-      if (ctx.state === 'suspended') ctx.resume();
-      var t0 = performance.now();
-      var body = { text: text, model_id: EL_MODEL, voice_settings: { stability: 0.5, similarity_boost: 0.75 } };
-      if (isJaText(text)) {
-        body.model_id = EL_MODEL_JA;
-        body.language_code = 'ja';
-        body.apply_language_text_normalization = true;
-      }
-      fetch('https://api.elevenlabs.io/v1/text-to-speech/' + voice, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'xi-api-key': key },
-        body: JSON.stringify(body)
-      })
-      .then(function(res) {
-        var ms = Math.round(performance.now() - t0);
-        if (!res.ok) {
-          return res.text().then(function(t) {
-            var msg = 'HTTP ' + res.status + ' ' + t;
-            apiLog('tts "' + text + '" ' + msg, true);
-            if (cb) cb(false, msg);
-          });
-        }
-        return res.arrayBuffer().then(function(buf) {
-          // Prefer <audio> blob playback — same path as test page 5b.
-          // Web Audio BufferSource can fire onended while silent (output
-          // routing / muted sink); HTMLAudioElement surfaces play() errors.
-          var blob = new Blob([buf], { type: 'audio/mpeg' });
-          var url = URL.createObjectURL(blob);
-          var el = new Audio(url);
-          el.volume = 1;
-          var finished = false;
-          function done(ok, detail) {
-            if (finished) return;
-            finished = true;
-            URL.revokeObjectURL(url);
-            if (cb) cb(ok, detail);
-          }
-          el.onended = function () {
-            var d = (el.duration && isFinite(el.duration)) ? el.duration.toFixed(2) + 's' : '?s';
-            apiLog('played "' + text + '" <audio> ' + d + ' (' + ms + 'ms)');
-            done(true, d);
-          };
-          el.onerror = function () {
-            var err = (el.error && el.error.message) || 'unknown';
-            apiLog('<audio> error: ' + err + ' — falling back to AudioContext', true);
-            playViaWebAudio(ctx, buf, text, ms, cb, done);
-          };
-          apiLog('tts HTTP 200 (' + ms + 'ms) bytes=' + buf.byteLength + ' ctx=' + ctx.state);
-          var p = el.play();
-          if (p && p.then) {
-            p.then(function () {
-              apiLog('<audio>.play() ok');
-            }, function (e) {
-              apiLog('<audio>.play() REJECTED: ' + (e && e.message) + ' — AudioContext fallback', true);
-              playViaWebAudio(ctx, buf, text, ms, cb, done);
-            });
-          }
-        });
-      })
-      .catch(function (err) {
-        apiLog('tts network: ' + err.message, true);
-        if (cb) cb(false, 'Network error.');
-      });
-    }
-
-    function playViaWebAudio(ctx, buf, text, ms, cb, done) {
-      if (!ctx) {
-        apiLog('no AudioContext for fallback', true);
-        if (done) done(false, 'No audio output.');
-        return;
-      }
-      var p = (ctx.state === 'suspended') ? ctx.resume() : Promise.resolve();
-      Promise.resolve(p).then(function () {
-        return ctx.decodeAudioData(buf.slice(0));
-      }).then(function (decoded) {
-        var peak = 0;
-        var data = decoded.getChannelData(0);
-        for (var i = 0; i < data.length; i += 32) {
-          var a = data[i] < 0 ? -data[i] : data[i];
-          if (a > peak) peak = a;
-        }
-        apiLog('WebAudio decode ' + decoded.duration.toFixed(2) + 's peak=' + peak.toFixed(3) + ' sr=' + decoded.sampleRate);
-        var src = ctx.createBufferSource();
-        src.buffer = decoded;
-        src.connect(ctx.destination);
-        src.onended = function () {
-          var d = decoded.duration.toFixed(2) + 's';
-          apiLog('played "' + text + '" WebAudio ' + d + ' (' + ms + 'ms)');
-          if (done) done(true, d);
-        };
-        src.start(0);
-        apiLog('WebAudio src.start ctx=' + ctx.state);
-      }, function (e) {
-        apiLog('WebAudio decode fail: ' + (e && e.message || e), true);
-        if (done) done(false, 'Decode failed.');
-      }).catch(function (e) {
-        apiLog('WebAudio fail: ' + (e && e.message || e), true);
-        if (done) done(false, 'Audio failed.');
-      });
-    }
-
-    // Unified sound: ElevenLabs when credentials exist, system TTS otherwise.
-    // Heading / lead chars / [data-reading] all go through here so every click logs.
-    function playSound(text) {
-      var key = localStorage.getItem(EL_KEY_K) || '';
-      var voice = localStorage.getItem(EL_VOICE_K) || '';
-      if (key && voice) {
-        elTts(voice, text, null);
-      } else {
-        apiLog('no credentials — system TTS "' + text + '"');
-        speakChar(text);
-      }
-    }
-
-    function playViaEL(reading) {
-      playSound(reading);
-    }
-
+    // After playSound/playViaEL so the archive strip (credential UI → playSound) keeps it.
+    // Function declaration is hoisted; playSound may call it before this line runs.
     var elCtx = null;
     function getElCtx() {
       if (!elCtx) {
@@ -548,18 +543,46 @@
       ssVoice = pickJaVoice();
     }
 
+    // Split long Japanese for speechSynthesis (browsers clip ~15s utterances).
+    // Pause at sentence end; mid-sentence only after、once already long.
+    function splitJaForSpeech(s) {
+      if (!s) return [];
+      var parts = [];
+      var buf = '';
+      for (var i = 0; i < s.length; i++) {
+        var ch = s.charAt(i);
+        buf += ch;
+        if (ch === '。' || ch === '！' || ch === '？' || ch === '!' || ch === '?') {
+          parts.push(buf);
+          buf = '';
+        } else if (ch === '、' && buf.length >= 24) {
+          parts.push(buf);
+          buf = '';
+        }
+      }
+      if (buf) parts.push(buf);
+      return parts.length ? parts : [s];
+    }
+
     function speakChar(reading) {
-      if (!window.speechSynthesis) return;
+      if (!window.speechSynthesis || !reading) return;
       var synth = window.speechSynthesis;
       synth.cancel();
       if (!ssVoice) refreshVoices();
-      var u = new SpeechSynthesisUtterance(reading);
-      if (ssVoice) { u.voice = ssVoice; u.lang = ssVoice.lang; } else { u.lang = 'ja-JP'; }
-      u.rate = 0.9;
-      u.pitch = 1.0;
-      // Chrome/Safari: speak() in the same turn as cancel() clips the start
-      // of the new utterance (ひと → only "to"). Let cancel settle first.
-      setTimeout(function () { synth.speak(u); }, 100);
+      var parts = splitJaForSpeech(reading);
+      function speakAt(i) {
+        if (i >= parts.length) return;
+        var u = new SpeechSynthesisUtterance(parts[i]);
+        if (ssVoice) { u.voice = ssVoice; u.lang = ssVoice.lang; } else { u.lang = 'ja-JP'; }
+        u.rate = 0.9;
+        u.pitch = 1.0;
+        u.onend = function () {
+          if (i + 1 < parts.length) setTimeout(function () { speakAt(i + 1); }, 80);
+        };
+        // Chrome/Safari: speak() in the same turn as cancel() clips the start.
+        setTimeout(function () { synth.speak(u); }, i === 0 ? 100 : 60);
+      }
+      speakAt(0);
     }
 
     function replayStroke(svg) {
