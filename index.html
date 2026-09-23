@@ -23,12 +23,19 @@
     .tab-btn.open { color: var(--ink); }
     .api-panel { display: none; padding: 14px 0 18px; border-bottom: 1px solid var(--line); }
     .api-panel.open { display: block; }
-    .api-row { display: grid; grid-template-columns: 90px 1fr auto; align-items: center; gap: 8px; margin: 0 0 8px; }
+    .api-row { display: grid; grid-template-columns: 72px minmax(72px, auto) 1fr auto auto; align-items: center; gap: 8px; margin: 0 0 8px; }
     .api-row label { font-size: 13px; color: var(--muted); }
-    .api-row input { font-size: 13px; padding: 5px 9px; border: 1px solid var(--line); border-radius: 4px; font-family: monospace; }
-    .api-row button { font-size: 13px; padding: 5px 12px; border: 1px solid var(--line); border-radius: 4px; cursor: pointer; background: #fff; }
+    .api-row input { font-size: 13px; padding: 5px 9px; border: 1px solid var(--line); border-radius: 4px; font-family: monospace; min-width: 0; }
+    .api-row button { font-size: 13px; padding: 5px 12px; border: 1px solid var(--line); border-radius: 4px; cursor: pointer; background: #fff; white-space: nowrap; }
     .api-row button:hover { background: #f5f5f5; }
+    .api-badge { font-family: ui-monospace, Menlo, monospace; font-size: 11px; color: var(--muted); background: #f3f3f3; border: 1px solid var(--line); border-radius: 3px; padding: 3px 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 120px; }
+    .api-badge.empty { color: #aaa; }
     .api-status { font-size: 12px; color: var(--muted); min-height: 14px; margin: 4px 0 0; }
+    .api-status.ok { color: #1a7f37; }
+    .api-status.err { color: #c62828; }
+    .api-log { display: none; margin: 10px 0 0; padding: 8px 10px; background: #111; color: #0f0; font-family: ui-monospace, Menlo, monospace; font-size: 11px; line-height: 1.45; white-space: pre-wrap; word-break: break-word; max-height: 160px; overflow: auto; }
+    .api-log.open { display: block; }
+    .api-log.err { color: #f66; }
     .characters { padding: 34px 0 0; }
     .characters-heading { padding: 0 0 18px; border: 0; }
     .characters-heading h2 { font-size: 22px; font-weight: 500; margin: 0; }
@@ -106,16 +113,21 @@
         </div>
         <div class="api-panel" id="api-panel">
           <div class="api-row">
-            <label for="el-key">ElevenLabs</label>
-            <input id="el-key" type="password" placeholder="sk_…" autocomplete="off">
-            <button onclick="saveApiKeys()">Save</button>
+            <label for="el-key">API key</label>
+            <span class="api-badge empty" id="el-key-badge">not set</span>
+            <input id="el-key" type="password" placeholder="paste sk_… to replace" autocomplete="off">
+            <button type="button" onclick="saveApiKeys()">Save</button>
+            <button type="button" onclick="testApiKey()">Test</button>
           </div>
           <div class="api-row">
             <label for="el-voice">Voice ID</label>
-            <input id="el-voice" type="text" placeholder="voice_id from your EL dashboard" autocomplete="off">
-            <button onclick="saveApiKeys()">Save</button>
+            <span class="api-badge empty" id="el-voice-badge">not set</span>
+            <input id="el-voice" type="text" placeholder="voice_id" autocomplete="off">
+            <button type="button" onclick="saveApiKeys()">Save</button>
+            <button type="button" onclick="testVoice()">Test</button>
           </div>
           <p class="api-status" id="api-status"></p>
+          <div class="api-log" id="api-log" aria-live="polite"></div>
         </div>
         <p class="lesson-lead"><span class="hiragana-char clickable" onclick="speakChar('な')">な</span> <span class="romaji">na</span> <span class="hiragana-char clickable" onclick="speakChar('か')">か</span> <span class="romaji">ka</span></p>
 
@@ -209,13 +221,71 @@
       });
     }
 
+    function maskKey(k) {
+      if (!k) return '';
+      if (k.length <= 8) return 'sk-****';
+      var head = k.slice(0, 2) === 'sk' ? 'sk-' : k.slice(0, 3);
+      return head + '****' + k.slice(-4);
+    }
+
+    function maskVoice(v) {
+      if (!v) return '';
+      if (v.length <= 8) return v;
+      return v.slice(0, 4) + '…' + v.slice(-4);
+    }
+
+    function setStatus(msg, cls) {
+      var s = document.getElementById('api-status');
+      if (!s) return;
+      s.textContent = msg || '';
+      s.className = 'api-status' + (cls ? ' ' + cls : '');
+    }
+
+    function apiLog(msg, isErr) {
+      var el = document.getElementById('api-log');
+      if (!el) return;
+      var t = new Date().toTimeString().slice(0, 8);
+      el.classList.add('open');
+      el.classList.toggle('err', !!isErr);
+      el.textContent += '[' + t + '] ' + msg + '\n';
+      el.scrollTop = el.scrollHeight;
+      if (isErr) console.warn('[EL]', msg); else console.log('[EL]', msg);
+    }
+
+    function refreshCredBadges() {
+      var k = localStorage.getItem(EL_KEY_K) || '';
+      var v = localStorage.getItem(EL_VOICE_K) || '';
+      var kb = document.getElementById('el-key-badge');
+      var vb = document.getElementById('el-voice-badge');
+      if (kb) {
+        kb.textContent = k ? maskKey(k) : 'not set';
+        kb.classList.toggle('empty', !k);
+        kb.title = k ? maskKey(k) : '';
+      }
+      if (vb) {
+        vb.textContent = v ? maskVoice(v) : 'not set';
+        vb.classList.toggle('empty', !v);
+        vb.title = v || '';
+      }
+    }
+
     function saveApiKeys() {
       var k = document.getElementById('el-key').value.trim();
       var v = document.getElementById('el-voice').value.trim();
-      if (k) localStorage.setItem(EL_KEY_K, k);
-      if (v) localStorage.setItem(EL_VOICE_K, v);
-      var s = document.getElementById('api-status');
-      if (s) { s.textContent = 'Saved.'; setTimeout(function(){ s.textContent = ''; }, 2000); }
+      if (k) {
+        localStorage.setItem(EL_KEY_K, k);
+        document.getElementById('el-key').value = '';
+        document.getElementById('el-key').placeholder = 'saved — paste to replace';
+        apiLog('saved api key ' + maskKey(k));
+      }
+      if (v) {
+        localStorage.setItem(EL_VOICE_K, v);
+        document.getElementById('el-voice').value = '';
+        document.getElementById('el-voice').placeholder = 'saved — paste to replace';
+        apiLog('saved voice ' + v);
+      }
+      refreshCredBadges();
+      setStatus(k || v ? 'Saved.' : 'Nothing to save.', k || v ? 'ok' : 'err');
     }
 
     function loadApiKeys() {
@@ -223,8 +293,11 @@
       var v = localStorage.getItem(EL_VOICE_K);
       var ki = document.getElementById('el-key');
       var vi = document.getElementById('el-voice');
-      if (ki && k) ki.value = k;
-      if (vi && v) vi.value = v;
+      if (ki) ki.placeholder = k ? 'saved — paste to replace' : 'paste sk_… to replace';
+      if (vi) vi.placeholder = v ? 'saved — paste to replace' : 'voice_id';
+      refreshCredBadges();
+      if (k && v) apiLog('loaded key ' + maskKey(k) + ' voice ' + v);
+      else apiLog('missing credentials — enter API key and Voice ID', !k || !v);
     }
 
     function switchTab() {
@@ -232,29 +305,149 @@
       var btn   = document.getElementById('tab-api');
       var open  = panel.classList.toggle('open');
       btn.classList.toggle('open', open);
+      if (open) refreshCredBadges();
+    }
+
+    function testApiKey() {
+      var key = document.getElementById('el-key').value.trim() || localStorage.getItem(EL_KEY_K) || '';
+      if (!key) {
+        setStatus('No API key to test.', 'err');
+        apiLog('key test: no key', true);
+        return;
+      }
+      setStatus('Testing API key…');
+      apiLog('key test: GET /v1/user ' + maskKey(key));
+      fetch('https://api.elevenlabs.io/v1/user', {
+        headers: { 'xi-api-key': key }
+      })
+      .then(function(res) {
+        return res.text().then(function(t) {
+          return { ok: res.ok, status: res.status, body: t };
+        });
+      })
+      .then(function(r) {
+        if (!r.ok) {
+          setStatus('API key FAILED (HTTP ' + r.status + ')', 'err');
+          apiLog('key test HTTP ' + r.status + ' ' + r.body, true);
+          return;
+        }
+        var sub = '';
+        try {
+          var j = JSON.parse(r.body);
+          var s = j.subscription || {};
+          sub = ' (' + (s.tier || '?') + ', ' + (s.character_count != null ? s.character_count : '?') + ' used)';
+        } catch (e) {}
+        setStatus('API key OK' + sub, 'ok');
+        apiLog('key test OK HTTP 200' + sub);
+      })
+      .catch(function(err) {
+        setStatus('API key test error', 'err');
+        apiLog('key test network: ' + err.message, true);
+      });
+    }
+
+    function testVoice() {
+      var key = localStorage.getItem(EL_KEY_K) || '';
+      var voice = document.getElementById('el-voice').value.trim() || localStorage.getItem(EL_VOICE_K) || '';
+      if (!key) {
+        setStatus('Save API key first.', 'err');
+        apiLog('voice test: no api key', true);
+        return;
+      }
+      if (!voice) {
+        setStatus('No Voice ID to test.', 'err');
+        apiLog('voice test: no voice id', true);
+        return;
+      }
+      var sample = '多くの人々がいたが、';
+      setStatus('Testing voice…');
+      apiLog('voice test: POST ' + voice + ' "' + sample + '"');
+      var ctx = getElCtx();
+      if (!ctx) {
+        setStatus('No AudioContext.', 'err');
+        apiLog('voice test: no AudioContext', true);
+        return;
+      }
+      if (ctx.state === 'suspended') ctx.resume();
+      var t0 = performance.now();
+      fetch('https://api.elevenlabs.io/v1/text-to-speech/' + voice, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'xi-api-key': key },
+        body: JSON.stringify({
+          text: sample,
+          model_id: EL_MODEL_JA,
+          language_code: 'ja',
+          apply_language_text_normalization: true,
+          voice_settings: { stability: 0.5, similarity_boost: 0.75 }
+        })
+      })
+      .then(function(res) {
+        var ms = Math.round(performance.now() - t0);
+        if (!res.ok) {
+          return res.text().then(function(t) {
+            setStatus('Voice test FAILED (HTTP ' + res.status + ')', 'err');
+            apiLog('voice test HTTP ' + res.status + ' (' + ms + 'ms) ' + t, true);
+          });
+        }
+        apiLog('voice test HTTP 200 (' + ms + 'ms), decoding…');
+        return res.arrayBuffer().then(function(buf) {
+          if (ctx.state === 'suspended') ctx.resume();
+          return ctx.decodeAudioData(buf).then(function(decoded) {
+            var src = ctx.createBufferSource();
+            src.buffer = decoded;
+            src.connect(ctx.destination);
+            src.onended = function() {
+              setStatus('Voice OK — played ' + decoded.duration.toFixed(2) + 's', 'ok');
+              apiLog('voice test playback ended (' + decoded.duration.toFixed(2) + 's)');
+            };
+            src.start(0);
+            apiLog('voice test src.start ctx=' + ctx.state + ' bytes=' + buf.byteLength);
+          }, function(e) {
+            setStatus('Voice decode failed', 'err');
+            apiLog('voice test decodeAudioData: ' + (e && e.message || e), true);
+          });
+        });
+      })
+      .catch(function(err) {
+        setStatus('Voice test error', 'err');
+        apiLog('voice test network: ' + err.message, true);
+      });
     }
 
     function playViaEL(reading) {
       var key   = localStorage.getItem(EL_KEY_K)   || '';
       var voice = localStorage.getItem(EL_VOICE_K) || '';
-      if (!key || !voice) return;
+      if (!key || !voice) {
+        apiLog('playViaEL skipped — missing key/voice', true);
+        return;
+      }
       // Create/resume inside the click gesture — iOS Safari leaves a context
       // created after fetch suspended (silent playback).
       var ctx = getElCtx();
-      if (!ctx) return;
+      if (!ctx) {
+        apiLog('playViaEL: no AudioContext', true);
+        return;
+      }
       var body = { text: reading, model_id: EL_MODEL, voice_settings: { stability: 0.5, similarity_boost: 0.75 } };
       if (isJaText(reading)) {
         body.model_id = EL_MODEL_JA;
         body.language_code = 'ja';
         body.apply_language_text_normalization = true;
       }
+      var t0 = performance.now();
       fetch('https://api.elevenlabs.io/v1/text-to-speech/' + voice, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'xi-api-key': key },
         body: JSON.stringify(body)
       })
       .then(function(res) {
-        if (!res.ok) return res.text().then(function(t){ throw new Error(t); });
+        var ms = Math.round(performance.now() - t0);
+        if (!res.ok) {
+          return res.text().then(function(t) {
+            throw new Error('HTTP ' + res.status + ' ' + t);
+          });
+        }
+        apiLog('play "' + reading + '" HTTP 200 (' + ms + 'ms)');
         return res.arrayBuffer();
       })
       .then(function(buf) {
@@ -264,9 +457,12 @@
           src.buffer = decoded;
           src.connect(ctx.destination);
           src.start(0);
+          apiLog('play decoded ' + decoded.duration.toFixed(2) + 's ctx=' + ctx.state);
         });
       })
-      .catch(function(err) { console.warn('ElevenLabs:', err.message); });
+      .catch(function(err) {
+        apiLog('play "' + reading + '" FAIL: ' + err.message, true);
+      });
     }
 
     // After playViaEL so the archive strip (saveApiKeys → playViaEL) keeps it.
