@@ -1,23 +1,23 @@
 {
   "current": {
-    "n": 5,
-    "id": "soto",
-    "kanji": "外",
-    "word": "外",
-    "english": "Outside",
+    "n": 6,
+    "id": "michi",
+    "kanji": "道",
+    "word": "道",
+    "english": "Road, Way",
     "pairs": [
       [
-        "そ",
-        "so"
+        "み",
+        "mi"
       ],
       [
-        "と",
-        "to"
+        "ち",
+        "chi"
       ]
     ],
     "date": "2026-09-23",
     "file": "index.html",
-    "built": "2026-09-23T11:57:20"
+    "built": "2026-09-23T11:57:40"
   },
   "published": [
     {
@@ -99,6 +99,26 @@
       "date": "2026-09-23",
       "file": "archive/naka.html",
       "built": "2026-09-23T11:53:09"
+    },
+    {
+      "n": 5,
+      "id": "soto",
+      "kanji": "外",
+      "word": "外",
+      "english": "Outside",
+      "pairs": [
+        [
+          "そ",
+          "so"
+        ],
+        [
+          "と",
+          "to"
+        ]
+      ],
+      "date": "2026-09-23",
+      "file": "archive/soto.html",
+      "built": "2026-09-23T11:57:20"
     }
   ]
 }
