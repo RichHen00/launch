@@ -104,27 +104,11 @@
   <main>
     <article class="lesson">
       <header>
-        <p class="date">2026-09-23 · North</p>
+        <p class="date"><a href="../index.html">Home</a> · 2026-09-23 · North</p>
       </header>
       <section class="lesson-content" aria-label="Lesson content">
         <div class="tab-bar">
           <h2><span class="clickable" onclick="playSound('きた')">北</span> <span class="ja clickable" lang="ja" onclick="playSound('きた')">きた</span> <span class="meaning">North</span></h2>
-          <button class="tab-btn" id="tab-api" onclick="switchTab()">API</button>
-        </div>
-        <div class="api-panel" id="api-panel">
-          <div class="api-row">
-            <label for="el-key">API key</label>
-            <input id="el-key" type="text" placeholder="paste sk_…" autocomplete="off" spellcheck="false">
-            <button type="button" onclick="testApiKey()">Test</button>
-          </div>
-          <div class="api-row">
-            <label for="el-voice">Voice ID</label>
-            <input id="el-voice" type="text" placeholder="voice_id" autocomplete="off" spellcheck="false">
-            <button type="button" onclick="testVoice()">Test</button>
-          </div>
-          <p class="api-status" id="api-status"></p>
-          <div class="api-log" id="api-log" aria-live="polite"></div>
-          <p style="margin:8px 0 0;font-size:12px;color:var(--muted);">If Test plays but the word does not: check tab mute (right-click tab), OS output for this tab, and hard-refresh (GitHub caches ~600s).</p>
         </div>
         <p class="lesson-lead"><span class="hiragana-char clickable" onclick="playSound('き')">き</span> <span class="romaji">ki</span> <span class="hiragana-char clickable" onclick="playSound('た')">た</span> <span class="romaji">ta</span></p>
 
@@ -140,22 +124,8 @@
           </div>
         </div>
       </section>
-      <p class="font-link"><img src="assets/stamp.jpeg" alt=""><span class="date-stamp" id="timestamp">23-09-2026 12:13</span><a href="https://googlefonts.github.io/japanese/#nicomoji" target="_blank" rel="noopener">G Fonts Japanese types</a></p>
+      <p class="font-link"><img src="assets/stamp.jpeg" alt=""><a href="https://googlefonts.github.io/japanese/#nicomoji" target="_blank" rel="noopener">G Fonts Japanese types</a></p>
     </article>
-    <div class="characters" aria-label="Archive">
-      <div class="characters-heading"><h2>Archive</h2></div>
-      <p class="lesson-lead"><a class="date" href="archive/kita.html">2026-09-23</a> &middot; 北 北 <span class="meaning" style="color:#d64747;">North</span> &middot; <span class="hiragana-char">き</span> <span class="romaji">ki</span> <span class="hiragana-char">た</span> <span class="romaji">ta</span></p>
-      <p class="lesson-lead"><a class="date" href="archive/shingou.html">2026-09-23</a> &middot; 信号 信号 <span class="meaning" style="color:#d64747;">Traffic Light</span> &middot; <span class="hiragana-char">し</span> <span class="romaji">shi</span> <span class="hiragana-char">ん</span> <span class="romaji">n</span> <span class="hiragana-char">ご</span> <span class="romaji">go</span> <span class="hiragana-char">う</span> <span class="romaji">u</span></p>
-      <p class="lesson-lead"><a class="date" href="archive/kousaten.html">2026-09-23</a> &middot; 交差点 交差点 <span class="meaning" style="color:#d64747;">Intersection</span> &middot; <span class="hiragana-char">こ</span> <span class="romaji">ko</span> <span class="hiragana-char">う</span> <span class="romaji">u</span> <span class="hiragana-char">さ</span> <span class="romaji">sa</span> <span class="hiragana-char">て</span> <span class="romaji">te</span> <span class="hiragana-char">ん</span> <span class="romaji">n</span></p>
-      <p class="lesson-lead"><a class="date" href="archive/juusho.html">2026-09-23</a> &middot; 住所 住所 <span class="meaning" style="color:#d64747;">Address</span> &middot; <span class="hiragana-char">じゅ</span> <span class="romaji">ju</span> <span class="hiragana-char">う</span> <span class="romaji">u</span> <span class="hiragana-char">しょ</span> <span class="romaji">sho</span></p>
-      <p class="lesson-lead"><a class="date" href="archive/chizu.html">2026-09-23</a> &middot; 地図 地図 <span class="meaning" style="color:#d64747;">Map</span> &middot; <span class="hiragana-char">ち</span> <span class="romaji">chi</span> <span class="hiragana-char">ず</span> <span class="romaji">zu</span></p>
-      <p class="lesson-lead"><a class="date" href="archive/michi.html">2026-09-23</a> &middot; 道 道 <span class="meaning" style="color:#d64747;">Road, Way</span> &middot; <span class="hiragana-char">み</span> <span class="romaji">mi</span> <span class="hiragana-char">ち</span> <span class="romaji">chi</span></p>
-      <p class="lesson-lead"><a class="date" href="archive/soto.html">2026-09-23</a> &middot; 外 外 <span class="meaning" style="color:#d64747;">Outside</span> &middot; <span class="hiragana-char">そ</span> <span class="romaji">so</span> <span class="hiragana-char">と</span> <span class="romaji">to</span></p>
-      <p class="lesson-lead"><a class="date" href="archive/naka.html">2026-09-23</a> &middot; 中 中 <span class="meaning" style="color:#d64747;">Inside</span> &middot; <span class="hiragana-char">な</span> <span class="romaji">na</span> <span class="hiragana-char">か</span> <span class="romaji">ka</span></p>
-      <p class="lesson-lead"><a class="date" href="archive/shita.html">2026-09-23</a> &middot; 下 下 <span class="meaning" style="color:#d64747;">Down, Below</span> &middot; <span class="hiragana-char">し</span> <span class="romaji">shi</span> <span class="hiragana-char">た</span> <span class="romaji">ta</span></p>
-      <p class="lesson-lead"><a class="date" href="archive/ue.html">2026-09-23</a> &middot; 上 上 <span class="meaning" style="color:#d64747;">Up, Above</span> &middot; <span class="hiragana-char">う</span> <span class="romaji">u</span> <span class="hiragana-char">え</span> <span class="romaji">e</span></p>
-      <p class="lesson-lead"><a class="date" href="archive/hito.html">2026-09-23</a> &middot; 人 人 <span class="meaning" style="color:#d64747;">Person, People</span> &middot; <span class="hiragana-char">ひ</span> <span class="romaji">hi</span> <span class="hiragana-char">と</span> <span class="romaji">to</span></p>
-    </div>
   </main>
   <script>
     var EL_KEY_K   = 'el_api_key';
@@ -363,165 +333,7 @@
 
     function playViaEL(reading) {
       playSound(reading);
-    }
-
-    function maskKey(k) {
-      if (!k) return '';
-      if (k.length <= 8) return 'sk-****';
-      var head = k.slice(0, 2) === 'sk' ? 'sk-' : k.slice(0, 3);
-      return head + '****' + k.slice(-4);
-    }
-
-    function maskVoice(v) {
-      if (!v) return '';
-      if (v.length <= 8) return v;
-      return v.slice(0, 4) + '…' + v.slice(-4);
-    }
-
-    function setStatus(msg, cls) {
-      var s = document.getElementById('api-status');
-      if (!s) return;
-      s.textContent = msg || '';
-      s.className = 'api-status' + (cls ? ' ' + cls : '');
-    }
-
-    // One field per credential: idle mask/id; click to edit; blur/Enter saves.
-    function setupCredField(id, storageKey, maskFn, emptyPh) {
-      var input = document.getElementById(id);
-      if (!input) return null;
-      var stored = localStorage.getItem(storageKey) || '';
-
-      function showIdle() {
-        input.readOnly = true;
-        input.classList.add('cred-idle');
-        if (stored) {
-          input.type = 'text';
-          input.value = maskFn(stored);
-          input.placeholder = '';
-          input.classList.remove('cred-empty');
-          input.title = 'Click to replace';
-        } else {
-          input.type = 'text';
-          input.value = '';
-          input.placeholder = emptyPh;
-          input.classList.add('cred-empty');
-          input.title = '';
-        }
-      }
-
-      function beginEdit() {
-        if (!input.readOnly) return;
-        input.readOnly = false;
-        input.classList.remove('cred-idle', 'cred-empty');
-        input.value = stored;
-        input.placeholder = stored ? maskFn(stored) + ' — paste to replace' : emptyPh;
-        input.type = (id === 'el-key') ? 'password' : 'text';
-        input.select();
-      }
-
-      function commit() {
-        var v = input.value.trim();
-        if (v && v !== maskFn(stored) && v !== stored) {
-          localStorage.setItem(storageKey, v);
-          stored = v;
-          apiLog(id === 'el-key' ? 'saved key ' + maskKey(v) : 'saved voice ' + v);
-          setStatus('Saved.', 'ok');
-        }
-        showIdle();
-      }
-
-      input.addEventListener('focus', beginEdit);
-      input.addEventListener('click', beginEdit);
-      input.addEventListener('blur', commit);
-      input.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter') { e.preventDefault(); input.blur(); }
-        if (e.key === 'Escape') { input.value = stored; input.blur(); }
-      });
-      showIdle();
-      return {
-        refresh: function () {
-          stored = localStorage.getItem(storageKey) || '';
-          if (input.readOnly) showIdle();
-        }
-      };
-    }
-
-    var credKeyField = null;
-    var credVoiceField = null;
-
-    function loadApiKeys() {
-      credKeyField = setupCredField('el-key', EL_KEY_K, maskKey, 'paste sk_…');
-      credVoiceField = setupCredField('el-voice', EL_VOICE_K, maskVoice, 'voice_id');
-      var k = localStorage.getItem(EL_KEY_K);
-      var v = localStorage.getItem(EL_VOICE_K);
-      if (k && v) setStatus('Credentials ready.', 'ok');
-      else setStatus('Click a field to set credentials.', '');
-    }
-
-    function switchTab() {
-      var panel = document.getElementById('api-panel');
-      var btn   = document.getElementById('tab-api');
-      var open  = panel.classList.toggle('open');
-      btn.classList.toggle('open', open);
-      if (open) {
-        if (credKeyField) credKeyField.refresh();
-        if (credVoiceField) credVoiceField.refresh();
-      }
-    }
-
-    function testApiKey() {
-      var key = activeKey();
-      if (!key) {
-        setStatus('Enter an API key first.', 'err');
-        return;
-      }
-      setStatus('Testing API key…');
-      apiLog('key test GET /v1/user ' + maskKey(key));
-      fetch('https://api.elevenlabs.io/v1/user', {
-        headers: { 'xi-api-key': key }
-      })
-      .then(function(res) {
-        return res.text().then(function(t) {
-          return { ok: res.ok, status: res.status, body: t };
-        });
-      })
-      .then(function(r) {
-        if (!r.ok) {
-          setStatus('Key failed (HTTP ' + r.status + ').', 'err');
-          apiLog('key HTTP ' + r.status + ' ' + r.body, true);
-          return;
-        }
-        var sub = '';
-        try {
-          var j = JSON.parse(r.body);
-          var s = j.subscription || {};
-          sub = ' — ' + (s.tier || '?') + ', ' + (s.character_count != null ? s.character_count : '?') + ' chars used';
-        } catch (e) {}
-        setStatus('Key OK' + sub, 'ok');
-        apiLog('key OK' + sub);
-      })
-      .catch(function(err) {
-        setStatus('Key test error.', 'err');
-        apiLog('key network: ' + err.message, true);
-      });
-    }
-
-    function testVoice() {
-      var key = activeKey();
-      var voice = activeVoice();
-      if (!key) { setStatus('Set API key first.', 'err'); return; }
-      if (!voice) { setStatus('Enter a Voice ID first.', 'err'); return; }
-      var sample = '多くの人々がいたが、';
-      setStatus('Testing voice…');
-      apiLog('voice test ' + voice + ' "' + sample + '"');
-      elTts(voice, sample, function (ok, detail) {
-        setStatus(ok ? 'Voice OK — ' + detail : detail, ok ? 'ok' : 'err');
-      });
-    }
-
-    // After playSound/playViaEL so the archive strip (credential UI → playSound) keeps it.
-    // Function declaration is hoisted; playSound may call it before this line runs.
-    var elCtx = null;
+    }var elCtx = null;
     function getElCtx() {
       if (!elCtx) {
         var AC = window.AudioContext || window.webkitAudioContext;
@@ -599,7 +411,6 @@
       svg.classList.add('playing');
     }
     (function () {
-      loadApiKeys();
       refreshVoices();
       if (window.speechSynthesis && window.speechSynthesis.onvoiceschanged !== undefined) {
         window.speechSynthesis.onvoiceschanged = refreshVoices;
