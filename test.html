@@ -47,6 +47,7 @@
     <input id="sample" type="text" value="うえ">
     <button onclick="playRaw()">5. Play raw mp3 (no decode)</button>
     <button onclick="playRaw('本当にすばらしい旅だった。')">5b. Raw 本当にすばらしい旅だった。</button>
+    <button onclick="copyLog()">Copy log</button>
     <button onclick="document.getElementById('log').textContent=''">Clear log</button>
   </div>
 
@@ -179,10 +180,42 @@
       return { k: k, v: v };
     }
 
+    function copyLog() {
+      var text = document.getElementById('log').innerText;
+      function fallback() {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand('copy');
+          log('copied via execCommand (' + text.length + ' chars)', 'ok');
+        } catch (e) {
+          log('copy failed: ' + e.message, 'err');
+        }
+        document.body.removeChild(ta);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function() {
+          log('copied via clipboard API (' + text.length + ' chars)', 'ok');
+        }, function(e) {
+          log('clipboard API failed (' + e.message + ') — trying execCommand', 'warn');
+          fallback();
+        });
+      } else {
+        fallback();
+      }
+    }
+
     function playViaEL(reading) {
       log('— playViaEL("' + reading + '") —', 'info');
       var creds = getKeys();
       if (!creds.k || !creds.v) return;
+      log('using voice id="' + creds.v + '" (len=' + creds.v.length +
+          ', trimmed=' + creds.v.trim().length + ')');
+      if (creds.v !== creds.v.trim()) log('voice id has leading/trailing whitespace!', 'err');
       var ctx = getElCtx();
       if (!ctx) return;
       log('ctx.state before fetch=' + ctx.state);
@@ -243,6 +276,7 @@
       log('— playRaw (blob URL via <audio>) —', 'info');
       var creds = getKeys();
       if (!creds.k || !creds.v) return;
+      log('using voice id="' + creds.v + '" (len=' + creds.v.length + ')');
       var text = typeof textOverride === 'string' ? textOverride : document.getElementById('sample').value;
       log('text="' + text + '"');
       fetch('https://api.elevenlabs.io/v1/text-to-speech/' + creds.v, {
