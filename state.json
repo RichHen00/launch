@@ -1,23 +1,23 @@
 {
   "current": {
-    "n": 4,
-    "id": "naka",
-    "kanji": "中",
-    "word": "中",
-    "english": "Inside",
+    "n": 5,
+    "id": "soto",
+    "kanji": "外",
+    "word": "外",
+    "english": "Outside",
     "pairs": [
       [
-        "な",
-        "na"
+        "そ",
+        "so"
       ],
       [
-        "か",
-        "ka"
+        "と",
+        "to"
       ]
     ],
     "date": "2026-09-23",
     "file": "index.html",
-    "built": "2026-09-23T11:53:09"
+    "built": "2026-09-23T11:57:20"
   },
   "published": [
     {
@@ -78,6 +78,26 @@
       ],
       "date": "2026-09-23",
       "file": "archive/shita.html",
+      "built": "2026-09-23T11:53:09"
+    },
+    {
+      "n": 4,
+      "id": "naka",
+      "kanji": "中",
+      "word": "中",
+      "english": "Inside",
+      "pairs": [
+        [
+          "な",
+          "na"
+        ],
+        [
+          "か",
+          "ka"
+        ]
+      ],
+      "date": "2026-09-23",
+      "file": "archive/naka.html",
       "built": "2026-09-23T11:53:09"
     }
   ]
