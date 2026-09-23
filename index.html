@@ -124,6 +124,7 @@
           </div>
           <p class="api-status" id="api-status"></p>
           <div class="api-log" id="api-log" aria-live="polite"></div>
+          <p style="margin:8px 0 0;font-size:12px;color:var(--muted);">If Test plays but the word does not: check tab mute (right-click tab), OS output for this tab, and hard-refresh (GitHub caches ~600s).</p>
         </div>
         <p class="lesson-lead"><span class="hiragana-char clickable" onclick="playSound('な')">な</span> <span class="romaji">na</span> <span class="hiragana-char clickable" onclick="playSound('か')">か</span> <span class="romaji">ka</span></p>
 
@@ -422,27 +423,81 @@
           });
         }
         return res.arrayBuffer().then(function(buf) {
-          if (ctx.state === 'suspended') ctx.resume();
-          return ctx.decodeAudioData(buf).then(function(decoded) {
-            var src = ctx.createBufferSource();
-            src.buffer = decoded;
-            src.connect(ctx.destination);
-            src.onended = function () {
-              var d = decoded.duration.toFixed(2) + 's';
-              apiLog('played "' + text + '" ' + d + ' (' + ms + 'ms)');
-              if (cb) cb(true, d);
-            };
-            src.start(0);
-            apiLog('tts HTTP 200 (' + ms + 'ms) ctx=' + ctx.state);
-          }, function (e) {
-            apiLog('decode: ' + (e && e.message || e), true);
-            if (cb) cb(false, 'Decode failed.');
-          });
+          // Prefer <audio> blob playback — same path as test page 5b.
+          // Web Audio BufferSource can fire onended while silent (output
+          // routing / muted sink); HTMLAudioElement surfaces play() errors.
+          var blob = new Blob([buf], { type: 'audio/mpeg' });
+          var url = URL.createObjectURL(blob);
+          var el = new Audio(url);
+          el.volume = 1;
+          var finished = false;
+          function done(ok, detail) {
+            if (finished) return;
+            finished = true;
+            URL.revokeObjectURL(url);
+            if (cb) cb(ok, detail);
+          }
+          el.onended = function () {
+            var d = (el.duration && isFinite(el.duration)) ? el.duration.toFixed(2) + 's' : '?s';
+            apiLog('played "' + text + '" <audio> ' + d + ' (' + ms + 'ms)');
+            done(true, d);
+          };
+          el.onerror = function () {
+            var err = (el.error && el.error.message) || 'unknown';
+            apiLog('<audio> error: ' + err + ' — falling back to AudioContext', true);
+            playViaWebAudio(ctx, buf, text, ms, cb, done);
+          };
+          apiLog('tts HTTP 200 (' + ms + 'ms) bytes=' + buf.byteLength + ' ctx=' + ctx.state);
+          var p = el.play();
+          if (p && p.then) {
+            p.then(function () {
+              apiLog('<audio>.play() ok');
+            }, function (e) {
+              apiLog('<audio>.play() REJECTED: ' + (e && e.message) + ' — AudioContext fallback', true);
+              playViaWebAudio(ctx, buf, text, ms, cb, done);
+            });
+          }
         });
       })
       .catch(function (err) {
         apiLog('tts network: ' + err.message, true);
         if (cb) cb(false, 'Network error.');
+      });
+    }
+
+    function playViaWebAudio(ctx, buf, text, ms, cb, done) {
+      if (!ctx) {
+        apiLog('no AudioContext for fallback', true);
+        if (done) done(false, 'No audio output.');
+        return;
+      }
+      var p = (ctx.state === 'suspended') ? ctx.resume() : Promise.resolve();
+      Promise.resolve(p).then(function () {
+        return ctx.decodeAudioData(buf.slice(0));
+      }).then(function (decoded) {
+        var peak = 0;
+        var data = decoded.getChannelData(0);
+        for (var i = 0; i < data.length; i += 32) {
+          var a = data[i] < 0 ? -data[i] : data[i];
+          if (a > peak) peak = a;
+        }
+        apiLog('WebAudio decode ' + decoded.duration.toFixed(2) + 's peak=' + peak.toFixed(3) + ' sr=' + decoded.sampleRate);
+        var src = ctx.createBufferSource();
+        src.buffer = decoded;
+        src.connect(ctx.destination);
+        src.onended = function () {
+          var d = decoded.duration.toFixed(2) + 's';
+          apiLog('played "' + text + '" WebAudio ' + d + ' (' + ms + 'ms)');
+          if (done) done(true, d);
+        };
+        src.start(0);
+        apiLog('WebAudio src.start ctx=' + ctx.state);
+      }, function (e) {
+        apiLog('WebAudio decode fail: ' + (e && e.message || e), true);
+        if (done) done(false, 'Decode failed.');
+      }).catch(function (e) {
+        apiLog('WebAudio fail: ' + (e && e.message || e), true);
+        if (done) done(false, 'Audio failed.');
       });
     }
 
@@ -463,16 +518,21 @@
       playSound(reading);
     }
 
-    // After playViaEL so the archive strip (saveApiKeys → playViaEL) keeps it.
-    // Function declaration is hoisted; playViaEL may call it before this line runs.
     var elCtx = null;
     function getElCtx() {
       if (!elCtx) {
         var AC = window.AudioContext || window.webkitAudioContext;
         if (!AC) return null;
         elCtx = new AC();
+        apiLog('AudioContext created sr=' + elCtx.sampleRate + ' state=' + elCtx.state);
       }
-      if (elCtx.state === 'suspended') elCtx.resume();
+      if (elCtx.state === 'suspended') {
+        elCtx.resume().then(function () {
+          apiLog('AudioContext resumed state=' + elCtx.state);
+        }, function (e) {
+          apiLog('AudioContext resume REJECTED: ' + (e && e.message), true);
+        });
+      }
       return elCtx;
     }
 
@@ -517,6 +577,9 @@
       document.addEventListener('click', function (e) {
         var t = e.target.closest('[data-reading]');
         if (t) playViaEL(t.getAttribute('data-reading'));
+      });
+      document.addEventListener('visibilitychange', function () {
+        apiLog('visibility=' + document.visibilityState + ' ctx=' + (elCtx ? elCtx.state : 'none'));
       });
       var date = document.querySelector('.date');
       var text = date ? date.textContent : '';
