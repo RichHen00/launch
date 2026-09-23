@@ -1,27 +1,35 @@
 {
   "current": {
-    "n": 8,
-    "id": "juusho",
-    "kanji": "住所",
-    "word": "住所",
-    "english": "Address",
+    "n": 9,
+    "id": "kousaten",
+    "kanji": "交差点",
+    "word": "交差点",
+    "english": "Intersection",
     "pairs": [
       [
-        "じゅ",
-        "ju"
+        "こ",
+        "ko"
       ],
       [
         "う",
         "u"
       ],
       [
-        "しょ",
-        "sho"
+        "さ",
+        "sa"
+      ],
+      [
+        "て",
+        "te"
+      ],
+      [
+        "ん",
+        "n"
       ]
     ],
     "date": "2026-09-23",
     "file": "index.html",
-    "built": "2026-09-23T12:04:08"
+    "built": "2026-09-23T12:04:17"
   },
   "published": [
     {
@@ -163,6 +171,30 @@
       "date": "2026-09-23",
       "file": "archive/chizu.html",
       "built": "2026-09-23T12:03:52"
+    },
+    {
+      "n": 8,
+      "id": "juusho",
+      "kanji": "住所",
+      "word": "住所",
+      "english": "Address",
+      "pairs": [
+        [
+          "じゅ",
+          "ju"
+        ],
+        [
+          "う",
+          "u"
+        ],
+        [
+          "しょ",
+          "sho"
+        ]
+      ],
+      "date": "2026-09-23",
+      "file": "archive/juusho.html",
+      "built": "2026-09-23T12:04:08"
     }
   ]
 }
