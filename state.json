@@ -1,23 +1,23 @@
 {
   "current": {
-    "n": 2,
-    "id": "ue",
-    "kanji": "上",
-    "word": "上",
-    "english": "Up, Above",
+    "n": 3,
+    "id": "shita",
+    "kanji": "下",
+    "word": "下",
+    "english": "Down, Below",
     "pairs": [
       [
-        "う",
-        "u"
+        "し",
+        "shi"
       ],
       [
-        "え",
-        "e"
+        "た",
+        "ta"
       ]
     ],
-    "date": "2026-09-22",
+    "date": "2026-09-23",
     "file": "index.html",
-    "built": "2026-09-22T21:03:33"
+    "built": "2026-09-23T10:43:36"
   },
   "published": [
     {
@@ -39,6 +39,26 @@
       "date": "2026-09-22",
       "file": "archive/hito.html",
       "built": "2026-09-22T19:13:57"
+    },
+    {
+      "n": 2,
+      "id": "ue",
+      "kanji": "上",
+      "word": "上",
+      "english": "Up, Above",
+      "pairs": [
+        [
+          "う",
+          "u"
+        ],
+        [
+          "え",
+          "e"
+        ]
+      ],
+      "date": "2026-09-22",
+      "file": "archive/ue.html",
+      "built": "2026-09-22T21:03:33"
     }
   ]
 }

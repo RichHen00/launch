@@ -97,25 +97,11 @@
   <main>
     <article class="lesson">
       <header>
-        <p class="date">2026-09-22 · Up, Above</p>
+        <p class="date"><a href="../index.html">Home</a> · 2026-09-22 · Up, Above</p>
       </header>
       <section class="lesson-content" aria-label="Lesson content">
         <div class="tab-bar">
           <h2><span class="clickable" onclick="playViaEL('うえ')">上</span> <span class="ja clickable" lang="ja" onclick="playViaEL('うえ')">うえ</span> <span class="meaning">Up, Above</span></h2>
-          <button class="tab-btn" id="tab-api" onclick="switchTab()">API</button>
-        </div>
-        <div class="api-panel" id="api-panel">
-          <div class="api-row">
-            <label for="el-key">ElevenLabs</label>
-            <input id="el-key" type="password" placeholder="sk_…" autocomplete="off">
-            <button onclick="saveApiKeys()">Save</button>
-          </div>
-          <div class="api-row">
-            <label for="el-voice">Voice ID</label>
-            <input id="el-voice" type="text" placeholder="voice_id from your EL dashboard" autocomplete="off">
-            <button onclick="saveApiKeys()">Save</button>
-          </div>
-          <p class="api-status" id="api-status"></p>
         </div>
         <p class="lesson-lead"><span class="hiragana-char clickable" onclick="speakChar('う')">う</span> <span class="romaji">u</span> <span class="hiragana-char clickable" onclick="speakChar('え')">え</span> <span class="romaji">e</span></p>
 
@@ -131,12 +117,8 @@
           </div>
         </div>
       </section>
-      <p class="font-link"><img src="assets/stamp.jpeg" alt=""><span class="date-stamp" id="timestamp">22-09-2026 21:03</span><a href="https://googlefonts.github.io/japanese/#nicomoji" target="_blank" rel="noopener">G Fonts Japanese types</a></p>
+      <p class="font-link"><img src="assets/stamp.jpeg" alt=""><a href="https://googlefonts.github.io/japanese/#nicomoji" target="_blank" rel="noopener">G Fonts Japanese types</a></p>
     </article>
-    <div class="characters" aria-label="Archive">
-      <div class="characters-heading"><h2>Archive</h2></div>
-      <p class="lesson-lead"><a class="date" href="archive/hito.html">2026-09-22</a> &middot; 人 人 <span class="meaning" style="color:#d64747;">Person, People</span> &middot; <span class="hiragana-char">ひ</span> <span class="romaji">hi</span> <span class="hiragana-char">と</span> <span class="romaji">to</span></p>
-    </div>
   </main>
   <script>
     var EL_KEY_K   = 'el_api_key';
@@ -207,50 +189,10 @@
       });
     }
 
-    function saveApiKeys() {
-      var k = document.getElementById('el-key').value.trim();
-      var v = document.getElementById('el-voice').value.trim();
-      if (k) localStorage.setItem(EL_KEY_K, k);
-      if (v) localStorage.setItem(EL_VOICE_K, v);
-      var s = document.getElementById('api-status');
-      if (s) { s.textContent = 'Saved.'; setTimeout(function(){ s.textContent = ''; }, 2000); }
-    }
-
-    function loadApiKeys() {
-      var k = localStorage.getItem(EL_KEY_K);
-      var v = localStorage.getItem(EL_VOICE_K);
-      var ki = document.getElementById('el-key');
-      var vi = document.getElementById('el-voice');
-      if (ki && k) ki.value = k;
-      if (vi && v) vi.value = v;
-    }
-
-    function switchTab() {
-      var panel = document.getElementById('api-panel');
-      var btn   = document.getElementById('tab-api');
-      var open  = panel.classList.toggle('open');
-      btn.classList.toggle('open', open);
-    }
-
-    var elCtx = null;
-    function getElCtx() {
-      if (!elCtx) {
-        var AC = window.AudioContext || window.webkitAudioContext;
-        if (!AC) return null;
-        elCtx = new AC();
-      }
-      if (elCtx.state === 'suspended') elCtx.resume();
-      return elCtx;
-    }
-
     function playViaEL(reading) {
       var key   = localStorage.getItem(EL_KEY_K)   || '';
       var voice = localStorage.getItem(EL_VOICE_K) || '';
       if (!key || !voice) return;
-      // Create/resume the AudioContext inside the click gesture (iOS Safari
-      // keeps contexts created after fetch suspended → silent playback).
-      var ctx = getElCtx();
-      if (!ctx) return;
       var body = { text: reading, model_id: EL_MODEL, voice_settings: { stability: 0.5, similarity_boost: 0.75 } };
       if (isJaText(reading)) {
         body.model_id = EL_MODEL_JA;
@@ -267,7 +209,7 @@
         return res.arrayBuffer();
       })
       .then(function(buf) {
-        if (ctx.state === 'suspended') ctx.resume();
+        var ctx = new (window.AudioContext || window.webkitAudioContext)();
         return ctx.decodeAudioData(buf).then(function(decoded) {
           var src = ctx.createBufferSource();
           src.buffer = decoded;
@@ -310,7 +252,6 @@
       svg.classList.add('playing');
     }
     (function () {
-      loadApiKeys();
       refreshVoices();
       if (window.speechSynthesis && window.speechSynthesis.onvoiceschanged !== undefined) {
         window.speechSynthesis.onvoiceschanged = refreshVoices;
