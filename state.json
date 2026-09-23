@@ -1,64 +1,31 @@
 {
   "current": {
-    "n": 344,
-    "id": "benkyou",
-    "kanji": "勉強",
-    "word": "勉強",
-    "english": "Study",
+    "n": 343,
+    "id": "annai",
+    "kanji": "案内",
+    "word": "案内",
+    "english": "Guidance, Information",
     "pairs": [
       [
-        "べ",
-        "be"
+        "あ",
+        "a"
       ],
       [
         "ん",
         "n"
       ],
       [
-        "き",
-        "ki"
+        "な",
+        "na"
       ],
       [
-        "ょ",
-        "yo"
-      ],
-      [
-        "う",
-        "u"
+        "い",
+        "i"
       ]
     ],
     "date": "2026-09-23",
     "file": "index.html",
-    "built": "2026-09-23T13:53:55"
+    "built": "2026-09-23T14:06:32"
   },
-  "published": [
-    {
-      "n": 343,
-      "id": "annai",
-      "kanji": "案内",
-      "word": "案内",
-      "english": "Guidance, Information",
-      "pairs": [
-        [
-          "あ",
-          "a"
-        ],
-        [
-          "ん",
-          "n"
-        ],
-        [
-          "な",
-          "na"
-        ],
-        [
-          "い",
-          "i"
-        ]
-      ],
-      "date": "2026-09-23",
-      "file": "archive/annai.html",
-      "built": "2026-09-23T13:51:45"
-    }
-  ]
+  "published": []
 }
