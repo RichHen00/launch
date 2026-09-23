@@ -3,13 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>EL / Audio test</title>
+  <title>ElevenLabs Japanese</title>
   <style>
     body { font-family: system-ui, sans-serif; margin: 16px; line-height: 1.4; }
     h1 { font-size: 18px; }
     .row { display: flex; gap: 8px; margin: 8px 0; align-items: center; flex-wrap: wrap; }
     label { min-width: 80px; font-size: 13px; color: #555; }
     input { flex: 1; min-width: 180px; font-size: 14px; padding: 6px 8px; border: 1px solid #ccc; border-radius: 4px; }
+    input.cred-idle { color: #666; background: #fafafa; font-family: ui-monospace, monospace; cursor: text; }
+    input.cred-empty { color: #aaa; font-style: italic; font-family: system-ui, sans-serif; }
     button { font-size: 14px; padding: 8px 14px; border: 1px solid #888; border-radius: 4px; background: #fff; cursor: pointer; }
     button:active { background: #eee; }
     #log { margin-top: 16px; padding: 12px; background: #111; color: #0f0; font-family: ui-monospace, monospace; font-size: 12px; white-space: pre-wrap; word-break: break-all; max-height: 70vh; overflow: auto; }
@@ -22,17 +24,17 @@
   </style>
 </head>
 <body>
-  <h1>ElevenLabs / Audio iOS test</h1>
+  <h1>ElevenLabs Japanese</h1>
 
   <div class="row">
     <label for="el-key">API key</label>
-    <input id="el-key" type="password" placeholder="sk_…" autocomplete="off">
-    <button onclick="saveKeys()">Save</button>
+    <input id="el-key" type="text" placeholder="paste sk_…" autocomplete="off" spellcheck="false">
+    <button onclick="testApiKey()">Test</button>
   </div>
   <div class="row">
     <label for="el-voice">Voice ID</label>
-    <input id="el-voice" type="text" placeholder="voice_id" autocomplete="off">
-    <button onclick="saveKeys()">Save</button>
+    <input id="el-voice" type="text" placeholder="voice_id" autocomplete="off" spellcheck="false">
+    <button onclick="testVoice()">Test</button>
   </div>
 
   <div class="row">
@@ -77,24 +79,176 @@
       console.log('[EL test]', msg);
     }
 
+    function maskKey(k) {
+      if (!k) return '';
+      if (k.length <= 8) return 'sk-****';
+      var head = k.slice(0, 2) === 'sk' ? 'sk-' : k.slice(0, 3);
+      return head + '****' + k.slice(-4);
+    }
+
+    function maskVoice(v) {
+      if (!v) return '';
+      if (v.length <= 8) return v;
+      return v.slice(0, 4) + '…' + v.slice(-4);
+    }
+
+    // One field per credential: idle shows mask/id; click to edit; blur saves.
+    function setupCredField(id, storageKey, maskFn, emptyPh) {
+      var input = document.getElementById(id);
+      if (!input) return null;
+      var stored = localStorage.getItem(storageKey) || '';
+
+      function showIdle() {
+        input.readOnly = true;
+        input.classList.add('cred-idle');
+        if (stored) {
+          input.type = 'text';
+          input.value = maskFn(stored);
+          input.placeholder = '';
+          input.classList.remove('cred-empty');
+          input.title = 'Click to replace';
+        } else {
+          input.type = 'text';
+          input.value = '';
+          input.placeholder = emptyPh;
+          input.classList.add('cred-empty');
+          input.title = '';
+        }
+      }
+
+      function beginEdit() {
+        if (!input.readOnly) return;
+        input.readOnly = false;
+        input.classList.remove('cred-idle', 'cred-empty');
+        input.value = stored;
+        input.placeholder = stored ? maskFn(stored) + ' — paste to replace' : emptyPh;
+        input.type = (id === 'el-key') ? 'password' : 'text';
+        input.select();
+      }
+
+      function commit() {
+        var v = input.value.trim();
+        if (v && v !== maskFn(stored) && v !== stored) {
+          localStorage.setItem(storageKey, v);
+          stored = v;
+          log('saved ' + (id === 'el-key' ? 'key ' + maskKey(v) : 'voice ' + v), 'ok');
+        }
+        showIdle();
+        renderState();
+      }
+
+      input.addEventListener('focus', beginEdit);
+      input.addEventListener('click', beginEdit);
+      input.addEventListener('blur', commit);
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') { e.preventDefault(); input.blur(); }
+        if (e.key === 'Escape') { input.value = stored; input.blur(); }
+      });
+      showIdle();
+      return {
+        refresh: function () {
+          stored = localStorage.getItem(storageKey) || '';
+          if (input.readOnly) showIdle();
+        }
+      };
+    }
+
+    var credKeyField = null;
+    var credVoiceField = null;
+
+    function activeKey() {
+      var i = document.getElementById('el-key');
+      if (i && !i.readOnly && i.value.trim()) return i.value.trim();
+      return localStorage.getItem(EL_KEY_K) || '';
+    }
+
+    function activeVoice() {
+      var i = document.getElementById('el-voice');
+      if (i && !i.readOnly && i.value.trim()) return i.value.trim();
+      return localStorage.getItem(EL_VOICE_K) || '';
+    }
+
+    function testApiKey() {
+      var key = activeKey();
+      if (!key) { log('No API key to test.', 'err'); return; }
+      log('— key test GET /v1/user ' + maskKey(key) + ' —', 'info');
+      fetch('https://api.elevenlabs.io/v1/user', { headers: { 'xi-api-key': key } })
+        .then(function (res) {
+          return res.text().then(function (t) {
+            if (!res.ok) {
+              log('key HTTP ' + res.status + ' ' + t, 'err');
+              return;
+            }
+            try {
+              var j = JSON.parse(t);
+              var s = j.subscription || {};
+              log('key OK — ' + (s.tier || '?') + ', ' + (s.character_count != null ? s.character_count : '?') + ' chars used', 'ok');
+            } catch (e) {
+              log('key OK HTTP 200', 'ok');
+            }
+          });
+        })
+        .catch(function (e) { log('key network: ' + e.message, 'err'); });
+    }
+
+    function testVoice() {
+      var key = activeKey();
+      var voice = activeVoice();
+      if (!key) { log('Set API key first.', 'err'); return; }
+      if (!voice) { log('Enter a Voice ID first.', 'err'); return; }
+      var sample = '多くの人々がいたが、';
+      log('— voice test ' + voice + ' "' + sample + '" —', 'info');
+      fetch('https://api.elevenlabs.io/v1/text-to-speech/' + voice, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'xi-api-key': key },
+        body: JSON.stringify({
+          text: sample,
+          model_id: EL_MODEL_JA,
+          voice_settings: { stability: 0.5, similarity_boost: 0.75 },
+          language_code: 'ja',
+          apply_language_text_normalization: true
+        })
+      })
+      .then(function (res) {
+        log('HTTP ' + res.status, res.ok ? 'ok' : 'err');
+        if (!res.ok) return res.text().then(function (t) { log(t, 'err'); throw new Error('HTTP ' + res.status); });
+        return res.blob();
+      })
+      .then(function (blob) {
+        log('blob ' + blob.size + 'B type=' + blob.type);
+        var url = URL.createObjectURL(blob);
+        var a = new Audio(url);
+        a.onended = function () { log('voice test <audio> ended', 'ok'); URL.revokeObjectURL(url); };
+        a.onerror = function () { log('voice test <audio> error: ' + (a.error && a.error.message), 'err'); };
+        return a.play().then(function () {
+          log('<audio>.play() ok', 'ok');
+        }, function (e) {
+          log('<audio>.play() REJECTED: ' + e.message, 'err');
+        });
+      })
+      .catch(function (e) { log('voice test FAIL: ' + e.message, 'err'); });
+    }
+
     function saveKeys() {
       var k = document.getElementById('el-key').value.trim();
       var v = document.getElementById('el-voice').value.trim();
       if (k) localStorage.setItem(EL_KEY_K, k);
       if (v) localStorage.setItem(EL_VOICE_K, v);
-      log('Saved to localStorage. key=' + (k ? 'yes(' + k.slice(0, 6) + '…)' : 'unchanged') +
+      if (credKeyField) credKeyField.refresh();
+      if (credVoiceField) credVoiceField.refresh();
+      log('Saved to localStorage. key=' + (k ? 'yes(' + maskKey(k) + ')' : 'unchanged') +
           ' voice=' + (v || localStorage.getItem(EL_VOICE_K) || 'none'), 'ok');
       renderState();
     }
 
     function loadKeys() {
+      credKeyField = setupCredField('el-key', EL_KEY_K, maskKey, 'paste sk_…');
+      credVoiceField = setupCredField('el-voice', EL_VOICE_K, maskVoice, 'voice_id');
       var k = localStorage.getItem(EL_KEY_K) || '';
       var v = localStorage.getItem(EL_VOICE_K) || '';
-      document.getElementById('el-key').value = k;
-      document.getElementById('el-voice').value = v;
       renderState();
-      log('Loaded from localStorage: key=' + (k ? 'yes(' + k.slice(0, 6) + '…)' : 'EMPTY') +
-          ' voice=' + (v || 'EMPTY'), k && v ? 'ok' : 'warn');
+      log('Loaded from localStorage: key=' + (k ? 'yes(' + maskKey(k) + ')' : 'EMPTY') +
+          ' voice=' + (v ? maskVoice(v) : 'EMPTY'), k && v ? 'ok' : 'warn');
       return { k: k, v: v };
     }
 
@@ -175,9 +329,9 @@
     }
 
     function getKeys() {
-      var k = localStorage.getItem(EL_KEY_K) || '';
-      var v = localStorage.getItem(EL_VOICE_K) || '';
-      if (!k || !v) log('MISSING key/voice — fill fields and Save first', 'err');
+      var k = activeKey();
+      var v = activeVoice();
+      if (!k || !v) log('MISSING key/voice — click the field and paste, or set via index.html', 'err');
       return { k: k, v: v };
     }
 
@@ -344,7 +498,7 @@
 
     loadKeys();
     getElCtx(); // create/resume early so first real click is smoother
-    log('ready — run 1→2→4, then 5 if 4 is silent', 'info');
+    log('ready — credentials: click field to edit · run 1→2→4, then 5 if 4 is silent', 'info');
   </script>
 </body>
 </html>
