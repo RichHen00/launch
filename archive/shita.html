@@ -193,6 +193,10 @@
       var key   = localStorage.getItem(EL_KEY_K)   || '';
       var voice = localStorage.getItem(EL_VOICE_K) || '';
       if (!key || !voice) return;
+      // Create/resume inside the click gesture — iOS Safari leaves a context
+      // created after fetch suspended (silent playback).
+      var ctx = getElCtx();
+      if (!ctx) return;
       var body = { text: reading, model_id: EL_MODEL, voice_settings: { stability: 0.5, similarity_boost: 0.75 } };
       if (isJaText(reading)) {
         body.model_id = EL_MODEL_JA;
@@ -209,7 +213,7 @@
         return res.arrayBuffer();
       })
       .then(function(buf) {
-        var ctx = new (window.AudioContext || window.webkitAudioContext)();
+        if (ctx.state === 'suspended') ctx.resume();
         return ctx.decodeAudioData(buf).then(function(decoded) {
           var src = ctx.createBufferSource();
           src.buffer = decoded;

@@ -131,7 +131,7 @@
           </div>
         </div>
       </section>
-      <p class="font-link"><img src="assets/stamp.jpeg" alt=""><span class="date-stamp" id="timestamp">23-09-2026 10:44</span><a href="https://googlefonts.github.io/japanese/#nicomoji" target="_blank" rel="noopener">G Fonts Japanese types</a></p>
+      <p class="font-link"><img src="assets/stamp.jpeg" alt=""><span class="date-stamp" id="timestamp">23-09-2026 10:53</span><a href="https://googlefonts.github.io/japanese/#nicomoji" target="_blank" rel="noopener">G Fonts Japanese types</a></p>
     </article>
     <div class="characters" aria-label="Archive">
       <div class="characters-heading"><h2>Archive</h2></div>
@@ -234,10 +234,25 @@
       btn.classList.toggle('open', open);
     }
 
+    var elCtx = null;
+    function getElCtx() {
+      if (!elCtx) {
+        var AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return null;
+        elCtx = new AC();
+      }
+      if (elCtx.state === 'suspended') elCtx.resume();
+      return elCtx;
+    }
+
     function playViaEL(reading) {
       var key   = localStorage.getItem(EL_KEY_K)   || '';
       var voice = localStorage.getItem(EL_VOICE_K) || '';
       if (!key || !voice) return;
+      // Create/resume inside the click gesture — iOS Safari leaves a context
+      // created after fetch suspended (silent playback).
+      var ctx = getElCtx();
+      if (!ctx) return;
       var body = { text: reading, model_id: EL_MODEL, voice_settings: { stability: 0.5, similarity_boost: 0.75 } };
       if (isJaText(reading)) {
         body.model_id = EL_MODEL_JA;
@@ -254,7 +269,7 @@
         return res.arrayBuffer();
       })
       .then(function(buf) {
-        var ctx = new (window.AudioContext || window.webkitAudioContext)();
+        if (ctx.state === 'suspended') ctx.resume();
         return ctx.decodeAudioData(buf).then(function(decoded) {
           var src = ctx.createBufferSource();
           src.buffer = decoded;
