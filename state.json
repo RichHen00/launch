@@ -2,12 +2,12 @@
   "current": {
     "label": "Slow Boats to China",
     "paragraphs": [
-      9,
-      9
+      10,
+      12
     ],
-    "words": 59,
-    "passage_chars": 1844,
-    "built": "2026-09-24T15:46:50+02:00",
+    "words": 60,
+    "passage_chars": 1611,
+    "built": "2026-09-24T15:47:21+02:00",
     "file": "index.html"
   },
   "history": [
@@ -31,6 +31,13 @@
       "label": "Slow Boats to China",
       "words": 56,
       "built": "2026-09-24T15:44:54+02:00"
+    },
+    {
+      "n": 4,
+      "file": "tmp/004_index.html",
+      "label": "Slow Boats to China",
+      "words": 59,
+      "built": "2026-09-24T15:46:50+02:00"
     }
   ],
   "source": {
@@ -47,14 +54,18 @@
     5,
     6,
     7,
-    8
+    8,
+    9,
+    10,
+    11
   ],
   "output_hashes": [
     "9e1f05e43725f5dcd16526fcb9f7f9b068426eda",
     "ccbd70323e1ac3a1554069bbc569241e33a277a4",
     "f3eed9f4a66a2c2c2263c9ea8a8a7e7822e05a1e",
-    "45957bd1ae6aa358fba967d834a26360aa992cf7"
+    "45957bd1ae6aa358fba967d834a26360aa992cf7",
+    "fee0b901b0d85c2845fc2f1d4f6b1a0af12d1749"
   ],
-  "cursor": 9,
+  "cursor": 12,
   "cycle": 0
 }
