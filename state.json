@@ -2,100 +2,42 @@
   "current": {
     "label": "Slow Boats to China",
     "paragraphs": [
-      21,
-      24
+      9,
+      9
     ],
-    "words": 54,
-    "passage_chars": 1478,
-    "built": "2026-09-24T15:21:58+02:00",
+    "words": 59,
+    "passage_chars": 1844,
+    "built": "2026-09-24T15:46:50+02:00",
     "file": "index.html"
   },
   "history": [
     {
       "n": 1,
       "file": "tmp/001_index.html",
-      "section": "Chapter 23 · 23.1 What is an Operation?",
-      "words": 203,
-      "built": "2026-09-24T13:46:02+02:00"
+      "label": "Slow Boats to China",
+      "words": 56,
+      "built": "2026-09-24T15:33:33+02:00"
     },
     {
       "n": 2,
       "file": "tmp/002_index.html",
-      "section": "Chapter 23 · 23.1 What is an Operation?",
-      "words": 177,
-      "built": "2026-09-24T13:49:55+02:00"
+      "label": "Slow Boats to China",
+      "words": 54,
+      "built": "2026-09-24T15:34:53+02:00"
     },
     {
       "n": 3,
       "file": "tmp/003_index.html",
       "label": "Slow Boats to China",
-      "words": 40,
-      "built": "2026-09-24T14:58:49+02:00"
-    },
-    {
-      "n": 4,
-      "file": "tmp/004_index.html",
-      "label": "Slow Boats to China",
-      "words": 40,
-      "built": "2026-09-24T14:59:12+02:00"
-    },
-    {
-      "n": 5,
-      "file": "tmp/005_index.html",
-      "label": "Slow Boats to China",
-      "words": 42,
-      "built": "2026-09-24T14:59:13+02:00"
-    },
-    {
-      "n": 6,
-      "file": "tmp/006_index.html",
-      "label": "Slow Boats to China",
-      "words": 43,
-      "built": "2026-09-24T15:01:50+02:00"
-    },
-    {
-      "n": 7,
-      "file": "tmp/007_index.html",
-      "label": "Slow Boats to China",
-      "words": 40,
-      "built": "2026-09-24T15:02:26+02:00"
-    },
-    {
-      "n": 8,
-      "file": "tmp/008_index.html",
-      "label": "Slow Boats to China",
-      "words": 58,
-      "built": "2026-09-24T15:16:59+02:00"
-    },
-    {
-      "n": 9,
-      "file": "tmp/009_index.html",
-      "label": "Slow Boats to China",
-      "words": 59,
-      "built": "2026-09-24T15:17:06+02:00"
-    },
-    {
-      "n": 10,
-      "file": "tmp/010_index.html",
-      "label": "Slow Boats to China",
-      "words": 60,
-      "built": "2026-09-24T15:17:07+02:00"
-    },
-    {
-      "n": 11,
-      "file": "tmp/011_index.html",
-      "label": "Slow Boats to China",
-      "words": 58,
-      "built": "2026-09-24T15:21:18+02:00"
-    },
-    {
-      "n": 12,
-      "file": "tmp/012_index.html",
-      "label": "Slow Boats to China",
-      "words": 59,
-      "built": "2026-09-24T15:21:38+02:00"
+      "words": 56,
+      "built": "2026-09-24T15:44:54+02:00"
     }
   ],
+  "source": {
+    "title": "Slow Boats to China",
+    "author": "GAVIN YOUNG",
+    "fingerprint": "a428dcb7989c71de31abdbfd6cf8760291af86f15c7d16a74cd73e058980311b"
+  },
   "used_paragraphs": [
     0,
     1,
@@ -105,36 +47,14 @@
     5,
     6,
     7,
-    8,
-    9,
-    10,
-    11,
-    12,
-    13,
-    14,
-    15,
-    16,
-    17,
-    18,
-    19,
-    20,
-    21,
-    22,
-    23
+    8
   ],
   "output_hashes": [
-    "9334c6398e8fce2f2adc52055ada930ebe2dbb8b",
-    "ad67f31254de63565084dfc28fec767416c8adb6",
-    "57da1149f460880ed0e64bf7c3622557a6c671b6",
-    "cf2d22275c0bb01541d283f7c80a824f0f21d049",
-    "1641ce77b1b73db3b6d46267f7dd00db7e1aa660",
-    "e1aa023020256a17c27865e62919f7c5fec8f15c",
-    "cbb34d6f321c08f65497010685bffd7a939ae3c7",
-    "c1920b9f74ff25af5506805b224e9932cfefd6b4",
-    "d5fbf59554af41ebeac55ae5192745bff0209cb9",
-    "b6ea0254eb3b078ce62abc601ce8174b28ed23f3",
-    "923701cceab282df18879d8119069d317f7bbd85"
+    "9e1f05e43725f5dcd16526fcb9f7f9b068426eda",
+    "ccbd70323e1ac3a1554069bbc569241e33a277a4",
+    "f3eed9f4a66a2c2c2263c9ea8a8a7e7822e05a1e",
+    "45957bd1ae6aa358fba967d834a26360aa992cf7"
   ],
-  "cursor": 24,
+  "cursor": 9,
   "cycle": 0
 }
