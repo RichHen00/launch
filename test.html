@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ElevenLabs Japanese</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 16px; line-height: 1.4; }
+    h1 { font-size: 18px; }
+    .row { display: flex; gap: 8px; margin: 8px 0; align-items: center; flex-wrap: wrap; }
+    label { min-width: 80px; font-size: 13px; color: #555; }
+    input { flex: 1; min-width: 180px; font-size: 14px; padding: 6px 8px; border: 1px solid #ccc; border-radius: 4px; }
+    input.cred-idle { color: #666; background: #fafafa; font-family: ui-monospace, monospace; cursor: text; }
+    input.cred-empty { color: #aaa; font-style: italic; font-family: system-ui, sans-serif; }
+    button { font-size: 14px; padding: 8px 14px; border: 1px solid #888; border-radius: 4px; background: #fff; cursor: pointer; }
+    button:active { background: #eee; }
+    #log { margin-top: 16px; padding: 12px; background: #111; color: #0f0; font-family: ui-monospace, monospace; font-size: 12px; white-space: pre-wrap; word-break: break-all; max-height: 70vh; overflow: auto; }
+    .err { color: #f66; }
+    .warn { color: #fc0; }
+    .info { color: #6cf; }
+    .ok { color: #0f0; }
+    #state { font-size: 13px; color: #333; margin-top: 8px; }
+    .tag { display: inline-block; padding: 1px 6px; border-radius: 3px; background: #eee; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <h1>ElevenLabs Japanese</h1>
+
+  <div class="row">
+    <label for="el-key">API key</label>
+    <input id="el-key" type="text" placeholder="paste sk_…" autocomplete="off" spellcheck="false">
+    <button onclick="testApiKey()">Test</button>
+  </div>
+  <div class="row">
+    <label for="el-voice">Voice ID</label>
+    <input id="el-voice" type="text" placeholder="voice_id" autocomplete="off" spellcheck="false">
+    <button onclick="testVoice()">Test</button>
+  </div>
+
+  <div class="row">
+    <button onclick="probeStorage()">1. Check storage</button>
+    <button onclick="probeAudio()">2. Check AudioContext</button>
+    <button onclick="probeVoices()">3. Check speech voices</button>
+    <button onclick="playViaEL(document.getElementById('sample').value)">4. Play sample</button>
+    <button onclick="playViaEL('本当にすばらしい旅だった。')">4b. Play 本当にすばらしい旅だった。</button>
+  </div>
+  <div class="row">
+    <label for="sample">Text</label>
+    <input id="sample" type="text" value="多くの人々がいたが、">
+    <button onclick="playRaw()">5. Play raw mp3 (no decode)</button>
+    <button onclick="playRaw('本当にすばらしい旅だった。')">5b. Raw 本当にすばらしい旅だった。</button>
+    <button onclick="copyLog()">Copy log</button>
+    <button onclick="saveLog()">Save log</button>
+    <button onclick="document.getElementById('log').textContent=''">Clear log</button>
+  </div>
+
+  <div id="state"></div>
+  <div id="log"></div>
+
+  <script>
+    var EL_KEY_K   = 'el_api_key';
+    var EL_VOICE_K = 'el_voice_id';
+    var EL_MODEL_JA = 'eleven_flash_v2_5';
+    var elCtx = null;
+
+    function ts() {
+      var d = new Date();
+      return d.toTimeString().slice(0, 8) + '.' + String(d.getMilliseconds()).padStart(3, '0');
+    }
+
+    function log(msg, cls) {
+      var el = document.getElementById('log');
+      var line = '[' + ts() + '] ' + msg + '\n';
+      var span = document.createElement('span');
+      if (cls) span.className = cls;
+      span.textContent = line;
+      el.appendChild(span);
+      el.scrollTop = el.scrollHeight;
+      console.log('[EL test]', msg);
+    }
+
+    function maskKey(k) {
+      if (!k) return '';
+      if (k.length <= 8) return 'sk-****';
+      var head = k.slice(0, 2) === 'sk' ? 'sk-' : k.slice(0, 3);
+      return head + '****' + k.slice(-4);
+    }
+
+    function maskVoice(v) {
+      if (!v) return '';
+      if (v.length <= 8) return v;
+      return v.slice(0, 4) + '…' + v.slice(-4);
+    }
+
+    // One field per credential: idle shows mask/id; click to edit; blur saves.
+    function setupCredField(id, storageKey, maskFn, emptyPh) {
+      var input = document.getElementById(id);
+      if (!input) return null;
+      var stored = localStorage.getItem(storageKey) || '';
+
+      function showIdle() {
+        input.readOnly = true;
+        input.classList.add('cred-idle');
+        if (stored) {
+          input.type = 'text';
+          input.value = maskFn(stored);
+          input.placeholder = '';
+          input.classList.remove('cred-empty');
+          input.title = 'Click to replace';
+        } else {
+          input.type = 'text';
+          input.value = '';
+          input.placeholder = emptyPh;
+          input.classList.add('cred-empty');
+          input.title = '';
+        }
+      }
+
+      function beginEdit() {
+        if (!input.readOnly) return;
+        input.readOnly = false;
+        input.classList.remove('cred-idle', 'cred-empty');
+        input.value = stored;
+        input.placeholder = stored ? maskFn(stored) + ' — paste to replace' : emptyPh;
+        input.type = (id === 'el-key') ? 'password' : 'text';
+        input.select();
+      }
+
+      function commit() {
+        var v = input.value.trim();
+        if (v && v !== maskFn(stored) && v !== stored) {
+          localStorage.setItem(storageKey, v);
+          stored = v;
+          log('saved ' + (id === 'el-key' ? 'key ' + maskKey(v) : 'voice ' + v), 'ok');
+        }
+        showIdle();
+        renderState();
+      }
+
+      input.addEventListener('focus', beginEdit);
+      input.addEventListener('click', beginEdit);
+      input.addEventListener('blur', commit);
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') { e.preventDefault(); input.blur(); }
+        if (e.key === 'Escape') { input.value = stored; input.blur(); }
+      });
+      showIdle();
+      return {
+        refresh: function () {
+          stored = localStorage.getItem(storageKey) || '';
+          if (input.readOnly) showIdle();
+        }
+      };
+    }
+
+    var credKeyField = null;
+    var credVoiceField = null;
+
+    function activeKey() {
+      var i = document.getElementById('el-key');
+      if (i && !i.readOnly && i.value.trim()) return i.value.trim();
+      return localStorage.getItem(EL_KEY_K) || '';
+    }
+
+    function activeVoice() {
+      var i = document.getElementById('el-voice');
+      if (i && !i.readOnly && i.value.trim()) return i.value.trim();
+      return localStorage.getItem(EL_VOICE_K) || '';
+    }
+
+    function testApiKey() {
+      var key = activeKey();
+      if (!key) { log('No API key to test.', 'err'); return; }
+      log('— key test GET /v1/user ' + maskKey(key) + ' —', 'info');
+      fetch('https://api.elevenlabs.io/v1/user', { headers: { 'xi-api-key': key } })
+        .then(function (res) {
+          return res.text().then(function (t) {
+            if (!res.ok) {
+              log('key HTTP ' + res.status + ' ' + t, 'err');
+              return;
+            }
+            try {
+              var j = JSON.parse(t);
+              var s = j.subscription || {};
+              log('key OK — ' + (s.tier || '?') + ', ' + (s.character_count != null ? s.character_count : '?') + ' chars used', 'ok');
+            } catch (e) {
+              log('key OK HTTP 200', 'ok');
+            }
+          });
+        })
+        .catch(function (e) { log('key network: ' + e.message, 'err'); });
+    }
+
+    function testVoice() {
+      var key = activeKey();
+      var voice = activeVoice();
+      if (!key) { log('Set API key first.', 'err'); return; }
+      if (!voice) { log('Enter a Voice ID first.', 'err'); return; }
+      var sample = '多くの人々がいたが、';
+      log('— voice test ' + voice + ' "' + sample + '" —', 'info');
+      fetch('https://api.elevenlabs.io/v1/text-to-speech/' + voice, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'xi-api-key': key },
+        body: JSON.stringify({
+          text: sample,
+          model_id: EL_MODEL_JA,
+          voice_settings: { stability: 0.5, similarity_boost: 0.75 },
+          language_code: 'ja',
+          apply_language_text_normalization: true
+        })
+      })
+      .then(function (res) {
+        log('HTTP ' + res.status, res.ok ? 'ok' : 'err');
+        if (!res.ok) return res.text().then(function (t) { log(t, 'err'); throw new Error('HTTP ' + res.status); });
+        return res.blob();
+      })
+      .then(function (blob) {
+        log('blob ' + blob.size + 'B type=' + blob.type);
+        var url = URL.createObjectURL(blob);
+        var a = new Audio(url);
+        a.onended = function () { log('voice test <audio> ended', 'ok'); URL.revokeObjectURL(url); };
+        a.onerror = function () { log('voice test <audio> error: ' + (a.error && a.error.message), 'err'); };
+        return a.play().then(function () {
+          log('<audio>.play() ok', 'ok');
+        }, function (e) {
+          log('<audio>.play() REJECTED: ' + e.message, 'err');
+        });
+      })
+      .catch(function (e) { log('voice test FAIL: ' + e.message, 'err'); });
+    }
+
+    function saveKeys() {
+      var k = document.getElementById('el-key').value.trim();
+      var v = document.getElementById('el-voice').value.trim();
+      if (k) localStorage.setItem(EL_KEY_K, k);
+      if (v) localStorage.setItem(EL_VOICE_K, v);
+      if (credKeyField) credKeyField.refresh();
+      if (credVoiceField) credVoiceField.refresh();
+      log('Saved to localStorage. key=' + (k ? 'yes(' + maskKey(k) + ')' : 'unchanged') +
+          ' voice=' + (v || localStorage.getItem(EL_VOICE_K) || 'none'), 'ok');
+      renderState();
+    }
+
+    function loadKeys() {
+      credKeyField = setupCredField('el-key', EL_KEY_K, maskKey, 'paste sk_…');
+      credVoiceField = setupCredField('el-voice', EL_VOICE_K, maskVoice, 'voice_id');
+      var k = localStorage.getItem(EL_KEY_K) || '';
+      var v = localStorage.getItem(EL_VOICE_K) || '';
+      renderState();
+      log('Loaded from localStorage: key=' + (k ? 'yes(' + maskKey(k) + ')' : 'EMPTY') +
+          ' voice=' + (v ? maskVoice(v) : 'EMPTY'), k && v ? 'ok' : 'warn');
+      return { k: k, v: v };
+    }
+
+    function renderState() {
+      var k = localStorage.getItem(EL_KEY_K);
+      var v = localStorage.getItem(EL_VOICE_K);
+      document.getElementById('state').innerHTML =
+        'key: <span class="tag">' + (k ? 'set' : 'missing') + '</span> ' +
+        'voice: <span class="tag">' + (v || 'missing') + '</span> ' +
+        'ctx: <span class="tag">' + (elCtx ? elCtx.state : 'none') + '</span>';
+    }
+
+    function probeStorage() {
+      log('— storage probe —', 'info');
+      log('origin=' + location.origin);
+      log('href=' + location.href);
+      try {
+        localStorage.setItem('__t', '1');
+        localStorage.removeItem('__t');
+        log('localStorage write OK', 'ok');
+      } catch (e) {
+        log('localStorage FAIL: ' + e.message, 'err');
+      }
+      loadKeys();
+    }
+
+    function getElCtx() {
+      if (!elCtx) {
+        var AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) { log('No AudioContext constructor', 'err'); return null; }
+        elCtx = new AC();
+        log('AudioContext created: state=' + elCtx.state + ' sampleRate=' + elCtx.sampleRate, 'info');
+      }
+      if (elCtx.state === 'suspended') {
+        var p = elCtx.resume();
+        if (p && p.then) {
+          p.then(function() { log('AudioContext resumed → ' + elCtx.state, 'ok'); renderState(); })
+           .catch(function(e) { log('resume() rejected: ' + e.message, 'err'); });
+        }
+      }
+      renderState();
+      return elCtx;
+    }
+
+    function probeAudio() {
+      log('— AudioContext probe —', 'info');
+      var ctx = getElCtx();
+      if (!ctx) return;
+      log('state after resume attempt=' + ctx.state, ctx.state === 'running' ? 'ok' : 'warn');
+      // short silent buffer to prove playback path
+      try {
+        var b = ctx.createBuffer(1, ctx.sampleRate * 0.05, ctx.sampleRate);
+        var s = ctx.createBufferSource();
+        s.buffer = b;
+        s.connect(ctx.destination);
+        s.start(0);
+        log('silent buffer started (you should hear nothing, but no throw)', 'ok');
+      } catch (e) {
+        log('buffer play threw: ' + e.message, 'err');
+      }
+    }
+
+    function probeVoices() {
+      log('— speechSynthesis probe —', 'info');
+      if (!window.speechSynthesis) { log('no speechSynthesis', 'warn'); return; }
+      var vs = speechSynthesis.getVoices();
+      log('voices.length=' + vs.length + ' (0 is normal before voiceschanged)');
+      vs.forEach(function(v) {
+        if (/^ja/i.test(v.lang)) log('  ja voice: ' + v.name + ' (' + v.lang + ')', 'info');
+      });
+      speechSynthesis.onvoiceschanged = function() {
+        var v2 = speechSynthesis.getVoices();
+        log('voiceschanged → ' + v2.length, 'info');
+        v2.forEach(function(v) {
+          if (/^ja/i.test(v.lang)) log('  ja voice: ' + v.name + ' (' + v.lang + ')', 'info');
+        });
+      };
+    }
+
+    function getKeys() {
+      var k = activeKey();
+      var v = activeVoice();
+      if (!k || !v) log('MISSING key/voice — click the field and paste, or set via index.html', 'err');
+      return { k: k, v: v };
+    }
+
+    function copyLog() {
+      var text = document.getElementById('log').innerText;
+      function fallback() {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand('copy');
+          log('copied via execCommand (' + text.length + ' chars)', 'ok');
+        } catch (e) {
+          log('copy failed: ' + e.message, 'err');
+        }
+        document.body.removeChild(ta);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function() {
+          log('copied via clipboard API (' + text.length + ' chars)', 'ok');
+        }, function(e) {
+          log('clipboard API failed (' + e.message + ') — trying execCommand', 'warn');
+          fallback();
+        });
+      } else {
+        fallback();
+      }
+    }
+
+    function logFileName(d) {
+      function p(n) { return String(n).padStart(2, '0'); }
+      // logDDMMYY-HHMM.txt — no colons (invalid on Windows/some iOS save paths)
+      return 'log' +
+        p(d.getDate()) + p(d.getMonth() + 1) + p(d.getFullYear() % 100) + '-' +
+        p(d.getHours()) + p(d.getMinutes()) + '.txt';
+    }
+
+    function saveLog() {
+      var text = document.getElementById('log').innerText;
+      var name = logFileName(new Date());
+      log('saving ' + name + ' (' + text.length + ' chars) — move it into msg/ in the repo', 'info');
+      var blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = name;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(function() { URL.revokeObjectURL(url); }, 10000);
+    }
+
+    function playViaEL(reading) {
+      log('— playViaEL("' + reading + '") —', 'info');
+      var creds = getKeys();
+      if (!creds.k || !creds.v) return;
+      log('using voice id="' + creds.v + '" (len=' + creds.v.length +
+          ', trimmed=' + creds.v.trim().length + ')');
+      if (creds.v !== creds.v.trim()) log('voice id has leading/trailing whitespace!', 'err');
+      var ctx = getElCtx();
+      if (!ctx) return;
+      log('ctx.state before fetch=' + ctx.state);
+
+      var body = {
+        text: reading,
+        model_id: EL_MODEL_JA,
+        voice_settings: { stability: 0.5, similarity_boost: 0.75 },
+        language_code: 'ja',
+        apply_language_text_normalization: true
+      };
+      log('POST elevenlabs voice=' + creds.v, 'info');
+      var t0 = performance.now();
+      fetch('https://api.elevenlabs.io/v1/text-to-speech/' + creds.v, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'xi-api-key': creds.k },
+        body: JSON.stringify(body)
+      })
+      .then(function(res) {
+        log('HTTP ' + res.status + ' ' + res.statusText + ' (' + Math.round(performance.now() - t0) + 'ms)',
+            res.ok ? 'ok' : 'err');
+        if (!res.ok) {
+          return res.text().then(function(t) {
+            log('error body: ' + t, 'err');
+            throw new Error('HTTP ' + res.status);
+          });
+        }
+        log('content-type=' + (res.headers.get('content-type') || '?'));
+        return res.arrayBuffer();
+      })
+      .then(function(buf) {
+        log('got ArrayBuffer ' + buf.byteLength + ' bytes; ctx.state=' + ctx.state);
+        if (ctx.state === 'suspended') {
+          log('ctx suspended after fetch — calling resume()', 'warn');
+          ctx.resume();
+        }
+        return ctx.decodeAudioData(buf).then(function(decoded) {
+          log('decoded: ' + decoded.duration.toFixed(2) + 's @ ' + decoded.sampleRate + 'Hz',
+              'ok');
+          var src = ctx.createBufferSource();
+          src.buffer = decoded;
+          src.connect(ctx.destination);
+          src.onended = function() { log('playback ended', 'ok'); renderState(); };
+          src.start(0);
+          log('src.start(0) called; ctx.state=' + ctx.state + ' — if silent, check mute/Ringer',
+              ctx.state === 'running' ? 'ok' : 'warn');
+          renderState();
+        }, function(e) {
+          log('decodeAudioData FAILED: ' + (e && e.message ? e.message : e), 'err');
+        });
+      })
+      .catch(function(err) {
+        log('FAIL: ' + err.message, 'err');
+      });
+    }
+
+    function playRaw(textOverride) {
+      log('— playRaw (blob URL via <audio>) —', 'info');
+      var creds = getKeys();
+      if (!creds.k || !creds.v) return;
+      log('using voice id="' + creds.v + '" (len=' + creds.v.length + ')');
+      var text = typeof textOverride === 'string' ? textOverride : document.getElementById('sample').value;
+      log('text="' + text + '"');
+      fetch('https://api.elevenlabs.io/v1/text-to-speech/' + creds.v, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'xi-api-key': creds.k },
+        body: JSON.stringify({
+          text: text,
+          model_id: EL_MODEL_JA,
+          voice_settings: { stability: 0.5, similarity_boost: 0.75 },
+          language_code: 'ja',
+          apply_language_text_normalization: true
+        })
+      })
+      .then(function(res) {
+        log('HTTP ' + res.status, res.ok ? 'ok' : 'err');
+        if (!res.ok) return res.text().then(function(t) { log(t, 'err'); throw new Error('HTTP'); });
+        return res.blob();
+      })
+      .then(function(blob) {
+        log('blob ' + blob.size + 'B type=' + blob.type);
+        var url = URL.createObjectURL(blob);
+        var a = new Audio(url);
+        a.onended = function() { log('<audio> ended', 'ok'); };
+        a.onerror = function() { log('<audio> error: ' + (a.error && a.error.message), 'err'); };
+        return a.play().then(function() {
+          log('<audio>.play() resolved (gesture path)', 'ok');
+        }, function(e) {
+          log('<audio>.play() REJECTED: ' + e.message, 'err');
+        });
+      })
+      .catch(function(e) { log('FAIL: ' + e.message, 'err'); });
+    }
+
+    // page-level errors → on-screen log
+    window.addEventListener('error', function(e) {
+      log('window.onerror: ' + e.message + ' @' + e.filename + ':' + e.lineno, 'err');
+    });
+    window.addEventListener('unhandledrejection', function(e) {
+      log('unhandledrejection: ' + (e.reason && e.reason.message || e.reason), 'err');
+    });
+
+    loadKeys();
+    getElCtx(); // create/resume early so first real click is smoother
+    log('ready — credentials: click field to edit · run 1→2→4, then 5 if 4 is silent', 'info');
+  </script>
+</body>
+</html>
