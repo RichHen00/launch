@@ -1,35 +1,31 @@
 {
   "current": {
-    "n": 9,
-    "id": "kousaten",
-    "kanji": "交差点",
-    "word": "交差点",
-    "english": "Intersection",
+    "n": 10,
+    "id": "shingou",
+    "kanji": "信号",
+    "word": "信号",
+    "english": "Traffic Light",
     "pairs": [
       [
-        "こ",
-        "ko"
-      ],
-      [
-        "う",
-        "u"
-      ],
-      [
-        "さ",
-        "sa"
-      ],
-      [
-        "て",
-        "te"
+        "し",
+        "shi"
       ],
       [
         "ん",
         "n"
+      ],
+      [
+        "ご",
+        "go"
+      ],
+      [
+        "う",
+        "u"
       ]
     ],
-    "date": "2026-09-29",
+    "date": "2026-09-30",
     "file": "index.html",
-    "built": "2026-09-29T19:00:35"
+    "built": "2026-09-30T19:01:30"
   },
   "published": [
     {
@@ -195,6 +191,38 @@
       "date": "2026-09-28",
       "file": "archive/juusho.html",
       "built": "2026-09-28T19:00:37"
+    },
+    {
+      "n": 9,
+      "id": "kousaten",
+      "kanji": "交差点",
+      "word": "交差点",
+      "english": "Intersection",
+      "pairs": [
+        [
+          "こ",
+          "ko"
+        ],
+        [
+          "う",
+          "u"
+        ],
+        [
+          "さ",
+          "sa"
+        ],
+        [
+          "て",
+          "te"
+        ],
+        [
+          "ん",
+          "n"
+        ]
+      ],
+      "date": "2026-09-29",
+      "file": "archive/kousaten.html",
+      "built": "2026-09-29T19:00:35"
     }
   ]
 }
