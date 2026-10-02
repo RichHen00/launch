@@ -1,31 +1,23 @@
 {
   "current": {
-    "n": 10,
-    "id": "shingou",
-    "kanji": "信号",
-    "word": "信号",
-    "english": "Traffic Light",
+    "n": 11,
+    "id": "kita",
+    "kanji": "北",
+    "word": "北",
+    "english": "North",
     "pairs": [
       [
-        "し",
-        "shi"
+        "き",
+        "ki"
       ],
       [
-        "ん",
-        "n"
-      ],
-      [
-        "ご",
-        "go"
-      ],
-      [
-        "う",
-        "u"
+        "た",
+        "ta"
       ]
     ],
-    "date": "2026-09-30",
+    "date": "2026-10-02",
     "file": "index.html",
-    "built": "2026-09-30T19:01:30"
+    "built": "2026-10-02T19:00:49"
   },
   "published": [
     {
@@ -223,6 +215,34 @@
       "date": "2026-09-29",
       "file": "archive/kousaten.html",
       "built": "2026-09-29T19:00:35"
+    },
+    {
+      "n": 10,
+      "id": "shingou",
+      "kanji": "信号",
+      "word": "信号",
+      "english": "Traffic Light",
+      "pairs": [
+        [
+          "し",
+          "shi"
+        ],
+        [
+          "ん",
+          "n"
+        ],
+        [
+          "ご",
+          "go"
+        ],
+        [
+          "う",
+          "u"
+        ]
+      ],
+      "date": "2026-09-30",
+      "file": "archive/shingou.html",
+      "built": "2026-09-30T19:01:30"
     }
   ]
 }
