@@ -1,23 +1,23 @@
 {
   "current": {
-    "n": 11,
-    "id": "kita",
-    "kanji": "北",
-    "word": "北",
-    "english": "North",
+    "n": 12,
+    "id": "hi-nichi",
+    "kanji": "日",
+    "word": "日",
+    "english": "Day, Sun, Japan",
     "pairs": [
       [
-        "き",
-        "ki"
+        "ひ",
+        "hi"
       ],
       [
-        "た",
-        "ta"
+        "にち",
+        "nichi"
       ]
     ],
-    "date": "2026-10-02",
+    "date": "2026-10-03",
     "file": "index.html",
-    "built": "2026-10-02T19:00:49"
+    "built": "2026-10-03T19:02:55"
   },
   "published": [
     {
@@ -243,6 +243,26 @@
       "date": "2026-09-30",
       "file": "archive/shingou.html",
       "built": "2026-09-30T19:01:30"
+    },
+    {
+      "n": 11,
+      "id": "kita",
+      "kanji": "北",
+      "word": "北",
+      "english": "North",
+      "pairs": [
+        [
+          "き",
+          "ki"
+        ],
+        [
+          "た",
+          "ta"
+        ]
+      ],
+      "date": "2026-10-02",
+      "file": "archive/kita.html",
+      "built": "2026-10-02T19:00:49"
     }
   ]
 }

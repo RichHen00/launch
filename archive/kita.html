@@ -122,59 +122,28 @@
   <main>
     <article class="lesson">
       <header>
-        <p class="date">2026-10-03 · Day, Sun, Japan</p>
+        <p class="date"><a href="../index.html">Home</a> · 2026-10-02 · North</p>
       </header>
       <section class="lesson-content" aria-label="Lesson content">
         <div class="tab-bar">
-          <h2><span class="clickable" onclick="playSound('ひにち')">日</span> <span class="ja clickable" lang="ja" onclick="playSound('ひにち')">ひにち</span> <span class="meaning">Day, Sun, Japan</span></h2>
-          <button class="tab-btn" id="tab-api" onclick="switchTab()">API</button>
+          <h2><span class="clickable" onclick="playSound('きた')">北</span> <span class="ja clickable" lang="ja" onclick="playSound('きた')">きた</span> <span class="meaning">North</span></h2>
         </div>
-        <div class="api-panel" id="api-panel">
-          <div class="api-row">
-            <label for="el-key">API key</label>
-            <input id="el-key" type="text" placeholder="paste sk_…" autocomplete="off" spellcheck="false">
-            <button type="button" onclick="testApiKey()">Test</button>
-          </div>
-          <div class="api-row">
-            <label for="el-voice">Voice ID</label>
-            <input id="el-voice" type="text" placeholder="voice_id" autocomplete="off" spellcheck="false">
-            <button type="button" onclick="testVoice()">Test</button>
-          </div>
-          <p class="api-status" id="api-status"></p>
-          <div class="api-log" id="api-log" aria-live="polite"></div>
-          <p style="margin:8px 0 0;font-size:12px;color:var(--muted);">If Test plays but the word does not: check tab mute (right-click tab), OS output for this tab, and hard-refresh (GitHub caches ~600s).</p>
-        </div>
-        <p class="lesson-lead"><span class="hiragana-char clickable" onclick="playSound('ひ')">ひ</span> <span class="romaji">hi</span> <span class="hiragana-char clickable" onclick="playSound('にち')">にち</span> <span class="romaji">nichi</span></p>
+        <p class="lesson-lead"><span class="hiragana-char clickable" onclick="playSound('き')">き</span> <span class="romaji">ki</span> <span class="hiragana-char clickable" onclick="playSound('た')">た</span> <span class="romaji">ta</span></p>
 
-        <p class="lesson-lead ja-body" style="margin-top:24px;"><strong>Usage:</strong> 日 commonly expresses “day / sun / japan” in written Japanese.</p>
-        <p class="lesson-lead ja-body"><strong>Example:</strong> 日本 (にほん, Nihon): Japan; 日曜日 (にちようび, nichiyōbi): Sunday</p>
+        <p class="lesson-lead ja-body" style="margin-top:24px;"><strong>Usage:</strong> The kanji 北 represents “north”.</p>
+        <p class="lesson-lead ja-body"><strong>Example:</strong> Used in directions, e.g. 北にありますが (kita ni arimasu ga, “It is to the north.”).</p>
 
         <div class="characters">
           <div class="characters-heading"><h2>Stroke order</h2></div>
           <div class="kana-grid">
-            <!-- ひ: stroke order from AnimCJK, LGPL v3 - https://github.com/parsimonhi/animCJK -->
-<div class="kana"><div class="kana-top"><strong>hi</strong></div><div class="kana-body"><svg id="c1" class="acjk stroke-svg" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ひ stroke order"> <path id="c1d1" d="M393 148C380 149 371 160 359 165C317 194 268 218 216 219C196 220 175 218 154 219C147 220 142 228 145 234C149 245 162 249 171 253C206 267 245 271 281 261C304 255 326 246 347 236C288 344 231 454 194 573C175 637 166 706 184 772C200 828 248 873 304 889C339 900 377 898 413 893C479 882 541 847 581 793C625 735 648 665 663 595C683 504 695 411 704 319C706 298 707 276 709 255C740 366 781 475 849 569C862 586 875 604 891 619C902 626 917 621 923 610C931 596 936 579 935 563C934 540 918 522 904 506C875 475 852 440 830 404C789 336 759 262 736 187C731 174 721 163 709 157C698 151 684 145 672 151C661 159 664 175 664 186C662 277 654 368 636 457C622 531 602 605 573 675C549 725 516 773 468 803C434 823 394 830 355 827C322 826 286 819 262 794C240 771 228 738 226 705C222 651 240 597 260 547C287 479 320 413 358 349C378 316 398 283 421 252C433 237 447 225 461 213C467 208 467 199 463 193C456 181 445 173 434 164C422 155 408 148 393 148Z"/> <defs> <clipPath id="c1c1"><use href="#c1d1"/></clipPath> </defs> <path style="--d:1s;" pathLength="3333" clip-path="url(#c1c1)" d="M 160,236 269,239 386,182 417,200 225,544 203,758 312,875 553,805 653,536 689,176 907,614"/> </svg></div></div>
-<div class="kana"><div class="kana-top"><strong>ni</strong></div><div class="kana-body"><svg id="c2" class="acjk stroke-svg" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="に stroke order"> <path id="c2d1" d="M197 137C187 139 185 152 189 159C200 178 204 200 200 221C196 262 185 302 179 342C157 461 135 580 133 701C133 761 139 822 163 877C170 892 182 908 200 911C214 911 224 899 227 886C235 858 232 828 238 799C243 765 255 732 263 698C263 692 266 685 262 680C256 673 244 676 241 684C220 709 208 739 190 764C186 748 186 732 184 715C180 628 195 540 214 455C228 390 245 326 262 263C267 246 279 227 275 210C270 186 252 165 232 151C222 143 210 138 197 137Z"/> <path id="c2d2" d="M746 204C708 206 673 222 636 232C590 247 545 263 500 282C492 289 497 304 507 307C527 318 551 312 571 306C619 293 667 280 716 278C755 276 793 281 831 280C840 280 850 276 852 266C856 253 845 242 834 235C814 223 793 210 769 206C762 205 754 204 746 204Z"/> <path id="c2d3" d="M475 654C464 655 459 668 461 678C462 723 497 774 538 792C596 819 657 823 720 822C760 821 801 820 841 818C859 816 880 813 892 798C898 790 898 778 891 772C875 754 851 746 828 744C793 742 758 750 723 753C679 758 638 761 593 755C569 752 544 743 525 728C506 712 498 681 487 660C484 657 480 654 475 654Z"/> <defs> <clipPath id="c2c1"><use href="#c2d1"/></clipPath> <clipPath id="c2c2"><use href="#c2d2"/></clipPath> <clipPath id="c2c3"><use href="#c2d3"/></clipPath> </defs> <path style="--d:1s;" pathLength="3333" clip-path="url(#c2c1)" d="M 201,152 242,235 156,607 168,829 201,884 201,809 251,695"/> <path style="--d:2s;" pathLength="3333" clip-path="url(#c2c2)" d="M 513,294 747,240 836,262"/> <path style="--d:3s;" pathLength="3333" clip-path="url(#c2c3)" d="M 479,670 496,735 583,790 883,785"/> </svg></div></div>
-<div class="kana"><div class="kana-top"><strong>chi</strong></div><div class="kana-body"><svg id="c3" class="acjk stroke-svg" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ち stroke order"> <path id="c3d1" d="M600 262C571 263 547 281 519 287C467 302 413 313 359 320C314 324 269 322 225 317C212 316 199 314 188 319C183 323 186 331 192 333C208 345 227 351 245 358C280 368 317 366 353 365C426 360 498 344 569 330C597 324 626 321 653 312C661 309 670 305 673 297C676 288 667 281 660 278C642 269 622 264 602 262C601 262 600 262 600 262Z"/> <path id="c3d2" d="M425 98C415 98 408 110 415 117C429 137 428 163 423 185C412 241 394 295 380 350C356 442 329 533 301 625C292 647 278 669 278 693C279 713 290 731 305 745C315 749 326 741 331 734C359 701 393 673 429 649C478 619 533 601 588 586C622 578 659 573 693 580C724 587 754 607 761 638C768 664 764 691 757 716C747 751 720 778 692 800C645 836 590 863 533 882C515 888 496 891 479 899C472 902 466 913 472 919C478 926 489 927 496 923C582 903 668 877 742 828C780 802 813 765 823 719C831 680 827 637 807 602C787 570 751 546 712 541C646 528 577 541 515 562C460 581 409 609 359 638C385 528 413 419 446 311C458 273 470 235 486 199C493 187 501 174 498 159C495 142 481 127 468 116C456 106 441 98 425 98Z"/> <defs> <clipPath id="c3c1"><use href="#c3d1"/></clipPath> <clipPath id="c3c2"><use href="#c3d2"/></clipPath> </defs> <path style="--d:1s;" pathLength="3333" clip-path="url(#c3c1)" d="M 199,326 366,344 666,291"/> <path style="--d:2s;" pathLength="3333" clip-path="url(#c3c2)" d="M 425,108 475,153 311,679 315,710 516,575 705,553 793,614 782,767 663,864 482,917"/> </svg></div></div>
+            <!-- き: stroke order from AnimCJK, LGPL v3 - https://github.com/parsimonhi/animCJK -->
+<div class="kana"><div class="kana-top"><strong>ki</strong></div><div class="kana-body"><svg id="c1" class="acjk stroke-svg" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="き stroke order"> <path id="c1d1" d="M 599,244 C 569,263 548,274 513,287 499,291 482,297 463,302 424,310 358,318 307,314 287,312 264,322 289,339 315,356 348,359 380,361 410,362 448,357 482,348 501,342 518,336 535,331 585,314 625,298 662,280 713,253 676,230 664,226 632,215 623,228 599,244 Z"/> <path id="c1d2" d="M 710,406 C 675,432 647,450 606,465 589,470 571,476 550,481 489,496 438,495 382,496 359,496 355,510 374,521 444,559 542,536 572,528 595,521 616,515 634,508 685,487 760,462 784,440 811,413 748,377 710,406 Z"/> <path id="c1d3" d="M 376,154 C 394,158 408,174 416,194 432,232 446,262 463,302 469,317 475,332 482,348 491,371 522,424 550,482 557,497 564,512 572,528 578,542 624,609 631,625 632,628 627,627 625,627 605,627 584,619 565,624 541,629 532,642 568,650 586,654 606,662 625,673 645,684 661,701 680,718 705,739 719,698 720,678 720,648 707,617 690,592 669,559 654,540 634,508 L 606,465 C 576,420 560,382 535,331 L 513,287 C 501,263 468,179 465,155 463,144 465,134 458,127 415,84 312,137 376,154 Z"/> <path id="c1d4" d="M 277,744 C 244,783 264,844 311,878 403,945 600,927 631,926 666,924 670,896 651,882 627,864 605,856 567,862 517,868 458,868 405,858 362,849 286,833 293,775 294,760 307,748 310,734 315,702 283,736 277,744 Z"/> <defs> <clipPath id="c1c1"><use href="#c1d1"/></clipPath> <clipPath id="c1c2"><use href="#c1d2"/></clipPath> <clipPath id="c1c3"><use href="#c1d3"/></clipPath> <clipPath id="c1c4"><use href="#c1d4"/></clipPath> </defs> <path style="--d:1s;" pathLength="3333" clip-path="url(#c1c1)" d="M 294,332 433,342 677,253"/> <path style="--d:2s;" pathLength="3333" clip-path="url(#c1c2)" d="M 376,512 526,520 777,426"/> <path style="--d:3s;" pathLength="3333" clip-path="url(#c1c3)" d="M 367,135 414,140 688,620 688,693 636,653 572,642"/> <path style="--d:4s;" pathLength="3333" clip-path="url(#c1c4)" d="M 299,734 273,794 322,870 628,903"/> </svg></div></div>
+<div class="kana"><div class="kana-top"><strong>ta</strong></div><div class="kana-body"><svg id="c2" class="acjk stroke-svg" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="た stroke order"> <path id="c2d1" d="M608 265C591 266 576 276 561 284C514 304 463 316 412 327C373 336 334 342 294 339C267 337 239 332 212 328C202 327 191 325 183 331C178 336 184 344 189 347C219 372 258 382 296 388C333 394 370 389 407 383C467 372 526 354 585 341C615 334 646 327 673 311C681 307 689 298 684 289C678 278 663 275 651 271C637 267 623 265 608 265Z"/> <path id="c2d2" d="M424 107C417 106 408 112 411 120C414 133 426 143 424 157C422 170 417 183 413 195C400 237 386 279 371 321C350 380 328 440 304 498C274 575 244 652 205 725C186 756 159 784 152 820C146 850 150 880 152 910C155 920 169 929 179 923C194 912 197 893 205 878C266 746 320 612 374 478C403 404 430 329 459 254C465 237 470 219 482 204C490 193 503 181 502 166C500 146 482 131 465 122C452 114 439 107 424 107Z"/> <path id="c2d3" d="M729 482C660 488 597 519 534 545C525 549 515 551 506 556C498 560 499 572 506 577C514 584 526 584 537 583C559 580 580 573 602 569C655 556 709 546 763 551C781 552 800 556 819 553C828 548 826 535 821 528C809 514 792 504 776 495C762 488 746 482 729 482Z"/> <path id="c2d4" d="M503 762C494 762 491 772 493 779C496 816 524 849 560 861C617 883 679 883 738 884C777 885 816 884 855 881C865 879 875 868 871 858C866 842 852 831 839 822C819 810 793 814 771 818C716 826 660 829 605 821C581 817 556 812 537 796C527 789 521 779 515 769C512 765 508 762 503 762Z"/> <defs> <clipPath id="c2c1"><use href="#c2d1"/></clipPath> <clipPath id="c2c2"><use href="#c2d2"/></clipPath> <clipPath id="c2c3"><use href="#c2d3"/></clipPath> <clipPath id="c2c4"><use href="#c2d4"/></clipPath> </defs> <path style="--d:1s;" pathLength="3333" clip-path="url(#c2c1)" d="M 194,339 330,372 676,290"/> <path style="--d:2s;" pathLength="3333" clip-path="url(#c2c2)" d="M 424,116 464,176 172,916"/> <path style="--d:3s;" pathLength="3333" clip-path="url(#c2c3)" d="M 516,563 730,514 811,533"/> <path style="--d:4s;" pathLength="3333" clip-path="url(#c2c4)" d="M 505,776 549,841 858,868"/> </svg></div></div>
           </div>
         </div>
       </section>
-      <p class="font-link"><img src="assets/stamp.jpeg" alt=""><span class="date-stamp" id="timestamp">03-10-2026 19:02</span><a href="https://googlefonts.github.io/japanese/#nicomoji" target="_blank" rel="noopener">G Fonts Japanese types</a></p>
+      <p class="font-link"><img src="assets/stamp.jpeg" alt=""><a href="https://googlefonts.github.io/japanese/#nicomoji" target="_blank" rel="noopener">G Fonts Japanese types</a></p>
     </article>
-    <div class="characters" aria-label="Archive">
-      <div class="characters-heading"><h2>Archive</h2></div>
-      <p class="lesson-lead"><a class="date" href="archive/kita.html">2026-10-02</a> &middot; 北 北 <span class="meaning" style="color:#d64747;">North</span> &middot; <span class="hiragana-char">き</span> <span class="romaji">ki</span> <span class="hiragana-char">た</span> <span class="romaji">ta</span></p>
-      <p class="lesson-lead"><a class="date" href="archive/shingou.html">2026-09-30</a> &middot; 信号 信号 <span class="meaning" style="color:#d64747;">Traffic Light</span> &middot; <span class="hiragana-char">し</span> <span class="romaji">shi</span> <span class="hiragana-char">ん</span> <span class="romaji">n</span> <span class="hiragana-char">ご</span> <span class="romaji">go</span> <span class="hiragana-char">う</span> <span class="romaji">u</span></p>
-      <p class="lesson-lead"><a class="date" href="archive/kousaten.html">2026-09-29</a> &middot; 交差点 交差点 <span class="meaning" style="color:#d64747;">Intersection</span> &middot; <span class="hiragana-char">こ</span> <span class="romaji">ko</span> <span class="hiragana-char">う</span> <span class="romaji">u</span> <span class="hiragana-char">さ</span> <span class="romaji">sa</span> <span class="hiragana-char">て</span> <span class="romaji">te</span> <span class="hiragana-char">ん</span> <span class="romaji">n</span></p>
-      <p class="lesson-lead"><a class="date" href="archive/juusho.html">2026-09-28</a> &middot; 住所 住所 <span class="meaning" style="color:#d64747;">Address</span> &middot; <span class="hiragana-char">じゅ</span> <span class="romaji">ju</span> <span class="hiragana-char">う</span> <span class="romaji">u</span> <span class="hiragana-char">しょ</span> <span class="romaji">sho</span></p>
-      <p class="lesson-lead"><a class="date" href="archive/chizu.html">2026-09-27</a> &middot; 地図 地図 <span class="meaning" style="color:#d64747;">Map</span> &middot; <span class="hiragana-char">ち</span> <span class="romaji">chi</span> <span class="hiragana-char">ず</span> <span class="romaji">zu</span></p>
-      <p class="lesson-lead"><a class="date" href="archive/michi.html">2026-09-26</a> &middot; 道 道 <span class="meaning" style="color:#d64747;">Road, Way</span> &middot; <span class="hiragana-char">み</span> <span class="romaji">mi</span> <span class="hiragana-char">ち</span> <span class="romaji">chi</span></p>
-      <p class="lesson-lead"><a class="date" href="archive/soto.html">2026-09-25</a> &middot; 外 外 <span class="meaning" style="color:#d64747;">Outside</span> &middot; <span class="hiragana-char">そ</span> <span class="romaji">so</span> <span class="hiragana-char">と</span> <span class="romaji">to</span></p>
-      <p class="lesson-lead"><a class="date" href="archive/naka.html">2026-09-24</a> &middot; 中 中 <span class="meaning" style="color:#d64747;">Inside</span> &middot; <span class="hiragana-char">な</span> <span class="romaji">na</span> <span class="hiragana-char">か</span> <span class="romaji">ka</span></p>
-      <p class="lesson-lead"><a class="date" href="archive/shita.html">2026-09-23</a> &middot; 下 下 <span class="meaning" style="color:#d64747;">Down, Below</span> &middot; <span class="hiragana-char">し</span> <span class="romaji">shi</span> <span class="hiragana-char">た</span> <span class="romaji">ta</span></p>
-      <p class="lesson-lead"><a class="date" href="archive/ue.html">2026-09-23</a> &middot; 上 上 <span class="meaning" style="color:#d64747;">Up, Above</span> &middot; <span class="hiragana-char">う</span> <span class="romaji">u</span> <span class="hiragana-char">え</span> <span class="romaji">e</span></p>
-      <p class="lesson-lead"><a class="date" href="archive/hito.html">2026-09-23</a> &middot; 人 人 <span class="meaning" style="color:#d64747;">Person, People</span> &middot; <span class="hiragana-char">ひ</span> <span class="romaji">hi</span> <span class="hiragana-char">と</span> <span class="romaji">to</span></p>
-    </div>
   </main>
   <script>
     var EL_KEY_K   = 'el_api_key';
@@ -186,7 +155,7 @@
 
     // Longest key wins when matching. Build injects the lesson word.
     var KANJI_READING = {
-      '日': 'ひにち',
+      '北': 'きた',
     };
 
     function isJaText(s) {
@@ -382,165 +351,7 @@
 
     function playViaEL(reading) {
       playSound(reading);
-    }
-
-    function maskKey(k) {
-      if (!k) return '';
-      if (k.length <= 8) return 'sk-****';
-      var head = k.slice(0, 2) === 'sk' ? 'sk-' : k.slice(0, 3);
-      return head + '****' + k.slice(-4);
-    }
-
-    function maskVoice(v) {
-      if (!v) return '';
-      if (v.length <= 8) return v;
-      return v.slice(0, 4) + '…' + v.slice(-4);
-    }
-
-    function setStatus(msg, cls) {
-      var s = document.getElementById('api-status');
-      if (!s) return;
-      s.textContent = msg || '';
-      s.className = 'api-status' + (cls ? ' ' + cls : '');
-    }
-
-    // One field per credential: idle mask/id; click to edit; blur/Enter saves.
-    function setupCredField(id, storageKey, maskFn, emptyPh) {
-      var input = document.getElementById(id);
-      if (!input) return null;
-      var stored = localStorage.getItem(storageKey) || '';
-
-      function showIdle() {
-        input.readOnly = true;
-        input.classList.add('cred-idle');
-        if (stored) {
-          input.type = 'text';
-          input.value = maskFn(stored);
-          input.placeholder = '';
-          input.classList.remove('cred-empty');
-          input.title = 'Click to replace';
-        } else {
-          input.type = 'text';
-          input.value = '';
-          input.placeholder = emptyPh;
-          input.classList.add('cred-empty');
-          input.title = '';
-        }
-      }
-
-      function beginEdit() {
-        if (!input.readOnly) return;
-        input.readOnly = false;
-        input.classList.remove('cred-idle', 'cred-empty');
-        input.value = stored;
-        input.placeholder = stored ? maskFn(stored) + ' — paste to replace' : emptyPh;
-        input.type = (id === 'el-key') ? 'password' : 'text';
-        input.select();
-      }
-
-      function commit() {
-        var v = input.value.trim();
-        if (v && v !== maskFn(stored) && v !== stored) {
-          localStorage.setItem(storageKey, v);
-          stored = v;
-          apiLog(id === 'el-key' ? 'saved key ' + maskKey(v) : 'saved voice ' + v);
-          setStatus('Saved.', 'ok');
-        }
-        showIdle();
-      }
-
-      input.addEventListener('focus', beginEdit);
-      input.addEventListener('click', beginEdit);
-      input.addEventListener('blur', commit);
-      input.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter') { e.preventDefault(); input.blur(); }
-        if (e.key === 'Escape') { input.value = stored; input.blur(); }
-      });
-      showIdle();
-      return {
-        refresh: function () {
-          stored = localStorage.getItem(storageKey) || '';
-          if (input.readOnly) showIdle();
-        }
-      };
-    }
-
-    var credKeyField = null;
-    var credVoiceField = null;
-
-    function loadApiKeys() {
-      credKeyField = setupCredField('el-key', EL_KEY_K, maskKey, 'paste sk_…');
-      credVoiceField = setupCredField('el-voice', EL_VOICE_K, maskVoice, 'voice_id');
-      var k = localStorage.getItem(EL_KEY_K);
-      var v = localStorage.getItem(EL_VOICE_K);
-      if (k && v) setStatus('Credentials ready.', 'ok');
-      else setStatus('Click a field to set credentials.', '');
-    }
-
-    function switchTab() {
-      var panel = document.getElementById('api-panel');
-      var btn   = document.getElementById('tab-api');
-      var open  = panel.classList.toggle('open');
-      btn.classList.toggle('open', open);
-      if (open) {
-        if (credKeyField) credKeyField.refresh();
-        if (credVoiceField) credVoiceField.refresh();
-      }
-    }
-
-    function testApiKey() {
-      var key = activeKey();
-      if (!key) {
-        setStatus('Enter an API key first.', 'err');
-        return;
-      }
-      setStatus('Testing API key…');
-      apiLog('key test GET /v1/user ' + maskKey(key));
-      fetch('https://api.elevenlabs.io/v1/user', {
-        headers: { 'xi-api-key': key }
-      })
-      .then(function(res) {
-        return res.text().then(function(t) {
-          return { ok: res.ok, status: res.status, body: t };
-        });
-      })
-      .then(function(r) {
-        if (!r.ok) {
-          setStatus('Key failed (HTTP ' + r.status + ').', 'err');
-          apiLog('key HTTP ' + r.status + ' ' + r.body, true);
-          return;
-        }
-        var sub = '';
-        try {
-          var j = JSON.parse(r.body);
-          var s = j.subscription || {};
-          sub = ' — ' + (s.tier || '?') + ', ' + (s.character_count != null ? s.character_count : '?') + ' chars used';
-        } catch (e) {}
-        setStatus('Key OK' + sub, 'ok');
-        apiLog('key OK' + sub);
-      })
-      .catch(function(err) {
-        setStatus('Key test error.', 'err');
-        apiLog('key network: ' + err.message, true);
-      });
-    }
-
-    function testVoice() {
-      var key = activeKey();
-      var voice = activeVoice();
-      if (!key) { setStatus('Set API key first.', 'err'); return; }
-      if (!voice) { setStatus('Enter a Voice ID first.', 'err'); return; }
-      var sample = '多くの人々がいたが、';
-      setStatus('Testing voice…');
-      apiLog('voice test ' + voice + ' "' + sample + '"');
-      elTts(voice, sample, function (ok, detail) {
-        setStatus(ok ? 'Voice OK — ' + detail : detail, ok ? 'ok' : 'err');
-      });
-    }
-
-    // After playSound/playViaEL so the archive strip (credential UI → playSound) keeps it.
-    // Function declaration is hoisted; playSound may call it before this line runs.
-    var elCtx = null;
+    }var elCtx = null;
     function getElCtx() {
       if (!elCtx) {
         var AC = window.AudioContext || window.webkitAudioContext;
@@ -618,7 +429,6 @@
       svg.classList.add('playing');
     }
     (function () {
-      loadApiKeys();
       refreshVoices();
       if (window.speechSynthesis && window.speechSynthesis.onvoiceschanged !== undefined) {
         window.speechSynthesis.onvoiceschanged = refreshVoices;
