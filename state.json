@@ -1,23 +1,23 @@
 {
   "current": {
-    "n": 14,
-    "id": "oo-dai",
-    "kanji": "大",
-    "word": "大",
-    "english": "Big, Large",
+    "n": 15,
+    "id": "chi-i-sho",
+    "kanji": "小",
+    "word": "小",
+    "english": "Small, Little",
     "pairs": [
       [
-        "おお",
-        "oo"
+        "ちい",
+        "chi-i"
       ],
       [
-        "だい",
-        "dai"
+        "しょう",
+        "shō"
       ]
     ],
-    "date": "2026-10-05",
+    "date": "2026-10-06",
     "file": "index.html",
-    "built": "2026-10-05T19:01:34"
+    "built": "2026-10-06T19:06:50"
   },
   "published": [
     {
@@ -303,6 +303,26 @@
       "date": "2026-10-04",
       "file": "archive/hon-moto.html",
       "built": "2026-10-04T19:01:29"
+    },
+    {
+      "n": 14,
+      "id": "oo-dai",
+      "kanji": "大",
+      "word": "大",
+      "english": "Big, Large",
+      "pairs": [
+        [
+          "おお",
+          "oo"
+        ],
+        [
+          "だい",
+          "dai"
+        ]
+      ],
+      "date": "2026-10-05",
+      "file": "archive/oo-dai.html",
+      "built": "2026-10-05T19:01:34"
     }
   ]
 }
