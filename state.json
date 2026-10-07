@@ -1,23 +1,19 @@
 {
   "current": {
-    "n": 15,
-    "id": "chi-i-sho",
-    "kanji": "小",
-    "word": "小",
-    "english": "Small, Little",
+    "n": 16,
+    "id": "hidari",
+    "kanji": "左",
+    "word": "左",
+    "english": "Left",
     "pairs": [
       [
-        "ちい",
-        "chi-i"
-      ],
-      [
-        "しょう",
-        "shō"
+        "ひだり",
+        "hidari"
       ]
     ],
-    "date": "2026-10-06",
+    "date": "2026-10-07",
     "file": "index.html",
-    "built": "2026-10-06T19:06:50"
+    "built": "2026-10-07T19:01:38"
   },
   "published": [
     {
@@ -323,6 +319,26 @@
       "date": "2026-10-05",
       "file": "archive/oo-dai.html",
       "built": "2026-10-05T19:01:34"
+    },
+    {
+      "n": 15,
+      "id": "chi-i-sho",
+      "kanji": "小",
+      "word": "小",
+      "english": "Small, Little",
+      "pairs": [
+        [
+          "ちい",
+          "chi-i"
+        ],
+        [
+          "しょう",
+          "shō"
+        ]
+      ],
+      "date": "2026-10-06",
+      "file": "archive/chi-i-sho.html",
+      "built": "2026-10-06T19:06:50"
     }
   ]
 }
