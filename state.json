@@ -1,19 +1,19 @@
 {
   "current": {
-    "n": 16,
-    "id": "hidari",
-    "kanji": "左",
-    "word": "左",
-    "english": "Left",
+    "n": 17,
+    "id": "migi",
+    "kanji": "右",
+    "word": "右",
+    "english": "Right",
     "pairs": [
       [
-        "ひだり",
-        "hidari"
+        "みぎ",
+        "migi"
       ]
     ],
-    "date": "2026-10-07",
+    "date": "2026-10-08",
     "file": "index.html",
-    "built": "2026-10-07T19:01:38"
+    "built": "2026-10-08T19:01:41"
   },
   "published": [
     {
@@ -339,6 +339,22 @@
       "date": "2026-10-06",
       "file": "archive/chi-i-sho.html",
       "built": "2026-10-06T19:06:50"
+    },
+    {
+      "n": 16,
+      "id": "hidari",
+      "kanji": "左",
+      "word": "左",
+      "english": "Left",
+      "pairs": [
+        [
+          "ひだり",
+          "hidari"
+        ]
+      ],
+      "date": "2026-10-07",
+      "file": "archive/hidari.html",
+      "built": "2026-10-07T19:01:38"
     }
   ]
 }
