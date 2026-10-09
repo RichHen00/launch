@@ -1,19 +1,31 @@
 {
   "current": {
-    "n": 17,
-    "id": "migi",
-    "kanji": "右",
-    "word": "右",
-    "english": "Right",
+    "n": 18,
+    "id": "higashi-to",
+    "kanji": "東",
+    "word": "東",
+    "english": "East",
     "pairs": [
       [
-        "みぎ",
-        "migi"
+        "ひ",
+        "hi"
+      ],
+      [
+        "が",
+        "ga"
+      ],
+      [
+        "し",
+        "shi"
+      ],
+      [
+        "とう",
+        "tō"
       ]
     ],
-    "date": "2026-10-08",
+    "date": "2026-10-09",
     "file": "index.html",
-    "built": "2026-10-08T19:01:41"
+    "built": "2026-10-09T19:02:37"
   },
   "published": [
     {
@@ -355,6 +367,22 @@
       "date": "2026-10-07",
       "file": "archive/hidari.html",
       "built": "2026-10-07T19:01:38"
+    },
+    {
+      "n": 17,
+      "id": "migi",
+      "kanji": "右",
+      "word": "右",
+      "english": "Right",
+      "pairs": [
+        [
+          "みぎ",
+          "migi"
+        ]
+      ],
+      "date": "2026-10-08",
+      "file": "archive/migi.html",
+      "built": "2026-10-08T19:01:41"
     }
   ]
 }
