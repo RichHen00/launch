@@ -1,31 +1,23 @@
 {
   "current": {
-    "n": 18,
-    "id": "higashi-to",
-    "kanji": "東",
-    "word": "東",
-    "english": "East",
+    "n": 19,
+    "id": "nishi-sei",
+    "kanji": "西",
+    "word": "西",
+    "english": "West",
     "pairs": [
       [
-        "ひ",
-        "hi"
+        "にし",
+        "nishi"
       ],
       [
-        "が",
-        "ga"
-      ],
-      [
-        "し",
-        "shi"
-      ],
-      [
-        "とう",
-        "tō"
+        "せい",
+        "sei"
       ]
     ],
-    "date": "2026-10-09",
+    "date": "2026-10-10",
     "file": "index.html",
-    "built": "2026-10-09T19:02:37"
+    "built": "2026-10-10T19:01:21"
   },
   "published": [
     {
@@ -383,6 +375,34 @@
       "date": "2026-10-08",
       "file": "archive/migi.html",
       "built": "2026-10-08T19:01:41"
+    },
+    {
+      "n": 18,
+      "id": "higashi-to",
+      "kanji": "東",
+      "word": "東",
+      "english": "East",
+      "pairs": [
+        [
+          "ひ",
+          "hi"
+        ],
+        [
+          "が",
+          "ga"
+        ],
+        [
+          "し",
+          "shi"
+        ],
+        [
+          "とう",
+          "tō"
+        ]
+      ],
+      "date": "2026-10-09",
+      "file": "archive/higashi-to.html",
+      "built": "2026-10-09T19:02:37"
     }
   ]
 }
