@@ -1,23 +1,23 @@
 {
   "current": {
-    "n": 19,
-    "id": "nishi-sei",
-    "kanji": "西",
-    "word": "西",
-    "english": "West",
+    "n": 20,
+    "id": "minami-nan",
+    "kanji": "南",
+    "word": "南",
+    "english": "South",
     "pairs": [
       [
-        "にし",
-        "nishi"
+        "みなみ",
+        "minami"
       ],
       [
-        "せい",
-        "sei"
+        "なん",
+        "nan"
       ]
     ],
-    "date": "2026-10-10",
+    "date": "2026-10-11",
     "file": "index.html",
-    "built": "2026-10-10T19:01:21"
+    "built": "2026-10-11T19:01:27"
   },
   "published": [
     {
@@ -403,6 +403,26 @@
       "date": "2026-10-09",
       "file": "archive/higashi-to.html",
       "built": "2026-10-09T19:02:37"
+    },
+    {
+      "n": 19,
+      "id": "nishi-sei",
+      "kanji": "西",
+      "word": "西",
+      "english": "West",
+      "pairs": [
+        [
+          "にし",
+          "nishi"
+        ],
+        [
+          "せい",
+          "sei"
+        ]
+      ],
+      "date": "2026-10-10",
+      "file": "archive/nishi-sei.html",
+      "built": "2026-10-10T19:01:21"
     }
   ]
 }
