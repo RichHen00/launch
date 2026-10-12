@@ -1,23 +1,23 @@
 {
   "current": {
-    "n": 20,
-    "id": "minami-nan",
-    "kanji": "南",
-    "word": "南",
-    "english": "South",
+    "n": 21,
+    "id": "uchi-nai",
+    "kanji": "内",
+    "word": "内",
+    "english": "Inside, Within, Domestic",
     "pairs": [
       [
-        "みなみ",
-        "minami"
+        "うち",
+        "uchi"
       ],
       [
-        "なん",
-        "nan"
+        "ない",
+        "nai"
       ]
     ],
-    "date": "2026-10-11",
+    "date": "2026-10-12",
     "file": "index.html",
-    "built": "2026-10-11T19:01:27"
+    "built": "2026-10-12T19:01:11"
   },
   "published": [
     {
@@ -423,6 +423,26 @@
       "date": "2026-10-10",
       "file": "archive/nishi-sei.html",
       "built": "2026-10-10T19:01:21"
+    },
+    {
+      "n": 20,
+      "id": "minami-nan",
+      "kanji": "南",
+      "word": "南",
+      "english": "South",
+      "pairs": [
+        [
+          "みなみ",
+          "minami"
+        ],
+        [
+          "なん",
+          "nan"
+        ]
+      ],
+      "date": "2026-10-11",
+      "file": "archive/minami-nan.html",
+      "built": "2026-10-11T19:01:27"
     }
   ]
 }
