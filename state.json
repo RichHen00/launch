@@ -1,23 +1,23 @@
 {
   "current": {
-    "n": 21,
-    "id": "uchi-nai",
-    "kanji": "内",
-    "word": "内",
-    "english": "Inside, Within, Domestic",
+    "n": 22,
+    "id": "mae-zen",
+    "kanji": "前",
+    "word": "前",
+    "english": "Front, Before",
     "pairs": [
       [
-        "うち",
-        "uchi"
+        "まえ",
+        "mae"
       ],
       [
-        "ない",
-        "nai"
+        "ぜん",
+        "zen"
       ]
     ],
-    "date": "2026-10-12",
+    "date": "2026-10-13",
     "file": "index.html",
-    "built": "2026-10-12T19:01:11"
+    "built": "2026-10-13T19:01:12"
   },
   "published": [
     {
@@ -443,6 +443,26 @@
       "date": "2026-10-11",
       "file": "archive/minami-nan.html",
       "built": "2026-10-11T19:01:27"
+    },
+    {
+      "n": 21,
+      "id": "uchi-nai",
+      "kanji": "内",
+      "word": "内",
+      "english": "Inside, Within, Domestic",
+      "pairs": [
+        [
+          "うち",
+          "uchi"
+        ],
+        [
+          "ない",
+          "nai"
+        ]
+      ],
+      "date": "2026-10-12",
+      "file": "archive/uchi-nai.html",
+      "built": "2026-10-12T19:01:11"
     }
   ]
 }
