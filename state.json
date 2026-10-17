@@ -1,23 +1,23 @@
 {
   "current": {
-    "n": 25,
-    "id": "toki-ji",
-    "kanji": "時",
-    "word": "時",
-    "english": "Time, Hour",
+    "n": 26,
+    "id": "fun-bun",
+    "kanji": "分",
+    "word": "分",
+    "english": "Minute, Part, Divide",
     "pairs": [
       [
-        "とき",
-        "toki"
+        "ふん",
+        "fun"
       ],
       [
-        "じ",
-        "ji"
+        "ぶん",
+        "bun"
       ]
     ],
-    "date": "2026-10-16",
+    "date": "2026-10-17",
     "file": "index.html",
-    "built": "2026-10-16T19:01:00"
+    "built": "2026-10-17T19:01:06"
   },
   "published": [
     {
@@ -523,6 +523,26 @@
       "date": "2026-10-15",
       "file": "archive/aida-kan.html",
       "built": "2026-10-15T19:02:02"
+    },
+    {
+      "n": 25,
+      "id": "toki-ji",
+      "kanji": "時",
+      "word": "時",
+      "english": "Time, Hour",
+      "pairs": [
+        [
+          "とき",
+          "toki"
+        ],
+        [
+          "じ",
+          "ji"
+        ]
+      ],
+      "date": "2026-10-16",
+      "file": "archive/toki-ji.html",
+      "built": "2026-10-16T19:01:00"
     }
   ]
 }
