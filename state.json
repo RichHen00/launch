@@ -1,23 +1,23 @@
 {
   "current": {
-    "n": 27,
-    "id": "toshi-nen",
-    "kanji": "年",
-    "word": "年",
-    "english": "Year",
+    "n": 28,
+    "id": "tsuki-gatsu",
+    "kanji": "月",
+    "word": "月",
+    "english": "Month, Moon",
     "pairs": [
       [
-        "とし",
-        "toshi"
+        "つき",
+        "tsuki"
       ],
       [
-        "ねん",
-        "nen"
+        "がつ",
+        "gatsu"
       ]
     ],
-    "date": "2026-10-18",
+    "date": "2026-10-19",
     "file": "index.html",
-    "built": "2026-10-18T19:01:22"
+    "built": "2026-10-19T19:01:03"
   },
   "published": [
     {
@@ -563,6 +563,26 @@
       "date": "2026-10-17",
       "file": "archive/fun-bun.html",
       "built": "2026-10-17T19:01:06"
+    },
+    {
+      "n": 27,
+      "id": "toshi-nen",
+      "kanji": "年",
+      "word": "年",
+      "english": "Year",
+      "pairs": [
+        [
+          "とし",
+          "toshi"
+        ],
+        [
+          "ねん",
+          "nen"
+        ]
+      ],
+      "date": "2026-10-18",
+      "file": "archive/toshi-nen.html",
+      "built": "2026-10-18T19:01:22"
     }
   ]
 }
