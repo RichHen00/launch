@@ -1,19 +1,23 @@
 {
   "current": {
-    "n": 29,
-    "id": "shu",
-    "kanji": "週",
-    "word": "週",
-    "english": "Week",
+    "n": 30,
+    "id": "ima-kon",
+    "kanji": "今",
+    "word": "今",
+    "english": "Now, Current",
     "pairs": [
       [
-        "しゅう",
-        "shū"
+        "いま",
+        "ima"
+      ],
+      [
+        "こん",
+        "kon"
       ]
     ],
-    "date": "2026-10-20",
+    "date": "2026-10-21",
     "file": "index.html",
-    "built": "2026-10-20T19:01:12"
+    "built": "2026-10-21T19:01:18"
   },
   "published": [
     {
@@ -599,6 +603,22 @@
       "date": "2026-10-19",
       "file": "archive/tsuki-gatsu.html",
       "built": "2026-10-19T19:01:03"
+    },
+    {
+      "n": 29,
+      "id": "shu",
+      "kanji": "週",
+      "word": "週",
+      "english": "Week",
+      "pairs": [
+        [
+          "しゅう",
+          "shū"
+        ]
+      ],
+      "date": "2026-10-20",
+      "file": "archive/shu.html",
+      "built": "2026-10-20T19:01:12"
     }
   ]
 }
