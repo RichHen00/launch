@@ -1,23 +1,19 @@
 {
   "current": {
-    "n": 30,
-    "id": "ima-kon",
-    "kanji": "今",
-    "word": "今",
-    "english": "Now, Current",
+    "n": 31,
+    "id": "mai",
+    "kanji": "毎",
+    "word": "毎",
+    "english": "Every",
     "pairs": [
       [
-        "いま",
-        "ima"
-      ],
-      [
-        "こん",
-        "kon"
+        "まい",
+        "mai"
       ]
     ],
-    "date": "2026-10-21",
+    "date": "2026-10-22",
     "file": "index.html",
-    "built": "2026-10-21T19:01:18"
+    "built": "2026-10-22T19:00:58"
   },
   "published": [
     {
@@ -619,6 +615,26 @@
       "date": "2026-10-20",
       "file": "archive/shu.html",
       "built": "2026-10-20T19:01:12"
+    },
+    {
+      "n": 30,
+      "id": "ima-kon",
+      "kanji": "今",
+      "word": "今",
+      "english": "Now, Current",
+      "pairs": [
+        [
+          "いま",
+          "ima"
+        ],
+        [
+          "こん",
+          "kon"
+        ]
+      ],
+      "date": "2026-10-21",
+      "file": "archive/ima-kon.html",
+      "built": "2026-10-21T19:01:18"
     }
   ]
 }
