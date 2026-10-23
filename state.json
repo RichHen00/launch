@@ -1,19 +1,23 @@
 {
   "current": {
-    "n": 31,
-    "id": "mai",
-    "kanji": "毎",
-    "word": "毎",
-    "english": "Every",
+    "n": 32,
+    "id": "saki-sen",
+    "kanji": "先",
+    "word": "先",
+    "english": "Ahead, Previous, Destination",
     "pairs": [
       [
-        "まい",
-        "mai"
+        "さき",
+        "saki"
+      ],
+      [
+        "せん",
+        "sen"
       ]
     ],
-    "date": "2026-10-22",
+    "date": "2026-10-23",
     "file": "index.html",
-    "built": "2026-10-22T19:00:58"
+    "built": "2026-10-23T19:01:33"
   },
   "published": [
     {
@@ -635,6 +639,22 @@
       "date": "2026-10-21",
       "file": "archive/ima-kon.html",
       "built": "2026-10-21T19:01:18"
+    },
+    {
+      "n": 31,
+      "id": "mai",
+      "kanji": "毎",
+      "word": "毎",
+      "english": "Every",
+      "pairs": [
+        [
+          "まい",
+          "mai"
+        ]
+      ],
+      "date": "2026-10-22",
+      "file": "archive/mai.html",
+      "built": "2026-10-22T19:00:58"
     }
   ]
 }
