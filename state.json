@@ -1,23 +1,23 @@
 {
   "current": {
-    "n": 32,
-    "id": "saki-sen",
-    "kanji": "先",
-    "word": "先",
-    "english": "Ahead, Previous, Destination",
+    "n": 33,
+    "id": "atara-shin",
+    "kanji": "新",
+    "word": "新",
+    "english": "New",
     "pairs": [
       [
-        "さき",
-        "saki"
+        "あたら",
+        "atara"
       ],
       [
-        "せん",
-        "sen"
+        "しん",
+        "shin"
       ]
     ],
-    "date": "2026-10-23",
+    "date": "2026-10-24",
     "file": "index.html",
-    "built": "2026-10-23T19:01:33"
+    "built": "2026-10-24T19:00:57"
   },
   "published": [
     {
@@ -655,6 +655,26 @@
       "date": "2026-10-22",
       "file": "archive/mai.html",
       "built": "2026-10-22T19:00:58"
+    },
+    {
+      "n": 32,
+      "id": "saki-sen",
+      "kanji": "先",
+      "word": "先",
+      "english": "Ahead, Previous, Destination",
+      "pairs": [
+        [
+          "さき",
+          "saki"
+        ],
+        [
+          "せん",
+          "sen"
+        ]
+      ],
+      "date": "2026-10-23",
+      "file": "archive/saki-sen.html",
+      "built": "2026-10-23T19:01:33"
     }
   ]
 }
