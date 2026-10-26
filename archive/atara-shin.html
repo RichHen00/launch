@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Japanese Lesson</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@800&family=Noto+Sans+JP:wght@500;600&family=LINE+Seed+JP:wght@400;700&family=Nicomoji&display=swap" rel="stylesheet">
+  <style>
+    :root { --ink: #171717; --muted: #666; --page: #fff; --line: #d7d7d7; }
+    body { background: #fff; font-family: "LINE Seed JP", "Noto Sans JP", sans-serif; margin: 0; }
+    main { width: min(920px, calc(100% - 40px)); margin: 34px auto 60px; }
+    .lesson { border: 0; background: #fff; }
+    header { padding: 0 0 34px; border: 0; }
+    .date { margin: 0; color: #d64747; font-size: 14px; letter-spacing: .08em; }
+    .tab-bar { display: flex; align-items: baseline; border-bottom: 1px solid var(--line); padding: 0 0 10px; gap: 20px; }
+    .tab-bar h2 { flex: 1; margin: 0; font-size: 29px; font-weight: 800; letter-spacing: -.01em; font-family: "M PLUS 1p", sans-serif; }
+    .tab-bar h2 > span:first-child { color: #d64747; }
+    .tab-bar .meaning { font-family: "LINE Seed JP", "Noto Sans JP", sans-serif; font-size: 18px; font-weight: 500; color: var(--muted); }
+    .tab-btn { background: none; border: none; padding: 0; font-size: 18px; font-weight: 500; font-family: "LINE Seed JP", "Noto Sans JP", sans-serif; color: var(--muted); cursor: pointer; line-height: 1; }
+    .tab-btn:hover { color: var(--ink); }
+    .tab-btn.open { color: var(--ink); }
+    .api-panel { display: none; padding: 14px 0 18px; border-bottom: 1px solid var(--line); }
+    .api-panel.open { display: block; }
+    .api-row { display: grid; grid-template-columns: 72px minmax(140px, 1fr) auto; align-items: center; gap: 8px; margin: 0 0 8px; }
+    .api-row label { font-size: 13px; color: var(--muted); }
+    .api-row input { font-size: 13px; padding: 5px 9px; border: 1px solid var(--line); border-radius: 4px; font-family: ui-monospace, Menlo, monospace; min-width: 0; cursor: text; }
+    .api-row input.cred-idle { color: var(--muted); background: #fafafa; }
+    .api-row input.cred-empty { color: #aaa; font-style: italic; }
+    .api-row button { font-size: 13px; padding: 5px 12px; border: 1px solid var(--line); border-radius: 4px; cursor: pointer; background: #fff; white-space: nowrap; }
+    .api-row button:hover { background: #f5f5f5; }
+    .api-status { font-size: 12px; color: var(--muted); min-height: 14px; margin: 4px 0 0; }
+    .api-status.ok { color: #1a7f37; }
+    .api-status.err { color: #c62828; }
+    .api-log { display: none; margin: 10px 0 0; padding: 8px 10px; background: #111; color: #0f0; font-family: ui-monospace, Menlo, monospace; font-size: 11px; line-height: 1.45; white-space: pre-wrap; word-break: break-word; max-height: 160px; overflow: auto; }
+    .api-log.open { display: block; }
+    .api-log.err { color: #f66; }
+    .characters { padding: 34px 0 0; }
+    .characters-heading { padding: 0 0 18px; border: 0; }
+    .characters-heading h2 { font-size: 22px; font-weight: 500; margin: 0; }
+    .kana-grid { display: flex; flex-wrap: wrap; gap: 0 16px; }
+    .kana { border: 0; border-top: 1px solid var(--line); border-radius: 0; width: 10%; box-sizing: border-box; }
+    .kana-top { padding: 12px 0 0; margin: 0; border: 0; color: var(--ink); text-align: center; font-size: 11.5px; line-height: 1; }
+    .kana-body { min-height: 170px; padding: 0; margin: 0; background: transparent; display: flex; align-items: flex-start; justify-content: center; cursor: pointer; }
+    .kana-body svg { width: 100%; height: auto; }
+    .font-link { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 38px 0 0; font-size: 12px; }
+    .font-link img { height: 20px; width: auto; }
+    .font-link .date-stamp { color: var(--muted); font-variant-numeric: tabular-nums; }
+    .font-link a { color: #d64747; }
+    .lesson-content { padding: 34px 0 0; }
+    .lesson-heading { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px 20px; padding: 0; border-bottom: none; }
+    .lesson-heading h2 { margin: 0; font-size: 29px; font-weight: 800; letter-spacing: -.01em; font-family: "M PLUS 1p", sans-serif; }
+    .lesson-heading .ja { color: #d64747; font-size: 29px; font-weight: 600; font-family: "Noto Sans JP", sans-serif; }
+    .lesson-lead { margin: 18px 0 0; color: var(--muted); font-size: 15px; line-height: 1.7; }
+    .lesson-lead .kanji-line { font-family: "M PLUS 1p", sans-serif; font-weight: 800; font-size: 29px; color: var(--ink); }
+    .lesson-lead .kanji-line .meaning { font-family: "LINE Seed JP", "Noto Sans JP", sans-serif; font-weight: 500; text-transform: uppercase; }
+    .lesson-lead .hiragana-char { font-family: "Noto Sans JP", sans-serif; font-weight: 500; font-size: 29px; color: var(--ink); }
+    .lesson-lead .romaji { color: var(--muted); font-size: 29px; font-weight: 400; }
+    .lesson-lead .lead-label { color: var(--muted); font-size: 15px; font-weight: 400; }
+    .clickable { cursor: pointer; }
+    .clickable:hover { opacity: 0.7; }
+    .ja-body .ja-link { color: inherit; border-bottom: 1px dotted var(--line); }
+    .characters[aria-label="Archive"] .characters-heading h2 { color: var(--muted); font-size: 15px; font-weight: 400; letter-spacing: 0; }
+    .characters[aria-label="Archive"] .lesson-lead + .lesson-lead { border-top: 1px solid var(--line); padding-top: 12px; }
+    .characters[aria-label="Archive"] a.date { color: #d64747; text-decoration: none; }
+    /* AnimCJK stroke cards: gray silhouette guide + animated median stroke (LGPL v3) */
+    .stroke-svg.acjk path[id] {
+      fill: #e9e9e9;
+    }
+    .stroke-svg.acjk path[clip-path] {
+      stroke: var(--ink);
+      stroke-width: 128;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      stroke-dasharray: 3337;
+      stroke-dashoffset: 3339;
+    }
+    .stroke-svg.acjk.playing path[clip-path] {
+      animation: acjkDraw var(--t, .8s) linear forwards var(--d, 0s);
+    }
+    @keyframes acjkDraw {
+      to { stroke-dashoffset: 0; }
+    }
+    @media (max-width: 480px) {
+      main { width: 100%; margin: 20px auto 32px; padding: 0 16px; box-sizing: border-box; }
+      .date { font-size: 15px; }
+      .lesson-heading { flex-direction: column; gap: 4px; }
+      .lesson-heading h2 { font-size: 28px; text-align: center; width: 100%; }
+      .lesson-heading .ja { font-size: 18px; }
+      .lesson-lead { font-size: 16px; text-align: center; }
+      .lesson-lead.ja-body { text-align: left; padding-left: 8px; }
+      .characters-heading { text-align: center; }
+      .characters-heading h2 { font-size: 24px; }
+      .kana-grid { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 8px; }
+      .kana { width: calc(50% - 4px); border-top: none; }
+      .kana-top { font-size: 13px; padding: 12px 0 8px; }
+      .kana-body { min-height: 0; padding: 0; }
+      .kana-body svg { width: 100%; height: auto; }
+      .characters[aria-label="Archive"] .characters-heading { text-align: left; }
+      .characters[aria-label="Archive"] .characters-heading h2 { font-size: 13px; }
+      .characters[aria-label="Archive"] .lesson-lead {
+        text-align: left;
+        font-size: 11px;
+        line-height: 1.35;
+        white-space: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        margin-top: 10px;
+        padding-top: 8px;
+      }
+      .characters[aria-label="Archive"] .lesson-lead::-webkit-scrollbar { display: none; }
+      .characters[aria-label="Archive"] .lesson-lead .hiragana-char,
+      .characters[aria-label="Archive"] .lesson-lead .romaji { font-size: 12px; }
+      .characters[aria-label="Archive"] .lesson-lead + .lesson-lead { padding-top: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <article class="lesson">
+      <header>
+        <p class="date"><a href="../index.html">Home</a> · 2026-10-24 · New</p>
+      </header>
+      <section class="lesson-content" aria-label="Lesson content">
+        <div class="tab-bar">
+          <h2><span class="clickable" onclick="playSound('あたらしん')">新</span> <span class="ja clickable" lang="ja" onclick="playSound('あたらしん')">あたらしん</span> <span class="meaning">New</span></h2>
+        </div>
+        <p class="lesson-lead"><span class="hiragana-char clickable" onclick="playSound('あたら')">あたら</span> <span class="romaji">atara</span> <span class="hiragana-char clickable" onclick="playSound('しん')">しん</span> <span class="romaji">shin</span></p>
+
+        <p class="lesson-lead ja-body" style="margin-top:24px;"><strong>Usage:</strong> 新 commonly expresses “new” in written Japanese.</p>
+        <p class="lesson-lead ja-body"><strong>Example:</strong> 新幹線 (しんかんせん, shinkansen): Shinkansen; 新品 (しんぴん, shinpin): new item</p>
+
+        <div class="characters">
+          <div class="characters-heading"><h2>Stroke order</h2></div>
+          <div class="kana-grid">
+            <!-- あ: stroke order from AnimCJK, LGPL v3 - https://github.com/parsimonhi/animCJK -->
+<div class="kana"><div class="kana-top"><strong>a</strong></div><div class="kana-body"><svg id="c1" class="acjk stroke-svg" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="あ stroke order"> <path id="c1d1" d="M660 211C637 211 616 221 597 232C570 245 542 252 514 261C464 274 414 285 363 291C319 294 273 293 231 278C211 270 195 254 174 248C167 248 162 257 167 263C181 293 209 313 239 325C284 343 335 344 384 340C462 332 538 307 615 290C639 284 665 281 686 267C695 261 705 254 709 244C712 234 706 224 697 221C685 215 672 211 660 211Z"/> <path id="c1d2" d="M334 128C328 130 318 134 320 143C325 154 337 158 346 165C356 171 369 178 369 192C370 213 365 233 363 254C347 370 335 488 345 606C349 642 354 679 366 715C376 742 389 768 410 788C422 797 441 795 449 781C459 764 457 743 448 726C439 710 424 699 415 682C402 655 399 624 396 595C388 503 397 411 415 321C422 287 429 252 447 223C454 208 462 192 459 175C455 160 441 152 427 147C398 136 366 130 334 128Z"/> <path id="c1d3a" d="M559 431C556 431 552 435 555 438C565 455 581 471 580 492C580 512 567 529 558 545C517 612 461 670 402 721C361 754 315 780 264 792C249 795 232 795 220 784C207 771 208 751 210 734C216 690 244 653 278 625C306 602 337 580 372 565C372 552 372 540 373 527C326 543 282 568 241 596C201 625 165 663 151 712C139 749 143 793 168 824C183 843 206 856 230 857C278 860 324 841 364 817C440 770 506 708 558 636C581 602 602 567 619 530C626 514 632 497 629 481C625 467 615 456 604 447C591 437 575 431 559 431Z"/> <path id="c1d3b" d="M602 484C565 485 528 489 492 494C447 501 405 515 363 531C363 543 363 556 363 568C414 548 467 530 523 524C563 518 604 515 644 519C689 524 736 537 769 569C793 591 806 622 807 654C808 675 806 697 800 717C776 774 725 817 671 846C627 871 580 890 531 902C521 906 509 909 501 917C498 921 497 925 498 930C549 927 600 918 650 906C715 889 780 861 830 814C861 784 887 745 891 701C899 631 861 557 796 526C736 496 668 484 602 484Z"/> <defs> <clipPath id="c1c1"><use href="#c1d1"/></clipPath> <clipPath id="c1c2"><use href="#c1d2"/></clipPath> <clipPath id="c1c3a"><use href="#c1d3a"/></clipPath> <clipPath id="c1c3b"><use href="#c1d3b"/></clipPath> </defs> <path style="--d:1s;" pathLength="3333" clip-path="url(#c1c1)" d="M 174,258 251,308 440,306 697,241"/> <path style="--d:2s;" pathLength="3333" clip-path="url(#c1c2)" d="M 331,137 420,185 373,388 367,632 409,728 431,777"/> <path style="--d:3s;" pathLength="3333" clip-path="url(#c1c3a)" d="M 570,440 610,484 460,727 200,836 181,682 342,556 466,514 641,499 754,520 838,606 845,763 703,869 508,922"/> <path style="--d:3s;" pathLength="3333" clip-path="url(#c1c3b)" d="M -170,442 -210,484 -60,727 200,836 181,682 342,556 466,514 641,499 754,520 838,606 845,763 703,869 508,922"/> </svg></div></div>
+<div class="kana"><div class="kana-top"><strong>ta</strong></div><div class="kana-body"><svg id="c2" class="acjk stroke-svg" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="た stroke order"> <path id="c2d1" d="M608 265C591 266 576 276 561 284C514 304 463 316 412 327C373 336 334 342 294 339C267 337 239 332 212 328C202 327 191 325 183 331C178 336 184 344 189 347C219 372 258 382 296 388C333 394 370 389 407 383C467 372 526 354 585 341C615 334 646 327 673 311C681 307 689 298 684 289C678 278 663 275 651 271C637 267 623 265 608 265Z"/> <path id="c2d2" d="M424 107C417 106 408 112 411 120C414 133 426 143 424 157C422 170 417 183 413 195C400 237 386 279 371 321C350 380 328 440 304 498C274 575 244 652 205 725C186 756 159 784 152 820C146 850 150 880 152 910C155 920 169 929 179 923C194 912 197 893 205 878C266 746 320 612 374 478C403 404 430 329 459 254C465 237 470 219 482 204C490 193 503 181 502 166C500 146 482 131 465 122C452 114 439 107 424 107Z"/> <path id="c2d3" d="M729 482C660 488 597 519 534 545C525 549 515 551 506 556C498 560 499 572 506 577C514 584 526 584 537 583C559 580 580 573 602 569C655 556 709 546 763 551C781 552 800 556 819 553C828 548 826 535 821 528C809 514 792 504 776 495C762 488 746 482 729 482Z"/> <path id="c2d4" d="M503 762C494 762 491 772 493 779C496 816 524 849 560 861C617 883 679 883 738 884C777 885 816 884 855 881C865 879 875 868 871 858C866 842 852 831 839 822C819 810 793 814 771 818C716 826 660 829 605 821C581 817 556 812 537 796C527 789 521 779 515 769C512 765 508 762 503 762Z"/> <defs> <clipPath id="c2c1"><use href="#c2d1"/></clipPath> <clipPath id="c2c2"><use href="#c2d2"/></clipPath> <clipPath id="c2c3"><use href="#c2d3"/></clipPath> <clipPath id="c2c4"><use href="#c2d4"/></clipPath> </defs> <path style="--d:1s;" pathLength="3333" clip-path="url(#c2c1)" d="M 194,339 330,372 676,290"/> <path style="--d:2s;" pathLength="3333" clip-path="url(#c2c2)" d="M 424,116 464,176 172,916"/> <path style="--d:3s;" pathLength="3333" clip-path="url(#c2c3)" d="M 516,563 730,514 811,533"/> <path style="--d:4s;" pathLength="3333" clip-path="url(#c2c4)" d="M 505,776 549,841 858,868"/> </svg></div></div>
+<div class="kana"><div class="kana-top"><strong>ra</strong></div><div class="kana-body"><svg id="c3" class="acjk stroke-svg" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ら stroke order"> <path id="c3d1" d="M378 103C366 103 361 119 368 127C390 161 420 189 447 220C427 231 403 238 387 255C381 261 379 271 385 277C392 286 405 282 415 278C441 270 471 266 498 273C510 276 523 270 526 259C532 244 530 228 526 213C517 186 494 167 470 151C444 133 415 119 387 104C384 103 381 103 378 103Z"/> <path id="c3d2" d="M327 333C312 335 303 349 297 362C263 435 249 515 234 594C229 623 221 652 221 682C222 708 230 733 245 753C251 761 259 768 269 768C284 765 296 754 309 746C333 730 360 717 387 706C457 675 529 647 604 630C639 623 677 623 709 642C726 653 737 673 736 693C736 725 721 756 698 778C670 804 637 823 605 842C573 860 540 874 506 887C497 892 486 897 481 906C477 917 488 930 500 928C513 926 525 920 538 918C618 897 697 866 761 813C787 790 807 757 807 721C809 677 789 630 751 606C714 580 668 574 624 578C561 583 500 603 440 621C407 631 373 642 341 656C326 661 310 667 293 666C289 660 292 652 291 645C298 574 309 503 324 433C329 411 336 389 341 367C343 357 343 345 336 337C333 334 330 333 327 333Z"/> <defs> <clipPath id="c3c1"><use href="#c3d1"/></clipPath> <clipPath id="c3c2"><use href="#c3d2"/></clipPath> </defs> <path style="--d:1s;" pathLength="3333" clip-path="url(#c3c1)" d="M 378,113 508,240 396,275"/> <path style="--d:2s;" pathLength="3333" clip-path="url(#c3c2)" d="M 327,344 308,376 235,685 264,717 529,616 697,600 758,647 772,753 662,849 493,916"/> </svg></div></div>
+<div class="kana"><div class="kana-top"><strong>shi</strong></div><div class="kana-body"><svg id="c4" class="acjk stroke-svg" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="し stroke order"> <path id="c4d1" d="M281 104C271 104 266 116 271 125C279 141 292 155 293 174C295 223 291 271 288 319C282 444 274 568 274 692C274 740 280 790 301 834C321 875 365 901 409 913C478 932 552 924 618 900C676 878 730 848 781 813C793 804 806 797 816 786C823 780 826 767 818 761C809 755 798 761 790 766C772 777 752 787 732 796C660 829 585 863 504 871C471 874 435 871 404 857C374 844 353 816 343 785C330 745 330 702 331 660C331 612 343 372 373 237C377 218 385 199 379 180C373 163 362 149 348 137C330 120 307 104 281 104Z"/> <defs> <clipPath id="c4c1"><use href="#c4d1"/></clipPath> </defs> <path style="--d:1s;" pathLength="3333" clip-path="url(#c4c1)" d="M 287,128 346,192 299,732 328,833 411,894 568,894 674,855 812,770"/> </svg></div></div>
+<div class="kana"><div class="kana-top"><strong>n</strong></div><div class="kana-body"><svg id="c5" class="acjk stroke-svg" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ん stroke order"> <path id="c5d1" d="M498 98C487 99 482 112 483 121C486 134 495 144 495 158C495 174 487 189 482 204C461 255 434 303 407 352C367 424 324 496 283 568C231 657 177 744 124 832C114 853 118 876 123 897C126 910 130 923 140 932C149 938 163 933 167 923C180 902 184 877 194 855C210 815 232 778 260 745C303 692 349 639 408 604C431 590 455 577 482 577C498 578 511 589 517 602C535 633 532 669 528 703C525 740 519 777 517 814C516 840 517 867 532 889C550 914 581 927 611 926C651 926 692 913 725 889C769 859 801 813 824 765C847 716 864 664 881 613C886 596 892 579 894 562C894 553 886 544 877 548C864 552 860 567 854 578C829 630 809 685 778 733C752 777 717 816 674 844C654 856 630 867 606 861C592 855 590 838 588 824C585 791 590 758 593 725C597 681 602 635 588 592C578 565 558 544 535 528C517 515 495 510 474 513C443 518 415 533 390 550C365 569 341 592 319 615C386 497 456 380 525 263C537 241 553 220 570 201C579 190 585 173 576 159C563 136 542 116 518 104C512 100 505 98 498 98Z"/> <defs> <clipPath id="c5c1"><use href="#c5d1"/></clipPath> </defs> <path style="--d:1s;" pathLength="3333" clip-path="url(#c5c1)" d="M 502,112 543,175 146,854 152,894 242,729 392,579 506,535 565,613 530,864 611,908 793,793 875,566"/> </svg></div></div>
+          </div>
+        </div>
+      </section>
+      <p class="font-link"><img src="assets/stamp.jpeg" alt=""><a href="https://googlefonts.github.io/japanese/#nicomoji" target="_blank" rel="noopener">G Fonts Japanese types</a></p>
+    </article>
+  </main>
+  <script>
+    var EL_KEY_K   = 'el_api_key';
+    var EL_VOICE_K = 'el_voice_id';
+    var EL_MODEL   = 'eleven_multilingual_v2';
+    var EL_MODEL_JA = 'eleven_flash_v2_5';
+    var ssVoices = [];
+    var ssVoice = null;
+
+    // Longest key wins when matching. Build injects the lesson word.
+    var KANJI_READING = {
+      '新': 'あたらしん',
+    };
+
+    function isJaText(s) {
+      return /[぀-ヿ㐀-鿿＀-￯]/.test(s);
+    }
+
+    function harvestJaReadings(root) {
+      var re = /([㐀-鿿]+)["']?\s*\(([぀-ゟ]+)/g;
+      root.querySelectorAll('p').forEach(function (p) {
+        var t = p.textContent;
+        var m;
+        while ((m = re.exec(t)) !== null) {
+          if (!KANJI_READING[m[1]] || m[1].length >= 2) KANJI_READING[m[1]] = m[2];
+        }
+      });
+    }
+
+    // Pure-kanji token with a known reading → use that (中 → なか).
+    // Anything with kana (中にあります, すこしでも…です。) → speak the surface
+    // text as one unit so the ja model gets full context for pronunciation.
+    function resolveJaReading(token) {
+      if (KANJI_READING[token] && /^[㐀-鿿]+$/.test(token)) {
+        return KANJI_READING[token];
+      }
+      return token;
+    }
+
+    // Wrap every contiguous Japanese run as one clickable unit. Runs break only
+    // on non-JA (spaces, Latin, ASCII quotes) — never between kanji and kana.
+    function linkJaBody(root) {
+      if (!root) return;
+      harvestJaReadings(root);
+      var re = /[　-ヿ㐀-鿿＀-￯]+/g;
+      var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+      var nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+      nodes.forEach(function (node) {
+        var parent = node.parentElement;
+        if (!parent || parent.closest('.hiragana-char, .clickable, .ja-link, .tab-bar, .api-panel, script, style')) return;
+        var text = node.textContent;
+        if (!isJaText(text)) return;
+        re.lastIndex = 0;
+        var frag = document.createDocumentFragment();
+        var last = 0;
+        var m;
+        while ((m = re.exec(text)) !== null) {
+          if (m.index > last) frag.appendChild(document.createTextNode(text.slice(last, m.index)));
+          var token = m[0];
+          var span = document.createElement('span');
+          span.className = 'clickable ja-link';
+          span.setAttribute('lang', 'ja');
+          span.setAttribute('data-reading', resolveJaReading(token));
+          span.textContent = token;
+          frag.appendChild(span);
+          last = m.index + token.length;
+        }
+        if (last < text.length) frag.appendChild(document.createTextNode(text.slice(last)));
+        if (last > 0) node.parentNode.replaceChild(frag, node);
+      });
+    }
+
+    function apiLog(msg, isErr) {
+      var el = document.getElementById('api-log');
+      if (!el) return;
+      var t = new Date().toTimeString().slice(0, 8);
+      el.classList.add('open');
+      el.classList.toggle('err', !!isErr);
+      el.textContent += '[' + t + '] ' + msg + '\n';
+      el.scrollTop = el.scrollHeight;
+      if (isErr) console.warn('[EL]', msg); else console.log('[EL]', msg);
+    }
+
+    function activeKey() {
+      var i = document.getElementById('el-key');
+      if (i && !i.readOnly && i.value.trim()) return i.value.trim();
+      return localStorage.getItem(EL_KEY_K) || '';
+    }
+
+    function activeVoice() {
+      var i = document.getElementById('el-voice');
+      if (i && !i.readOnly && i.value.trim()) return i.value.trim();
+      return localStorage.getItem(EL_VOICE_K) || '';
+    }
+
+    function elTts(voice, text, cb) {
+      var key = activeKey();
+      if (!key) { apiLog('tts: no key', true); if (cb) cb(false, 'No API key.'); return; }
+      var ctx = getElCtx();
+      if (!ctx) { apiLog('tts: no AudioContext', true); if (cb) cb(false, 'No AudioContext.'); return; }
+      if (ctx.state === 'suspended') ctx.resume();
+      var t0 = performance.now();
+      var body = { text: text, model_id: EL_MODEL, voice_settings: { stability: 0.5, similarity_boost: 0.75 } };
+      if (isJaText(text)) {
+        body.model_id = EL_MODEL_JA;
+        body.language_code = 'ja';
+        body.apply_language_text_normalization = true;
+      }
+      fetch('https://api.elevenlabs.io/v1/text-to-speech/' + voice, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'xi-api-key': key },
+        body: JSON.stringify(body)
+      })
+      .then(function(res) {
+        var ms = Math.round(performance.now() - t0);
+        if (!res.ok) {
+          return res.text().then(function(t) {
+            var msg = 'HTTP ' + res.status + ' ' + t;
+            apiLog('tts "' + text + '" ' + msg, true);
+            if (cb) cb(false, msg);
+          });
+        }
+        return res.arrayBuffer().then(function(buf) {
+          // Prefer <audio> blob — Web Audio can report onended while silent (Safari).
+          var blob = new Blob([buf], { type: 'audio/mpeg' });
+          var url = URL.createObjectURL(blob);
+          var el = new Audio(url);
+          el.volume = 1;
+          var finished = false;
+          function done(ok, detail) {
+            if (finished) return;
+            finished = true;
+            URL.revokeObjectURL(url);
+            if (cb) cb(ok, detail);
+          }
+          el.onended = function () {
+            var d = (el.duration && isFinite(el.duration)) ? el.duration.toFixed(2) + 's' : '?s';
+            apiLog('played "' + text + '" <audio> ' + d + ' (' + ms + 'ms)');
+            done(true, d);
+          };
+          el.onerror = function () {
+            var err = (el.error && el.error.message) || 'unknown';
+            apiLog('<audio> error: ' + err + ' — AudioContext fallback', true);
+            playViaWebAudio(ctx, buf, text, ms, cb, done);
+          };
+          apiLog('tts HTTP 200 (' + ms + 'ms) bytes=' + buf.byteLength + ' ctx=' + ctx.state);
+          var p = el.play();
+          if (p && p.then) {
+            p.then(function () {
+              apiLog('<audio>.play() ok');
+            }, function (e) {
+              apiLog('<audio>.play() REJECTED: ' + (e && e.message) + ' — AudioContext fallback', true);
+              playViaWebAudio(ctx, buf, text, ms, cb, done);
+            });
+          }
+        });
+      })
+      .catch(function (err) {
+        apiLog('tts network: ' + err.message, true);
+        if (cb) cb(false, 'Network error.');
+      });
+    }
+
+    function playViaWebAudio(ctx, buf, text, ms, cb, done) {
+      if (!ctx) {
+        apiLog('no AudioContext for fallback', true);
+        if (done) done(false, 'No audio output.');
+        return;
+      }
+      var p = (ctx.state === 'suspended') ? ctx.resume() : Promise.resolve();
+      Promise.resolve(p).then(function () {
+        return ctx.decodeAudioData(buf.slice(0));
+      }).then(function (decoded) {
+        var src = ctx.createBufferSource();
+        src.buffer = decoded;
+        src.connect(ctx.destination);
+        src.onended = function () {
+          var d = decoded.duration.toFixed(2) + 's';
+          apiLog('played "' + text + '" WebAudio ' + d + ' (' + ms + 'ms)');
+          if (done) done(true, d);
+        };
+        src.start(0);
+        apiLog('WebAudio src.start ctx=' + ctx.state);
+      }, function (e) {
+        apiLog('WebAudio decode fail: ' + (e && e.message || e), true);
+        if (done) done(false, 'Decode failed.');
+      }).catch(function (e) {
+        apiLog('WebAudio fail: ' + (e && e.message || e), true);
+        if (done) done(false, 'Audio failed.');
+      });
+    }
+
+    // Unified sound: ElevenLabs when credentials exist, system TTS otherwise.
+    function playSound(text) {
+      var key = localStorage.getItem(EL_KEY_K) || '';
+      var voice = localStorage.getItem(EL_VOICE_K) || '';
+      if (key && voice) {
+        elTts(voice, text, null);
+      } else {
+        apiLog('no credentials — system TTS "' + text + '"');
+        speakChar(text);
+      }
+    }
+
+    function playViaEL(reading) {
+      playSound(reading);
+    }var elCtx = null;
+    function getElCtx() {
+      if (!elCtx) {
+        var AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return null;
+        elCtx = new AC();
+        apiLog('AudioContext created sr=' + elCtx.sampleRate + ' state=' + elCtx.state);
+      }
+      if (elCtx.state === 'suspended') {
+        elCtx.resume().then(function () {
+          apiLog('AudioContext resumed state=' + elCtx.state);
+        }, function (e) {
+          apiLog('AudioContext resume REJECTED: ' + (e && e.message), true);
+        });
+      }
+      return elCtx;
+    }
+
+    function pickJaVoice() {
+      var ja = ssVoices.filter(function (v) { return /^ja/i.test(v.lang); });
+      var kyoko = ja.filter(function (v) { return /kyoko/i.test(v.name); });
+      var enh = kyoko.filter(function (v) { return /enhanced/i.test(v.name); });
+      return enh[0] || kyoko[0] || ja[0] || null;
+    }
+
+    function refreshVoices() {
+      ssVoices = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
+      ssVoice = pickJaVoice();
+    }
+
+    // Split long Japanese for speechSynthesis (browsers clip ~15s utterances).
+    // Pause at sentence end; mid-sentence only after、once already long.
+    function splitJaForSpeech(s) {
+      if (!s) return [];
+      var parts = [];
+      var buf = '';
+      for (var i = 0; i < s.length; i++) {
+        var ch = s.charAt(i);
+        buf += ch;
+        if (ch === '。' || ch === '！' || ch === '？' || ch === '!' || ch === '?') {
+          parts.push(buf);
+          buf = '';
+        } else if (ch === '、' && buf.length >= 24) {
+          parts.push(buf);
+          buf = '';
+        }
+      }
+      if (buf) parts.push(buf);
+      return parts.length ? parts : [s];
+    }
+
+    function speakChar(reading) {
+      if (!window.speechSynthesis || !reading) return;
+      var synth = window.speechSynthesis;
+      synth.cancel();
+      if (!ssVoice) refreshVoices();
+      var parts = splitJaForSpeech(reading);
+      function speakAt(i) {
+        if (i >= parts.length) return;
+        var u = new SpeechSynthesisUtterance(parts[i]);
+        if (ssVoice) { u.voice = ssVoice; u.lang = ssVoice.lang; } else { u.lang = 'ja-JP'; }
+        u.rate = 0.9;
+        u.pitch = 1.0;
+        u.onend = function () {
+          if (i + 1 < parts.length) setTimeout(function () { speakAt(i + 1); }, 80);
+        };
+        // Chrome/Safari: speak() in the same turn as cancel() clips the start.
+        setTimeout(function () { synth.speak(u); }, i === 0 ? 100 : 60);
+      }
+      speakAt(0);
+    }
+
+    function replayStroke(svg) {
+      svg.classList.remove('playing');
+      void svg.getBoundingClientRect();
+      svg.classList.add('playing');
+    }
+    (function () {
+      refreshVoices();
+      if (window.speechSynthesis && window.speechSynthesis.onvoiceschanged !== undefined) {
+        window.speechSynthesis.onvoiceschanged = refreshVoices;
+      }
+      document.querySelectorAll('.ja-body').forEach(linkJaBody);
+      document.addEventListener('click', function (e) {
+        var t = e.target.closest('[data-reading]');
+        if (t) playViaEL(t.getAttribute('data-reading'));
+      });
+      document.addEventListener('visibilitychange', function () {
+        apiLog('visibility=' + document.visibilityState + ' ctx=' + (elCtx ? elCtx.state : 'none'));
+      });
+      var date = document.querySelector('.date');
+      var text = date ? date.textContent : '';
+      var match = text.match(/(\d{4})-(\d{2})-(\d{2})/);
+      var englishMatch = text.match(/\d{4}-\d{2}-\d{2} \u00b7 (.+)$/);
+      var english = englishMatch ? englishMatch[1].trim() : '';
+      if (match && english) {
+        var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        document.title = Number(match[3]) + ' ' + months[Number(match[2]) - 1] + ' ' + match[1].slice(2) + ' - ' + english.trim();
+      }
+    }());
+    document.querySelectorAll('.kana-body').forEach(function (body) {
+      body.addEventListener('click', function () {
+        var svg = body.querySelector('.stroke-svg');
+        if (svg) replayStroke(svg);
+      });
+    });
+  </script>
+</body>
+</html>
