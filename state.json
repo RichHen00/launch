@@ -1,23 +1,23 @@
 {
   "current": {
-    "n": 34,
-    "id": "furu-ko",
-    "kanji": "古",
-    "word": "古",
-    "english": "Old",
+    "n": 35,
+    "id": "naga-cho",
+    "kanji": "長",
+    "word": "長",
+    "english": "Long, Leader",
     "pairs": [
       [
-        "ふる",
-        "furu"
+        "なが",
+        "naga"
       ],
       [
-        "こ",
-        "ko"
+        "ちょう",
+        "chō"
       ]
     ],
-    "date": "2026-10-26",
+    "date": "2026-10-27",
     "file": "index.html",
-    "built": "2026-10-26T19:03:50"
+    "built": "2026-10-27T19:01:22"
   },
   "published": [
     {
@@ -695,6 +695,26 @@
       "date": "2026-10-24",
       "file": "archive/atara-shin.html",
       "built": "2026-10-24T19:00:57"
+    },
+    {
+      "n": 34,
+      "id": "furu-ko",
+      "kanji": "古",
+      "word": "古",
+      "english": "Old",
+      "pairs": [
+        [
+          "ふる",
+          "furu"
+        ],
+        [
+          "こ",
+          "ko"
+        ]
+      ],
+      "date": "2026-10-26",
+      "file": "archive/furu-ko.html",
+      "built": "2026-10-26T19:03:50"
     }
   ]
 }
