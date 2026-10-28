@@ -1,23 +1,23 @@
 {
   "current": {
-    "n": 35,
-    "id": "naga-cho",
-    "kanji": "長",
-    "word": "長",
-    "english": "Long, Leader",
+    "n": 36,
+    "id": "taka-ko",
+    "kanji": "高",
+    "word": "高",
+    "english": "High, Expensive",
     "pairs": [
       [
-        "なが",
-        "naga"
+        "たか",
+        "taka"
       ],
       [
-        "ちょう",
-        "chō"
+        "こう",
+        "kō"
       ]
     ],
-    "date": "2026-10-27",
+    "date": "2026-10-28",
     "file": "index.html",
-    "built": "2026-10-27T19:01:22"
+    "built": "2026-10-28T19:01:27"
   },
   "published": [
     {
@@ -715,6 +715,26 @@
       "date": "2026-10-26",
       "file": "archive/furu-ko.html",
       "built": "2026-10-26T19:03:50"
+    },
+    {
+      "n": 35,
+      "id": "naga-cho",
+      "kanji": "長",
+      "word": "長",
+      "english": "Long, Leader",
+      "pairs": [
+        [
+          "なが",
+          "naga"
+        ],
+        [
+          "ちょう",
+          "chō"
+        ]
+      ],
+      "date": "2026-10-27",
+      "file": "archive/naga-cho.html",
+      "built": "2026-10-27T19:01:22"
     }
   ]
 }
