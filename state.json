@@ -1,23 +1,23 @@
 {
   "current": {
-    "n": 37,
-    "id": "yasu-an",
-    "kanji": "安",
-    "word": "安",
-    "english": "Cheap, Safe",
+    "n": 38,
+    "id": "oo-ta",
+    "kanji": "多",
+    "word": "多",
+    "english": "Many, Much",
     "pairs": [
       [
-        "やす",
-        "yasu"
+        "おお",
+        "oo"
       ],
       [
-        "あん",
-        "an"
+        "た",
+        "ta"
       ]
     ],
-    "date": "2026-10-29",
+    "date": "2026-10-30",
     "file": "index.html",
-    "built": "2026-10-29T19:00:59"
+    "built": "2026-10-30T19:01:38"
   },
   "published": [
     {
@@ -755,6 +755,26 @@
       "date": "2026-10-28",
       "file": "archive/taka-ko.html",
       "built": "2026-10-28T19:01:27"
+    },
+    {
+      "n": 37,
+      "id": "yasu-an",
+      "kanji": "安",
+      "word": "安",
+      "english": "Cheap, Safe",
+      "pairs": [
+        [
+          "やす",
+          "yasu"
+        ],
+        [
+          "あん",
+          "an"
+        ]
+      ],
+      "date": "2026-10-29",
+      "file": "archive/yasu-an.html",
+      "built": "2026-10-29T19:00:59"
     }
   ]
 }
