@@ -1,23 +1,23 @@
 {
   "current": {
-    "n": 38,
-    "id": "oo-ta",
-    "kanji": "多",
-    "word": "多",
-    "english": "Many, Much",
+    "n": 39,
+    "id": "suku-sho",
+    "kanji": "少",
+    "word": "少",
+    "english": "Few, Little",
     "pairs": [
       [
-        "おお",
-        "oo"
+        "すく",
+        "suku"
       ],
       [
-        "た",
-        "ta"
+        "しょう",
+        "shō"
       ]
     ],
-    "date": "2026-10-30",
+    "date": "2026-10-31",
     "file": "index.html",
-    "built": "2026-10-30T19:01:38"
+    "built": "2026-10-31T19:01:07"
   },
   "published": [
     {
@@ -775,6 +775,26 @@
       "date": "2026-10-29",
       "file": "archive/yasu-an.html",
       "built": "2026-10-29T19:00:59"
+    },
+    {
+      "n": 38,
+      "id": "oo-ta",
+      "kanji": "多",
+      "word": "多",
+      "english": "Many, Much",
+      "pairs": [
+        [
+          "おお",
+          "oo"
+        ],
+        [
+          "た",
+          "ta"
+        ]
+      ],
+      "date": "2026-10-30",
+      "file": "archive/oo-ta.html",
+      "built": "2026-10-30T19:01:38"
     }
   ]
 }
