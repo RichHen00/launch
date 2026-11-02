@@ -1,23 +1,23 @@
 {
   "current": {
-    "n": 40,
-    "id": "haya-so",
-    "kanji": "早",
-    "word": "早",
-    "english": "Early, Fast",
+    "n": 41,
+    "id": "oso-chi",
+    "kanji": "遅",
+    "word": "遅",
+    "english": "Late, Slow",
     "pairs": [
       [
-        "はや",
-        "haya"
+        "おそ",
+        "oso"
       ],
       [
-        "そう",
-        "sō"
+        "ち",
+        "chi"
       ]
     ],
-    "date": "2026-11-01",
+    "date": "2026-11-02",
     "file": "index.html",
-    "built": "2026-11-01T19:00:54"
+    "built": "2026-11-02T19:01:53"
   },
   "published": [
     {
@@ -815,6 +815,26 @@
       "date": "2026-10-31",
       "file": "archive/suku-sho.html",
       "built": "2026-10-31T19:01:07"
+    },
+    {
+      "n": 40,
+      "id": "haya-so",
+      "kanji": "早",
+      "word": "早",
+      "english": "Early, Fast",
+      "pairs": [
+        [
+          "はや",
+          "haya"
+        ],
+        [
+          "そう",
+          "sō"
+        ]
+      ],
+      "date": "2026-11-01",
+      "file": "archive/haya-so.html",
+      "built": "2026-11-01T19:00:54"
     }
   ]
 }
