@@ -1,23 +1,23 @@
 {
   "current": {
-    "n": 41,
-    "id": "oso-chi",
-    "kanji": "遅",
-    "word": "遅",
-    "english": "Late, Slow",
+    "n": 42,
+    "id": "chika-kin",
+    "kanji": "近",
+    "word": "近",
+    "english": "Near, Recent",
     "pairs": [
       [
-        "おそ",
-        "oso"
+        "ちか",
+        "chika"
       ],
       [
-        "ち",
-        "chi"
+        "きん",
+        "kin"
       ]
     ],
-    "date": "2026-11-02",
+    "date": "2026-11-03",
     "file": "index.html",
-    "built": "2026-11-02T19:01:53"
+    "built": "2026-11-03T19:01:10"
   },
   "published": [
     {
@@ -835,6 +835,26 @@
       "date": "2026-11-01",
       "file": "archive/haya-so.html",
       "built": "2026-11-01T19:00:54"
+    },
+    {
+      "n": 41,
+      "id": "oso-chi",
+      "kanji": "遅",
+      "word": "遅",
+      "english": "Late, Slow",
+      "pairs": [
+        [
+          "おそ",
+          "oso"
+        ],
+        [
+          "ち",
+          "chi"
+        ]
+      ],
+      "date": "2026-11-02",
+      "file": "archive/oso-chi.html",
+      "built": "2026-11-02T19:01:53"
     }
   ]
 }
