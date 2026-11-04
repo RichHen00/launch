@@ -1,23 +1,23 @@
 {
   "current": {
-    "n": 42,
-    "id": "chika-kin",
-    "kanji": "近",
-    "word": "近",
-    "english": "Near, Recent",
+    "n": 43,
+    "id": "to-en",
+    "kanji": "遠",
+    "word": "遠",
+    "english": "Far",
     "pairs": [
       [
-        "ちか",
-        "chika"
+        "とお",
+        "tō"
       ],
       [
-        "きん",
-        "kin"
+        "えん",
+        "en"
       ]
     ],
-    "date": "2026-11-03",
+    "date": "2026-11-04",
     "file": "index.html",
-    "built": "2026-11-03T19:01:10"
+    "built": "2026-11-04T19:00:57"
   },
   "published": [
     {
@@ -855,6 +855,26 @@
       "date": "2026-11-02",
       "file": "archive/oso-chi.html",
       "built": "2026-11-02T19:01:53"
+    },
+    {
+      "n": 42,
+      "id": "chika-kin",
+      "kanji": "近",
+      "word": "近",
+      "english": "Near, Recent",
+      "pairs": [
+        [
+          "ちか",
+          "chika"
+        ],
+        [
+          "きん",
+          "kin"
+        ]
+      ],
+      "date": "2026-11-03",
+      "file": "archive/chika-kin.html",
+      "built": "2026-11-03T19:01:10"
     }
   ]
 }
