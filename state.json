@@ -1,23 +1,23 @@
 {
   "current": {
-    "n": 43,
-    "id": "to-en",
-    "kanji": "遠",
-    "word": "遠",
-    "english": "Far",
+    "n": 44,
+    "id": "ona-do",
+    "kanji": "同",
+    "word": "同",
+    "english": "Same, Together",
     "pairs": [
       [
-        "とお",
-        "tō"
+        "おな",
+        "ona"
       ],
       [
-        "えん",
-        "en"
+        "どう",
+        "dō"
       ]
     ],
-    "date": "2026-11-04",
+    "date": "2026-11-05",
     "file": "index.html",
-    "built": "2026-11-04T19:00:57"
+    "built": "2026-11-05T19:02:02"
   },
   "published": [
     {
@@ -875,6 +875,26 @@
       "date": "2026-11-03",
       "file": "archive/chika-kin.html",
       "built": "2026-11-03T19:01:10"
+    },
+    {
+      "n": 43,
+      "id": "to-en",
+      "kanji": "遠",
+      "word": "遠",
+      "english": "Far",
+      "pairs": [
+        [
+          "とお",
+          "tō"
+        ],
+        [
+          "えん",
+          "en"
+        ]
+      ],
+      "date": "2026-11-04",
+      "file": "archive/to-en.html",
+      "built": "2026-11-04T19:00:57"
     }
   ]
 }
