@@ -1,23 +1,23 @@
 {
   "current": {
-    "n": 46,
-    "id": "sube-zen",
-    "kanji": "全",
-    "word": "全",
-    "english": "All, Whole",
+    "n": 47,
+    "id": "naka-han",
+    "kanji": "半",
+    "word": "半",
+    "english": "Half",
     "pairs": [
       [
-        "すべ",
-        "sube"
+        "なか",
+        "naka"
       ],
       [
-        "ぜん",
-        "zen"
+        "はん",
+        "han"
       ]
     ],
-    "date": "2026-11-07",
+    "date": "2026-11-08",
     "file": "index.html",
-    "built": "2026-11-07T19:01:13"
+    "built": "2026-11-08T19:01:21"
   },
   "published": [
     {
@@ -935,6 +935,26 @@
       "date": "2026-11-06",
       "file": "archive/waka-betsu.html",
       "built": "2026-11-06T19:01:32"
+    },
+    {
+      "n": 46,
+      "id": "sube-zen",
+      "kanji": "全",
+      "word": "全",
+      "english": "All, Whole",
+      "pairs": [
+        [
+          "すべ",
+          "sube"
+        ],
+        [
+          "ぜん",
+          "zen"
+        ]
+      ],
+      "date": "2026-11-07",
+      "file": "archive/sube-zen.html",
+      "built": "2026-11-07T19:01:13"
     }
   ]
 }
