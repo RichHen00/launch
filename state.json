@@ -1,23 +1,23 @@
 {
   "current": {
-    "n": 47,
-    "id": "naka-han",
-    "kanji": "半",
-    "word": "半",
-    "english": "Half",
+    "n": 48,
+    "id": "hito-ichi",
+    "kanji": "一",
+    "word": "一",
+    "english": "One",
     "pairs": [
       [
-        "なか",
-        "naka"
+        "ひと",
+        "hito"
       ],
       [
-        "はん",
-        "han"
+        "いち",
+        "ichi"
       ]
     ],
-    "date": "2026-11-08",
+    "date": "2026-11-09",
     "file": "index.html",
-    "built": "2026-11-08T19:01:21"
+    "built": "2026-11-09T19:06:45"
   },
   "published": [
     {
@@ -955,6 +955,26 @@
       "date": "2026-11-07",
       "file": "archive/sube-zen.html",
       "built": "2026-11-07T19:01:13"
+    },
+    {
+      "n": 47,
+      "id": "naka-han",
+      "kanji": "半",
+      "word": "半",
+      "english": "Half",
+      "pairs": [
+        [
+          "なか",
+          "naka"
+        ],
+        [
+          "はん",
+          "han"
+        ]
+      ],
+      "date": "2026-11-08",
+      "file": "archive/naka-han.html",
+      "built": "2026-11-08T19:01:21"
     }
   ]
 }
