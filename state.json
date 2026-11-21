@@ -1,23 +1,23 @@
 {
   "current": {
-    "n": 48,
-    "id": "hito-ichi",
-    "kanji": "一",
-    "word": "一",
-    "english": "One",
+    "n": 49,
+    "id": "futa-ni",
+    "kanji": "二",
+    "word": "二",
+    "english": "Two",
     "pairs": [
       [
-        "ひと",
-        "hito"
+        "ふた",
+        "futa"
       ],
       [
-        "いち",
-        "ichi"
+        "に",
+        "ni"
       ]
     ],
-    "date": "2026-11-09",
+    "date": "2026-11-21",
     "file": "index.html",
-    "built": "2026-11-09T19:06:45"
+    "built": "2026-11-21T19:10:13"
   },
   "published": [
     {
@@ -975,6 +975,27 @@
       "date": "2026-11-08",
       "file": "archive/naka-han.html",
       "built": "2026-11-08T19:01:21"
+    },
+    {
+      "n": 48,
+      "id": "hito-ichi",
+      "kanji": "一",
+      "word": "一",
+      "english": "One",
+      "pairs": [
+        [
+          "ひと",
+          "hito"
+        ],
+        [
+          "いち",
+          "ichi"
+        ]
+      ],
+      "date": "2026-11-09",
+      "file": "archive/hito-ichi.html",
+      "built": "2026-11-09T19:06:45"
     }
-  ]
+  ],
+  "last_n": 49
 }
