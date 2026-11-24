@@ -1,23 +1,23 @@
 {
   "current": {
-    "n": 49,
-    "id": "futa-ni",
-    "kanji": "二",
-    "word": "二",
-    "english": "Two",
+    "n": 50,
+    "id": "word_50",
+    "kanji": "kanji_50",
+    "word": "word_50",
+    "english": "English Meaning 50",
     "pairs": [
       [
-        "ふた",
-        "futa"
+        "みつ",
+        "mitsu"
       ],
       [
-        "に",
-        "ni"
+        "さん",
+        "san"
       ]
     ],
-    "date": "2026-11-23",
+    "date": "2026-11-24",
     "file": "index.html",
-    "built": "2026-11-23T19:02:10"
+    "built": "2026-11-24T19:02:33"
   },
   "published": [
     {
@@ -995,6 +995,26 @@
       "date": "2026-11-09",
       "file": "archive/hito-ichi.html",
       "built": "2026-11-09T19:06:45"
+    },
+    {
+      "n": 49,
+      "id": "futa-ni",
+      "kanji": "二",
+      "word": "二",
+      "english": "Two",
+      "pairs": [
+        [
+          "ふた",
+          "futa"
+        ],
+        [
+          "に",
+          "ni"
+        ]
+      ],
+      "date": "2026-11-23",
+      "file": "archive/futa-ni.html",
+      "built": "2026-11-23T19:02:10"
     }
   ],
   "last_n": 50
