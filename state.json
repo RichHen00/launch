@@ -1,23 +1,23 @@
 {
   "current": {
-    "n": 50,
-    "id": "word_50",
-    "kanji": "kanji_50",
-    "word": "word_50",
-    "english": "English Meaning 50",
+    "n": 51,
+    "id": "yo-yon-shi",
+    "kanji": "四",
+    "word": "四",
+    "english": "Four",
     "pairs": [
       [
-        "みつ",
-        "mitsu"
+        "よ",
+        "yo"
       ],
       [
-        "さん",
-        "san"
+        "よん",
+        "yon"
       ]
     ],
-    "date": "2026-11-24",
+    "date": "2026-11-25",
     "file": "index.html",
-    "built": "2026-11-24T19:02:33"
+    "built": "2026-11-25T19:01:19"
   },
   "published": [
     {
@@ -1015,6 +1015,26 @@
       "date": "2026-11-23",
       "file": "archive/futa-ni.html",
       "built": "2026-11-23T19:02:10"
+    },
+    {
+      "n": 50,
+      "id": "word_50",
+      "kanji": "kanji_50",
+      "word": "word_50",
+      "english": "English Meaning 50",
+      "pairs": [
+        [
+          "みつ",
+          "mitsu"
+        ],
+        [
+          "さん",
+          "san"
+        ]
+      ],
+      "date": "2026-11-24",
+      "file": "archive/word_50.html",
+      "built": "2026-11-24T19:02:33"
     }
   ],
   "last_n": 50
