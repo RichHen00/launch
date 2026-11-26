@@ -1,1040 +1,493 @@
 {
   "current": {
-    "n": 51,
-    "id": "yo-yon-shi",
-    "kanji": "四",
-    "word": "四",
-    "english": "Four",
+    "n": 52,
+    "id": "itsu-go",
+    "kanji": "五",
+    "word": "五",
+    "english": "Five",
     "pairs": [
       [
-        "よ",
-        "yo"
+        "いつ",
+        "itsu"
       ],
       [
-        "よん",
-        "yon"
+        "ご",
+        "go"
       ]
     ],
-    "date": "2026-11-25",
+    "date": "2026-11-26",
     "file": "index.html",
-    "built": "2026-11-25T19:01:19"
+    "built": "2026-11-26T19:04:08"
   },
   "published": [
     {
       "n": 1,
       "id": "hito",
-      "kanji": "人",
-      "word": "人",
+      "kanji": "hito",
+      "word": "hito",
       "english": "Person, People",
-      "pairs": [
-        [
-          "ひ",
-          "hi"
-        ],
-        [
-          "と",
-          "to"
-        ]
-      ],
-      "date": "2026-09-23",
-      "file": "archive/hito.html",
-      "built": "2026-09-23T14:18:01"
+      "pairs": [],
+      "date": "2026-09-23"
     },
     {
       "n": 2,
       "id": "ue",
-      "kanji": "上",
-      "word": "上",
+      "kanji": "ue",
+      "word": "ue",
       "english": "Up, Above",
-      "pairs": [
-        [
-          "う",
-          "u"
-        ],
-        [
-          "え",
-          "e"
-        ]
-      ],
-      "date": "2026-09-23",
-      "file": "archive/ue.html",
-      "built": "2026-09-23T14:24:53"
+      "pairs": [],
+      "date": "2026-09-24"
     },
     {
       "n": 3,
       "id": "shita",
-      "kanji": "下",
-      "word": "下",
+      "kanji": "shita",
+      "word": "shita",
       "english": "Down, Below",
-      "pairs": [
-        [
-          "し",
-          "shi"
-        ],
-        [
-          "た",
-          "ta"
-        ]
-      ],
-      "date": "2026-09-23",
-      "file": "archive/shita.html",
-      "built": "2026-09-23T19:00:38"
+      "pairs": [],
+      "date": "2026-09-25"
     },
     {
       "n": 4,
       "id": "naka",
-      "kanji": "中",
-      "word": "中",
+      "kanji": "naka",
+      "word": "naka",
       "english": "Inside",
-      "pairs": [
-        [
-          "な",
-          "na"
-        ],
-        [
-          "か",
-          "ka"
-        ]
-      ],
-      "date": "2026-09-24",
-      "file": "archive/naka.html",
-      "built": "2026-09-24T19:00:33"
+      "pairs": [],
+      "date": "2026-09-26"
     },
     {
       "n": 5,
       "id": "soto",
-      "kanji": "外",
-      "word": "外",
+      "kanji": "soto",
+      "word": "soto",
       "english": "Outside",
-      "pairs": [
-        [
-          "そ",
-          "so"
-        ],
-        [
-          "と",
-          "to"
-        ]
-      ],
-      "date": "2026-09-25",
-      "file": "archive/soto.html",
-      "built": "2026-09-25T19:00:38"
+      "pairs": [],
+      "date": "2026-09-27"
     },
     {
       "n": 6,
       "id": "michi",
-      "kanji": "道",
-      "word": "道",
+      "kanji": "michi",
+      "word": "michi",
       "english": "Road, Way",
-      "pairs": [
-        [
-          "み",
-          "mi"
-        ],
-        [
-          "ち",
-          "chi"
-        ]
-      ],
-      "date": "2026-09-26",
-      "file": "archive/michi.html",
-      "built": "2026-09-26T19:00:41"
+      "pairs": [],
+      "date": "2026-09-28"
     },
     {
       "n": 7,
       "id": "chizu",
-      "kanji": "地図",
-      "word": "地図",
+      "kanji": "chizu",
+      "word": "chizu",
       "english": "Map",
-      "pairs": [
-        [
-          "ち",
-          "chi"
-        ],
-        [
-          "ず",
-          "zu"
-        ]
-      ],
-      "date": "2026-09-27",
-      "file": "archive/chizu.html",
-      "built": "2026-09-27T19:00:25"
+      "pairs": [],
+      "date": "2026-09-29"
     },
     {
       "n": 8,
       "id": "juusho",
-      "kanji": "住所",
-      "word": "住所",
+      "kanji": "juusho",
+      "word": "juusho",
       "english": "Address",
-      "pairs": [
-        [
-          "じゅ",
-          "ju"
-        ],
-        [
-          "う",
-          "u"
-        ],
-        [
-          "しょ",
-          "sho"
-        ]
-      ],
-      "date": "2026-09-28",
-      "file": "archive/juusho.html",
-      "built": "2026-09-28T19:00:37"
+      "pairs": [],
+      "date": "2026-09-30"
     },
     {
       "n": 9,
       "id": "kousaten",
-      "kanji": "交差点",
-      "word": "交差点",
+      "kanji": "kousaten",
+      "word": "kousaten",
       "english": "Intersection",
-      "pairs": [
-        [
-          "こ",
-          "ko"
-        ],
-        [
-          "う",
-          "u"
-        ],
-        [
-          "さ",
-          "sa"
-        ],
-        [
-          "て",
-          "te"
-        ],
-        [
-          "ん",
-          "n"
-        ]
-      ],
-      "date": "2026-09-29",
-      "file": "archive/kousaten.html",
-      "built": "2026-09-29T19:00:35"
+      "pairs": [],
+      "date": "2026-10-01"
     },
     {
       "n": 10,
       "id": "shingou",
-      "kanji": "信号",
-      "word": "信号",
+      "kanji": "shingou",
+      "word": "shingou",
       "english": "Traffic Light",
-      "pairs": [
-        [
-          "し",
-          "shi"
-        ],
-        [
-          "ん",
-          "n"
-        ],
-        [
-          "ご",
-          "go"
-        ],
-        [
-          "う",
-          "u"
-        ]
-      ],
-      "date": "2026-09-30",
-      "file": "archive/shingou.html",
-      "built": "2026-09-30T19:01:30"
+      "pairs": [],
+      "date": "2026-10-02"
     },
     {
       "n": 11,
       "id": "kita",
-      "kanji": "北",
-      "word": "北",
+      "kanji": "kita",
+      "word": "kita",
       "english": "North",
-      "pairs": [
-        [
-          "き",
-          "ki"
-        ],
-        [
-          "た",
-          "ta"
-        ]
-      ],
-      "date": "2026-10-02",
-      "file": "archive/kita.html",
-      "built": "2026-10-02T19:00:49"
+      "pairs": [],
+      "date": "2026-10-03"
     },
     {
       "n": 12,
       "id": "hi-nichi",
-      "kanji": "日",
-      "word": "日",
+      "kanji": "hi-nichi",
+      "word": "hi-nichi",
       "english": "Day, Sun, Japan",
-      "pairs": [
-        [
-          "ひ",
-          "hi"
-        ],
-        [
-          "にち",
-          "nichi"
-        ]
-      ],
-      "date": "2026-10-03",
-      "file": "archive/hi-nichi.html",
-      "built": "2026-10-03T19:02:55"
+      "pairs": [],
+      "date": "2026-10-04"
     },
     {
       "n": 13,
       "id": "hon-moto",
-      "kanji": "本",
-      "word": "本",
+      "kanji": "hon-moto",
+      "word": "hon-moto",
       "english": "Book, Main, Origin",
-      "pairs": [
-        [
-          "ほん",
-          "hon"
-        ],
-        [
-          "もと",
-          "moto"
-        ]
-      ],
-      "date": "2026-10-04",
-      "file": "archive/hon-moto.html",
-      "built": "2026-10-04T19:01:29"
+      "pairs": [],
+      "date": "2026-10-05"
     },
     {
       "n": 14,
       "id": "oo-dai",
-      "kanji": "大",
-      "word": "大",
+      "kanji": "oo-dai",
+      "word": "oo-dai",
       "english": "Big, Large",
-      "pairs": [
-        [
-          "おお",
-          "oo"
-        ],
-        [
-          "だい",
-          "dai"
-        ]
-      ],
-      "date": "2026-10-05",
-      "file": "archive/oo-dai.html",
-      "built": "2026-10-05T19:01:34"
+      "pairs": [],
+      "date": "2026-10-06"
     },
     {
       "n": 15,
       "id": "chi-i-sho",
-      "kanji": "小",
-      "word": "小",
+      "kanji": "chi-i-sho",
+      "word": "chi-i-sho",
       "english": "Small, Little",
-      "pairs": [
-        [
-          "ちい",
-          "chi-i"
-        ],
-        [
-          "しょう",
-          "shō"
-        ]
-      ],
-      "date": "2026-10-06",
-      "file": "archive/chi-i-sho.html",
-      "built": "2026-10-06T19:06:50"
+      "pairs": [],
+      "date": "2026-10-07"
     },
     {
       "n": 16,
       "id": "hidari",
-      "kanji": "左",
-      "word": "左",
+      "kanji": "hidari",
+      "word": "hidari",
       "english": "Left",
-      "pairs": [
-        [
-          "ひだり",
-          "hidari"
-        ]
-      ],
-      "date": "2026-10-07",
-      "file": "archive/hidari.html",
-      "built": "2026-10-07T19:01:38"
+      "pairs": [],
+      "date": "2026-10-08"
     },
     {
       "n": 17,
       "id": "migi",
-      "kanji": "右",
-      "word": "右",
+      "kanji": "migi",
+      "word": "migi",
       "english": "Right",
-      "pairs": [
-        [
-          "みぎ",
-          "migi"
-        ]
-      ],
-      "date": "2026-10-08",
-      "file": "archive/migi.html",
-      "built": "2026-10-08T19:01:41"
+      "pairs": [],
+      "date": "2026-10-09"
     },
     {
       "n": 18,
       "id": "higashi-to",
-      "kanji": "東",
-      "word": "東",
+      "kanji": "higashi-to",
+      "word": "higashi-to",
       "english": "East",
-      "pairs": [
-        [
-          "ひ",
-          "hi"
-        ],
-        [
-          "が",
-          "ga"
-        ],
-        [
-          "し",
-          "shi"
-        ],
-        [
-          "とう",
-          "tō"
-        ]
-      ],
-      "date": "2026-10-09",
-      "file": "archive/higashi-to.html",
-      "built": "2026-10-09T19:02:37"
+      "pairs": [],
+      "date": "2026-10-10"
     },
     {
       "n": 19,
       "id": "nishi-sei",
-      "kanji": "西",
-      "word": "西",
+      "kanji": "nishi-sei",
+      "word": "nishi-sei",
       "english": "West",
-      "pairs": [
-        [
-          "にし",
-          "nishi"
-        ],
-        [
-          "せい",
-          "sei"
-        ]
-      ],
-      "date": "2026-10-10",
-      "file": "archive/nishi-sei.html",
-      "built": "2026-10-10T19:01:21"
+      "pairs": [],
+      "date": "2026-10-11"
     },
     {
       "n": 20,
       "id": "minami-nan",
-      "kanji": "南",
-      "word": "南",
+      "kanji": "minami-nan",
+      "word": "minami-nan",
       "english": "South",
-      "pairs": [
-        [
-          "みなみ",
-          "minami"
-        ],
-        [
-          "なん",
-          "nan"
-        ]
-      ],
-      "date": "2026-10-11",
-      "file": "archive/minami-nan.html",
-      "built": "2026-10-11T19:01:27"
+      "pairs": [],
+      "date": "2026-10-12"
     },
     {
       "n": 21,
       "id": "uchi-nai",
-      "kanji": "内",
-      "word": "内",
+      "kanji": "uchi-nai",
+      "word": "uchi-nai",
       "english": "Inside, Within, Domestic",
-      "pairs": [
-        [
-          "うち",
-          "uchi"
-        ],
-        [
-          "ない",
-          "nai"
-        ]
-      ],
-      "date": "2026-10-12",
-      "file": "archive/uchi-nai.html",
-      "built": "2026-10-12T19:01:11"
+      "pairs": [],
+      "date": "2026-10-13"
     },
     {
       "n": 22,
       "id": "mae-zen",
-      "kanji": "前",
-      "word": "前",
+      "kanji": "mae-zen",
+      "word": "mae-zen",
       "english": "Front, Before",
-      "pairs": [
-        [
-          "まえ",
-          "mae"
-        ],
-        [
-          "ぜん",
-          "zen"
-        ]
-      ],
-      "date": "2026-10-13",
-      "file": "archive/mae-zen.html",
-      "built": "2026-10-13T19:01:12"
+      "pairs": [],
+      "date": "2026-10-14"
     },
     {
       "n": 23,
       "id": "ushiro-go",
-      "kanji": "後",
-      "word": "後",
+      "kanji": "ushiro-go",
+      "word": "ushiro-go",
       "english": "Behind, After",
-      "pairs": [
-        [
-          "うしろ",
-          "ushiro"
-        ],
-        [
-          "ご",
-          "go"
-        ]
-      ],
-      "date": "2026-10-14",
-      "file": "archive/ushiro-go.html",
-      "built": "2026-10-14T19:01:17"
+      "pairs": [],
+      "date": "2026-10-15"
     },
     {
       "n": 24,
       "id": "aida-kan",
-      "kanji": "間",
-      "word": "間",
+      "kanji": "aida-kan",
+      "word": "aida-kan",
       "english": "Between, Interval, Time",
-      "pairs": [
-        [
-          "あいだ",
-          "aida"
-        ],
-        [
-          "かん",
-          "kan"
-        ]
-      ],
-      "date": "2026-10-15",
-      "file": "archive/aida-kan.html",
-      "built": "2026-10-15T19:02:02"
+      "pairs": [],
+      "date": "2026-10-16"
     },
     {
       "n": 25,
       "id": "toki-ji",
-      "kanji": "時",
-      "word": "時",
+      "kanji": "toki-ji",
+      "word": "toki-ji",
       "english": "Time, Hour",
-      "pairs": [
-        [
-          "とき",
-          "toki"
-        ],
-        [
-          "じ",
-          "ji"
-        ]
-      ],
-      "date": "2026-10-16",
-      "file": "archive/toki-ji.html",
-      "built": "2026-10-16T19:01:00"
+      "pairs": [],
+      "date": "2026-10-17"
     },
     {
       "n": 26,
       "id": "fun-bun",
-      "kanji": "分",
-      "word": "分",
+      "kanji": "fun-bun",
+      "word": "fun-bun",
       "english": "Minute, Part, Divide",
-      "pairs": [
-        [
-          "ふん",
-          "fun"
-        ],
-        [
-          "ぶん",
-          "bun"
-        ]
-      ],
-      "date": "2026-10-17",
-      "file": "archive/fun-bun.html",
-      "built": "2026-10-17T19:01:06"
+      "pairs": [],
+      "date": "2026-10-18"
     },
     {
       "n": 27,
       "id": "toshi-nen",
-      "kanji": "年",
-      "word": "年",
+      "kanji": "toshi-nen",
+      "word": "toshi-nen",
       "english": "Year",
-      "pairs": [
-        [
-          "とし",
-          "toshi"
-        ],
-        [
-          "ねん",
-          "nen"
-        ]
-      ],
-      "date": "2026-10-18",
-      "file": "archive/toshi-nen.html",
-      "built": "2026-10-18T19:01:22"
+      "pairs": [],
+      "date": "2026-10-19"
     },
     {
       "n": 28,
       "id": "tsuki-gatsu",
-      "kanji": "月",
-      "word": "月",
+      "kanji": "tsuki-gatsu",
+      "word": "tsuki-gatsu",
       "english": "Month, Moon",
-      "pairs": [
-        [
-          "つき",
-          "tsuki"
-        ],
-        [
-          "がつ",
-          "gatsu"
-        ]
-      ],
-      "date": "2026-10-19",
-      "file": "archive/tsuki-gatsu.html",
-      "built": "2026-10-19T19:01:03"
+      "pairs": [],
+      "date": "2026-10-20"
     },
     {
       "n": 29,
       "id": "shu",
-      "kanji": "週",
-      "word": "週",
+      "kanji": "shu",
+      "word": "shu",
       "english": "Week",
-      "pairs": [
-        [
-          "しゅう",
-          "shū"
-        ]
-      ],
-      "date": "2026-10-20",
-      "file": "archive/shu.html",
-      "built": "2026-10-20T19:01:12"
+      "pairs": [],
+      "date": "2026-10-21"
     },
     {
       "n": 30,
       "id": "ima-kon",
-      "kanji": "今",
-      "word": "今",
+      "kanji": "ima-kon",
+      "word": "ima-kon",
       "english": "Now, Current",
-      "pairs": [
-        [
-          "いま",
-          "ima"
-        ],
-        [
-          "こん",
-          "kon"
-        ]
-      ],
-      "date": "2026-10-21",
-      "file": "archive/ima-kon.html",
-      "built": "2026-10-21T19:01:18"
+      "pairs": [],
+      "date": "2026-10-22"
     },
     {
       "n": 31,
       "id": "mai",
-      "kanji": "毎",
-      "word": "毎",
+      "kanji": "mai",
+      "word": "mai",
       "english": "Every",
-      "pairs": [
-        [
-          "まい",
-          "mai"
-        ]
-      ],
-      "date": "2026-10-22",
-      "file": "archive/mai.html",
-      "built": "2026-10-22T19:00:58"
+      "pairs": [],
+      "date": "2026-10-23"
     },
     {
       "n": 32,
       "id": "saki-sen",
-      "kanji": "先",
-      "word": "先",
+      "kanji": "saki-sen",
+      "word": "saki-sen",
       "english": "Ahead, Previous, Destination",
-      "pairs": [
-        [
-          "さき",
-          "saki"
-        ],
-        [
-          "せん",
-          "sen"
-        ]
-      ],
-      "date": "2026-10-23",
-      "file": "archive/saki-sen.html",
-      "built": "2026-10-23T19:01:33"
+      "pairs": [],
+      "date": "2026-10-24"
     },
     {
       "n": 33,
       "id": "atara-shin",
-      "kanji": "新",
-      "word": "新",
+      "kanji": "atara-shin",
+      "word": "atara-shin",
       "english": "New",
-      "pairs": [
-        [
-          "あたら",
-          "atara"
-        ],
-        [
-          "しん",
-          "shin"
-        ]
-      ],
-      "date": "2026-10-24",
-      "file": "archive/atara-shin.html",
-      "built": "2026-10-24T19:00:57"
+      "pairs": [],
+      "date": "2026-10-25"
     },
     {
       "n": 34,
       "id": "furu-ko",
-      "kanji": "古",
-      "word": "古",
+      "kanji": "furu-ko",
+      "word": "furu-ko",
       "english": "Old",
-      "pairs": [
-        [
-          "ふる",
-          "furu"
-        ],
-        [
-          "こ",
-          "ko"
-        ]
-      ],
-      "date": "2026-10-26",
-      "file": "archive/furu-ko.html",
-      "built": "2026-10-26T19:03:50"
+      "pairs": [],
+      "date": "2026-10-26"
     },
     {
       "n": 35,
       "id": "naga-cho",
-      "kanji": "長",
-      "word": "長",
+      "kanji": "naga-cho",
+      "word": "naga-cho",
       "english": "Long, Leader",
-      "pairs": [
-        [
-          "なが",
-          "naga"
-        ],
-        [
-          "ちょう",
-          "chō"
-        ]
-      ],
-      "date": "2026-10-27",
-      "file": "archive/naga-cho.html",
-      "built": "2026-10-27T19:01:22"
+      "pairs": [],
+      "date": "2026-10-27"
     },
     {
       "n": 36,
       "id": "taka-ko",
-      "kanji": "高",
-      "word": "高",
+      "kanji": "taka-ko",
+      "word": "taka-ko",
       "english": "High, Expensive",
-      "pairs": [
-        [
-          "たか",
-          "taka"
-        ],
-        [
-          "こう",
-          "kō"
-        ]
-      ],
-      "date": "2026-10-28",
-      "file": "archive/taka-ko.html",
-      "built": "2026-10-28T19:01:27"
+      "pairs": [],
+      "date": "2026-10-28"
     },
     {
       "n": 37,
       "id": "yasu-an",
-      "kanji": "安",
-      "word": "安",
+      "kanji": "yasu-an",
+      "word": "yasu-an",
       "english": "Cheap, Safe",
-      "pairs": [
-        [
-          "やす",
-          "yasu"
-        ],
-        [
-          "あん",
-          "an"
-        ]
-      ],
-      "date": "2026-10-29",
-      "file": "archive/yasu-an.html",
-      "built": "2026-10-29T19:00:59"
+      "pairs": [],
+      "date": "2026-10-29"
     },
     {
       "n": 38,
       "id": "oo-ta",
-      "kanji": "多",
-      "word": "多",
+      "kanji": "oo-ta",
+      "word": "oo-ta",
       "english": "Many, Much",
-      "pairs": [
-        [
-          "おお",
-          "oo"
-        ],
-        [
-          "た",
-          "ta"
-        ]
-      ],
-      "date": "2026-10-30",
-      "file": "archive/oo-ta.html",
-      "built": "2026-10-30T19:01:38"
+      "pairs": [],
+      "date": "2026-10-30"
     },
     {
       "n": 39,
       "id": "suku-sho",
-      "kanji": "少",
-      "word": "少",
+      "kanji": "suku-sho",
+      "word": "suku-sho",
       "english": "Few, Little",
-      "pairs": [
-        [
-          "すく",
-          "suku"
-        ],
-        [
-          "しょう",
-          "shō"
-        ]
-      ],
-      "date": "2026-10-31",
-      "file": "archive/suku-sho.html",
-      "built": "2026-10-31T19:01:07"
+      "pairs": [],
+      "date": "2026-10-31"
     },
     {
       "n": 40,
       "id": "haya-so",
-      "kanji": "早",
-      "word": "早",
+      "kanji": "haya-so",
+      "word": "haya-so",
       "english": "Early, Fast",
-      "pairs": [
-        [
-          "はや",
-          "haya"
-        ],
-        [
-          "そう",
-          "sō"
-        ]
-      ],
-      "date": "2026-11-01",
-      "file": "archive/haya-so.html",
-      "built": "2026-11-01T19:00:54"
+      "pairs": [],
+      "date": "2026-11-01"
     },
     {
       "n": 41,
       "id": "oso-chi",
-      "kanji": "遅",
-      "word": "遅",
+      "kanji": "oso-chi",
+      "word": "oso-chi",
       "english": "Late, Slow",
-      "pairs": [
-        [
-          "おそ",
-          "oso"
-        ],
-        [
-          "ち",
-          "chi"
-        ]
-      ],
-      "date": "2026-11-02",
-      "file": "archive/oso-chi.html",
-      "built": "2026-11-02T19:01:53"
+      "pairs": [],
+      "date": "2026-11-02"
     },
     {
       "n": 42,
       "id": "chika-kin",
-      "kanji": "近",
-      "word": "近",
+      "kanji": "chika-kin",
+      "word": "chika-kin",
       "english": "Near, Recent",
-      "pairs": [
-        [
-          "ちか",
-          "chika"
-        ],
-        [
-          "きん",
-          "kin"
-        ]
-      ],
-      "date": "2026-11-03",
-      "file": "archive/chika-kin.html",
-      "built": "2026-11-03T19:01:10"
+      "pairs": [],
+      "date": "2026-11-03"
     },
     {
       "n": 43,
       "id": "to-en",
-      "kanji": "遠",
-      "word": "遠",
+      "kanji": "to-en",
+      "word": "to-en",
       "english": "Far",
-      "pairs": [
-        [
-          "とお",
-          "tō"
-        ],
-        [
-          "えん",
-          "en"
-        ]
-      ],
-      "date": "2026-11-04",
-      "file": "archive/to-en.html",
-      "built": "2026-11-04T19:00:57"
+      "pairs": [],
+      "date": "2026-11-04"
     },
     {
       "n": 44,
       "id": "ona-do",
-      "kanji": "同",
-      "word": "同",
+      "kanji": "ona-do",
+      "word": "ona-do",
       "english": "Same, Together",
-      "pairs": [
-        [
-          "おな",
-          "ona"
-        ],
-        [
-          "どう",
-          "dō"
-        ]
-      ],
-      "date": "2026-11-05",
-      "file": "archive/ona-do.html",
-      "built": "2026-11-05T19:02:02"
+      "pairs": [],
+      "date": "2026-11-05"
     },
     {
       "n": 45,
       "id": "waka-betsu",
-      "kanji": "別",
-      "word": "別",
+      "kanji": "waka-betsu",
+      "word": "waka-betsu",
       "english": "Separate, Different",
-      "pairs": [
-        [
-          "わか",
-          "waka"
-        ],
-        [
-          "べつ",
-          "betsu"
-        ]
-      ],
-      "date": "2026-11-06",
-      "file": "archive/waka-betsu.html",
-      "built": "2026-11-06T19:01:32"
+      "pairs": [],
+      "date": "2026-11-06"
     },
     {
       "n": 46,
       "id": "sube-zen",
-      "kanji": "全",
-      "word": "全",
+      "kanji": "sube-zen",
+      "word": "sube-zen",
       "english": "All, Whole",
-      "pairs": [
-        [
-          "すべ",
-          "sube"
-        ],
-        [
-          "ぜん",
-          "zen"
-        ]
-      ],
-      "date": "2026-11-07",
-      "file": "archive/sube-zen.html",
-      "built": "2026-11-07T19:01:13"
+      "pairs": [],
+      "date": "2026-11-07"
     },
     {
       "n": 47,
       "id": "naka-han",
-      "kanji": "半",
-      "word": "半",
+      "kanji": "naka-han",
+      "word": "naka-han",
       "english": "Half",
-      "pairs": [
-        [
-          "なか",
-          "naka"
-        ],
-        [
-          "はん",
-          "han"
-        ]
-      ],
-      "date": "2026-11-08",
-      "file": "archive/naka-han.html",
-      "built": "2026-11-08T19:01:21"
+      "pairs": [],
+      "date": "2026-11-08"
     },
     {
       "n": 48,
       "id": "hito-ichi",
-      "kanji": "一",
-      "word": "一",
+      "kanji": "hito-ichi",
+      "word": "hito-ichi",
       "english": "One",
-      "pairs": [
-        [
-          "ひと",
-          "hito"
-        ],
-        [
-          "いち",
-          "ichi"
-        ]
-      ],
-      "date": "2026-11-09",
-      "file": "archive/hito-ichi.html",
-      "built": "2026-11-09T19:06:45"
+      "pairs": [],
+      "date": "2026-11-09"
     },
     {
       "n": 49,
       "id": "futa-ni",
-      "kanji": "二",
-      "word": "二",
+      "kanji": "futa-ni",
+      "word": "futa-ni",
       "english": "Two",
-      "pairs": [
-        [
-          "ふた",
-          "futa"
-        ],
-        [
-          "に",
-          "ni"
-        ]
-      ],
-      "date": "2026-11-23",
-      "file": "archive/futa-ni.html",
-      "built": "2026-11-23T19:02:10"
+      "pairs": [],
+      "date": "2026-11-10"
     },
     {
       "n": 50,
       "id": "word_50",
-      "kanji": "kanji_50",
-      "word": "word_50",
+      "kanji": "円",
+      "word": "円",
       "english": "English Meaning 50",
+      "pairs": [],
+      "date": "2026-11-11"
+    },
+    {
+      "n": 51,
+      "id": "yo-yon-shi",
+      "kanji": "四",
+      "word": "四",
+      "english": "Four",
       "pairs": [
         [
-          "みつ",
-          "mitsu"
+          "よ",
+          "yo"
         ],
         [
-          "さん",
-          "san"
+          "よん",
+          "yon"
         ]
       ],
-      "date": "2026-11-24",
-      "file": "archive/word_50.html",
-      "built": "2026-11-24T19:02:33"
+      "date": "2026-11-26",
+      "file": "archive/yo-yon-shi.html"
     }
   ],
   "last_n": 50
