@@ -1,23 +1,23 @@
 {
   "current": {
-    "n": 52,
-    "id": "itsu-go",
-    "kanji": "五",
-    "word": "五",
-    "english": "Five",
+    "n": 53,
+    "id": "mut-roku",
+    "kanji": "六",
+    "word": "六",
+    "english": "Six",
     "pairs": [
       [
-        "いつ",
-        "itsu"
+        "む",
+        "mu"
       ],
       [
-        "ご",
-        "go"
+        "ろく",
+        "roku"
       ]
     ],
-    "date": "2026-11-26",
+    "date": "2026-11-27",
     "file": "index.html",
-    "built": "2026-11-26T19:04:08"
+    "built": "2026-11-27T19:02:56"
   },
   "published": [
     {
@@ -488,6 +488,26 @@
       ],
       "date": "2026-11-26",
       "file": "archive/yo-yon-shi.html"
+    },
+    {
+      "n": 52,
+      "id": "itsu-go",
+      "kanji": "五",
+      "word": "五",
+      "english": "Five",
+      "pairs": [
+        [
+          "いつ",
+          "itsu"
+        ],
+        [
+          "ご",
+          "go"
+        ]
+      ],
+      "date": "2026-11-26",
+      "file": "archive/itsu-go.html",
+      "built": "2026-11-26T19:04:08"
     }
   ],
   "last_n": 50
