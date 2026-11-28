@@ -1,23 +1,23 @@
 {
   "current": {
-    "n": 53,
-    "id": "mut-roku",
-    "kanji": "六",
-    "word": "六",
-    "english": "Six",
+    "n": 54,
+    "id": "nana-shichi",
+    "kanji": "七",
+    "word": "七",
+    "english": "Seven",
     "pairs": [
       [
-        "む",
-        "mu"
+        "なな",
+        "nana"
       ],
       [
-        "ろく",
-        "roku"
+        "しち",
+        "shichi"
       ]
     ],
-    "date": "2026-11-27",
+    "date": "2026-11-28",
     "file": "index.html",
-    "built": "2026-11-27T19:02:56"
+    "built": "2026-11-28T19:03:09"
   },
   "published": [
     {
@@ -508,6 +508,26 @@
       "date": "2026-11-26",
       "file": "archive/itsu-go.html",
       "built": "2026-11-26T19:04:08"
+    },
+    {
+      "n": 53,
+      "id": "mut-roku",
+      "kanji": "六",
+      "word": "六",
+      "english": "Six",
+      "pairs": [
+        [
+          "む",
+          "mu"
+        ],
+        [
+          "ろく",
+          "roku"
+        ]
+      ],
+      "date": "2026-11-27",
+      "file": "archive/mut-roku.html",
+      "built": "2026-11-27T19:02:56"
     }
   ],
   "last_n": 50
